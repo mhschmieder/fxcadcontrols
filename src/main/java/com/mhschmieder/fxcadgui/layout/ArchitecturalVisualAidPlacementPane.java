@@ -34,8 +34,8 @@ import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxcadgraphics.ArchitecturalVisualAid;
 import com.mhschmieder.fxguitoolkit.GuiUtilities;
 import com.mhschmieder.fxguitoolkit.ScrollingSensitivity;
-import com.mhschmieder.fxphysicstoolkit.layout.CartesianPositionPane;
-import com.mhschmieder.fxphysicstoolkit.layout.PositioningPane;
+import com.mhschmieder.fxphysicsgui.layout.CartesianPositionPane;
+import com.mhschmieder.fxphysicsgui.layout.PositioningPane;
 import com.mhschmieder.physicstoolkit.AngleUnit;
 import com.mhschmieder.physicstoolkit.DistanceUnit;
 
