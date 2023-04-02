@@ -59,8 +59,14 @@ public final class ArchitecturalVisualAidEditor extends ObjectPropertiesEditor {
     // Maintain a reference to the Architectural Visual Aid collection.
     protected GraphicalObjectCollection< ArchitecturalVisualAid > _architecturalVisualAidCollection;
 
-    // Allow for customization of Target Plane Type (name identifier, not behavior).
-    protected String _targetPlaneType;
+    // Allow for customization of Projector Type (name identifier, not behavior).
+    protected String _projectorType;
+    
+    // Allow for customization of Projection Zones Type (name identifier, not behavior).
+    protected String _projectionZonesType;
+    
+    // Projection Zones usage context, for constructing tooltips.
+    protected String _projectionZonesUsageContext;
 
     @SuppressWarnings("nls")
     public ArchitecturalVisualAidEditor( final boolean insertMode,
@@ -68,7 +74,9 @@ public final class ArchitecturalVisualAidEditor extends ObjectPropertiesEditor {
                                          final ProductBranding productBranding,
                                          final ClientProperties pClientProperties,
                                          final boolean pResetApplicable,
-                                         final String targetPlaneType ) {
+                                         final String projectorType,
+                                         final String projectionZonesType,
+                                         final String projectionZonesUsageContext ) {
         // Always call the superclass constructor first!
         super( insertMode, 
                OBJECT_TYPE, 
@@ -79,7 +87,9 @@ public final class ArchitecturalVisualAidEditor extends ObjectPropertiesEditor {
 
         _architecturalVisualAidCollection = architecturalVisualAidCollection;
         
-        _targetPlaneType = targetPlaneType;
+        _projectorType = projectorType;
+        _projectionZonesType = projectionZonesType;
+        _projectionZonesUsageContext = projectionZonesUsageContext;
 
         // Start with a default Architectural Visual Aid until editing.
         _architecturalVisualAidReference =
@@ -145,7 +155,9 @@ public final class ArchitecturalVisualAidEditor extends ObjectPropertiesEditor {
         _architecturalVisualAidPane =
                                     new ArchitecturalVisualAidPane( clientProperties,
                                                                     _architecturalVisualAidCollection,
-                                                                    _targetPlaneType );
+                                                                    _projectorType,
+                                                                    _projectionZonesType,
+                                                                    _projectionZonesUsageContext );
         return _architecturalVisualAidPane;
     }
 

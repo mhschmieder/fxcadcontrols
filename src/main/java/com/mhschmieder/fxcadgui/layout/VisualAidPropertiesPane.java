@@ -54,17 +54,17 @@ public class VisualAidPropertiesPane extends BorderPane {
     // Declare the table column header names.
     private static final String        COLUMN_HEADER_VISUAL_AID_LABEL = "Visual Aid Label";         //$NON-NLS-1$
     private static final String        COLUMN_HEADER_LAYER            = "Layer";                    //$NON-NLS-1$
-    private static final String        COLUMN_HEADER_TARGET_PLANE     = "Target Plane";             //$NON-NLS-1$
-    private static final String        COLUMN_HEADER_TARGET_ZONES     = "Target Zones";             //$NON-NLS-1$
+    private static final String        COLUMN_HEADER_PROJECTOR_DEFAULT = "Projector";               //$NON-NLS-1$
+    private static final String        COLUMN_HEADER_PROJECTION_ZONES_DEFAULT = "Projection Zones"; //$NON-NLS-1$
 
     // Declare static constant to use for symbolically referencing grid column
     // indices, to ensure no errors, and ease of extensibility.
     public static final int            COLUMN_FIRST                   = 0;
     public static final int            COLUMN_VISUAL_AID_LABEL        = COLUMN_FIRST;
     public static final int            COLUMN_LAYER                   = COLUMN_VISUAL_AID_LABEL + 1;
-    public static final int            COLUMN_TARGET_PLANE            = COLUMN_LAYER + 1;
-    public static final int            COLUMN_TARGET_ZONES            = COLUMN_TARGET_PLANE + 1;
-    public static final int            COLUMN_LAST                    = COLUMN_TARGET_ZONES;
+    public static final int            COLUMN_PROJECTOR               = COLUMN_LAYER + 1;
+    public static final int            COLUMN_PROJECTION_ZONES        = COLUMN_PROJECTOR + 1;
+    public static final int            COLUMN_LAST                    = COLUMN_PROJECTION_ZONES;
     public static final int            NUMBER_OF_COLUMNS              =
                                                          ( COLUMN_LAST - COLUMN_FIRST ) + 1;
 
@@ -93,13 +93,17 @@ public class VisualAidPropertiesPane extends BorderPane {
         this( pClientProperties, 
               visualAidLabelDefault, 
               visualAidCollection, 
-              COLUMN_HEADER_TARGET_PLANE );
+              COLUMN_HEADER_PROJECTOR_DEFAULT,
+              COLUMN_HEADER_PROJECTION_ZONES_DEFAULT,
+              null );
     }
 
     public VisualAidPropertiesPane( final ClientProperties pClientProperties,
                                     final String visualAidLabelDefault,
                                     final GraphicalObjectCollection< ? extends VisualAid > visualAidCollection,
-                                    final String targetPlaneType ) {
+                                    final String projectorType,
+                                    final String projectionZonesType,
+                                    final String projectionZonesUsageContext ) {
         // Always call the superclass constructor first!
         super();
 
@@ -107,11 +111,16 @@ public class VisualAidPropertiesPane extends BorderPane {
         // later updates.
         _visualAidProperties = new VisualAidProperties( visualAidLabelDefault,
                                                         LayerUtilities.DEFAULT_LAYER_NAME,
-                                                        VisualAid.USE_AS_TARGET_PLANE_DEFAULT,
-                                                        VisualAid.NUMBER_OF_TARGET_ZONES_DEFAULT );
+                                                        VisualAid.USE_AS_PROJECTOR_DEFAULT,
+                                                        VisualAid.NUMBER_OF_PROJECTION_ZONES_DEFAULT );
 
         try {
-            initPane( pClientProperties, visualAidLabelDefault, visualAidCollection, targetPlaneType );
+            initPane( pClientProperties, 
+                      visualAidLabelDefault, 
+                      visualAidCollection, 
+                      projectorType,
+                      projectionZonesType,
+                      projectionZonesUsageContext );
         }
         catch ( final Exception ex ) {
             ex.printStackTrace();
@@ -127,10 +136,10 @@ public class VisualAidPropertiesPane extends BorderPane {
                 .bindBidirectional( _visualAidProperties.labelProperty() );
         _visualAidPropertiesControls._layerSelector.valueProperty()
                 .bindBidirectional( _visualAidProperties.layerNameProperty() );
-        _visualAidPropertiesControls._useAsTargetPlaneCheckBox.selectedProperty()
-                .bindBidirectional( _visualAidProperties.useAsTargetPlaneProperty() );
-        _visualAidPropertiesControls._targetZonesSelector.valueProperty()
-                .bindBidirectional( _visualAidProperties.numberOfTargetZonesProperty() );
+        _visualAidPropertiesControls._useAsProjectorCheckBox.selectedProperty()
+                .bindBidirectional( _visualAidProperties.useAsProjectorProperty() );
+        _visualAidPropertiesControls._projectionZonesSelector.valueProperty()
+                .bindBidirectional( _visualAidProperties.numberOfProjectionZonesProperty() );
     }
 
     public final String getNewVisualAidLabelDefault() {
@@ -150,7 +159,9 @@ public class VisualAidPropertiesPane extends BorderPane {
     private final void initPane( final ClientProperties pClientProperties,
                                  final String visualAidLabelDefault,
                                  final GraphicalObjectCollection< ? extends VisualAid > visualAidCollection,
-                                 final String targetPlaneType ) {
+                                 final String projectorType,
+                                 final String projectionZonesType,
+                                 final String projectionZonesUsageContext ) {
         // Make the grid of individual Visual Aid Properties controls.
         _visualAidPropertiesGrid = new GridPane();
 
@@ -158,15 +169,14 @@ public class VisualAidPropertiesPane extends BorderPane {
         final Label visualAidLabelLabel = GuiUtilities
                 .getColumnHeader( COLUMN_HEADER_VISUAL_AID_LABEL );
         final Label layerLabel = GuiUtilities.getColumnHeader( COLUMN_HEADER_LAYER );
-        final Label targetPlaneLabel =
-                                       GuiUtilities.getColumnHeader( targetPlaneType );
-        final Label targetZonesLabel = GuiUtilities.getColumnHeader( COLUMN_HEADER_TARGET_ZONES );
+        final Label projectorLabel = GuiUtilities.getColumnHeader( projectorType );
+        final Label projectionZonesLabel = GuiUtilities.getColumnHeader( projectionZonesType );
 
         // Force all the labels to center within the grid.
         GridPane.setHalignment( visualAidLabelLabel, HPos.CENTER );
         GridPane.setHalignment( layerLabel, HPos.CENTER );
-        GridPane.setHalignment( targetPlaneLabel, HPos.CENTER );
-        GridPane.setHalignment( targetZonesLabel, HPos.CENTER );
+        GridPane.setHalignment( projectorLabel, HPos.CENTER );
+        GridPane.setHalignment( projectionZonesLabel, HPos.CENTER );
 
         _visualAidPropertiesGrid.setPadding( new Insets( 6.0d ) );
         _visualAidPropertiesGrid.setHgap( 16d );
@@ -174,15 +184,18 @@ public class VisualAidPropertiesPane extends BorderPane {
 
         _visualAidPropertiesGrid.add( visualAidLabelLabel, COLUMN_VISUAL_AID_LABEL, ROW_HEADER );
         _visualAidPropertiesGrid.add( layerLabel, COLUMN_LAYER, ROW_HEADER );
-        _visualAidPropertiesGrid.add( targetPlaneLabel, COLUMN_TARGET_PLANE, ROW_HEADER );
-        _visualAidPropertiesGrid.add( targetZonesLabel, COLUMN_TARGET_ZONES, ROW_HEADER );
+        _visualAidPropertiesGrid.add( projectorLabel, COLUMN_PROJECTOR, ROW_HEADER );
+        _visualAidPropertiesGrid.add( projectionZonesLabel, COLUMN_PROJECTION_ZONES, ROW_HEADER );
 
         // Make the individual Visual Aid Properties Controls and place in a
         // Grid.
         _visualAidPropertiesControls = new VisualAidPropertiesControls( pClientProperties,
                                                                         true,
                                                                         visualAidLabelDefault,
-                                                                        visualAidCollection );
+                                                                        visualAidCollection,
+                                                                        projectorType,
+                                                                        projectionZonesType,
+                                                                        projectionZonesUsageContext );
 
         _visualAidPropertiesGrid.add( _visualAidPropertiesControls._visualAidLabelEditor,
                                       COLUMN_VISUAL_AID_LABEL,
@@ -190,11 +203,11 @@ public class VisualAidPropertiesPane extends BorderPane {
         _visualAidPropertiesGrid.add( _visualAidPropertiesControls._layerSelector,
                                       COLUMN_LAYER,
                                       ROW_PROPERTIES_FIRST );
-        _visualAidPropertiesGrid.add( _visualAidPropertiesControls._useAsTargetPlaneCheckBox,
-                                      COLUMN_TARGET_PLANE,
+        _visualAidPropertiesGrid.add( _visualAidPropertiesControls._useAsProjectorCheckBox,
+                                      COLUMN_PROJECTOR,
                                       ROW_PROPERTIES_FIRST );
-        _visualAidPropertiesGrid.add( _visualAidPropertiesControls._targetZonesSelector,
-                                      COLUMN_TARGET_ZONES,
+        _visualAidPropertiesGrid.add( _visualAidPropertiesControls._projectionZonesSelector,
+                                      COLUMN_PROJECTION_ZONES,
                                       ROW_PROPERTIES_FIRST );
 
         // Center the grid, as that will always be the easiest on the eyes.
@@ -207,8 +220,8 @@ public class VisualAidPropertiesPane extends BorderPane {
 
         // Prevent small drop-lists from minimizing their width below wide
         // labels.
-        _visualAidPropertiesControls._targetZonesSelector.minWidthProperty()
-                .bind( targetZonesLabel.widthProperty() );
+        _visualAidPropertiesControls._projectionZonesSelector.minWidthProperty()
+                .bind( projectionZonesLabel.widthProperty() );
 
         // Bind the Visual Aid Properties to their respective controls.
         bindProperties();
@@ -240,9 +253,9 @@ public class VisualAidPropertiesPane extends BorderPane {
         visualAidProperties.setLabel( visualAid.getLabel() );
         visualAidProperties.setLayerName( visualAid.getLayerName() );
 
-        // Update the Target Plane values.
-        visualAidProperties.setUseAsTargetPlane( visualAid.isUseAsTargetPlane() );
-        visualAidProperties.setNumberOfTargetZones( visualAid.getNumberOfTargetZones() );
+        // Update the Projector values.
+        visualAidProperties.setUseAsProjector( visualAid.isUseAsProjector() );
+        visualAidProperties.setNumberOfProjectionZones( visualAid.getNumberOfProjectionZones() );
 
         // Make sure the cached editor value matches the latest saved label.
         _visualAidPropertiesControls._visualAidLabelEditor.setValue( visualAid.getLabel() );

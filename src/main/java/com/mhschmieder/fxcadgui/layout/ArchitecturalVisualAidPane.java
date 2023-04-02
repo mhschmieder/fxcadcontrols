@@ -59,7 +59,9 @@ public final class ArchitecturalVisualAidPane extends VBox {
 
     public ArchitecturalVisualAidPane( final ClientProperties pClientProperties,
                                        final GraphicalObjectCollection< ArchitecturalVisualAid > architecturalVisualAidCollection,
-                                       final String targetPlaneType ) {
+                                       final String projectorType,
+                                       final String projectionZonesType,
+                                       final String projectionZonesUsageContext ) {
         // Always call the superclass constructor first!
         super();
 
@@ -69,7 +71,10 @@ public final class ArchitecturalVisualAidPane extends VBox {
         _layerCollection = LayerUtilities.makeLayerCollection();
 
         try {
-            initPane( architecturalVisualAidCollection, targetPlaneType );
+            initPane( architecturalVisualAidCollection, 
+                      projectorType, 
+                      projectionZonesType,
+                      projectionZonesUsageContext );
         }
         catch ( final Exception ex ) {
             ex.printStackTrace();
@@ -93,13 +98,17 @@ public final class ArchitecturalVisualAidPane extends VBox {
     }
 
     private void initPane( final GraphicalObjectCollection< ArchitecturalVisualAid > architecturalVisualAidCollection,
-                           final String targetPlaneType ) {
+                           final String projectorType,
+                           final String projectionZonesType,
+                           final String projectionZonesUsageContext ) {
         final String architecturalVisualAidLabelDefault = ArchitecturalVisualAid
                 .getArchitecturalVisualAidLabelDefault();
         _visualAidPropertiesPane = new VisualAidPropertiesPane( _clientProperties,
                                                                 architecturalVisualAidLabelDefault,
                                                                 architecturalVisualAidCollection,
-                                                                targetPlaneType );
+                                                                projectorType,
+                                                                projectionZonesType,
+                                                                projectionZonesUsageContext );
 
         _architecturalVisualAidPlacementPane =
                                              new ArchitecturalVisualAidPlacementPane( _clientProperties );
@@ -113,14 +122,14 @@ public final class ArchitecturalVisualAidPane extends VBox {
         // Make sure the Placement Pane always gets grow priority.
         VBox.setVgrow( _architecturalVisualAidPlacementPane, Priority.ALWAYS );
 
-        // If the Target Plane status changes in any way, update the Preview.
-        _visualAidPropertiesPane._visualAidPropertiesControls._useAsTargetPlaneCheckBox
+        // If the Projector status changes in any way, update the Preview.
+        _visualAidPropertiesPane._visualAidPropertiesControls._useAsProjectorCheckBox
                 .selectedProperty().addListener( ( observable, oldValue, newValue ) -> {
                     final ArchitecturalVisualAid architecturalVisualAid =
                                                                         new ArchitecturalVisualAid();
                     syncArchitecturalVisualAidToView( architecturalVisualAid );
                 } );
-        _visualAidPropertiesPane._visualAidPropertiesControls._targetZonesSelector
+        _visualAidPropertiesPane._visualAidPropertiesControls._projectionZonesSelector
                 .setOnAction( evt -> {
                     final ArchitecturalVisualAid architecturalVisualAid =
                                                                         new ArchitecturalVisualAid();
@@ -229,10 +238,10 @@ public final class ArchitecturalVisualAidPane extends VBox {
         final LayerProperties layer = LayerUtilities.getLayerByName( _layerCollection, layerName );
         architecturalVisualAid.setLayer( layer );
 
-        // Update the Target Plane values.
-        architecturalVisualAid.setUseAsTargetPlane( visualAidProperties.isUseAsTargetPlane() );
+        // Update the Projector values.
+        architecturalVisualAid.setUseAsProjector( visualAidProperties.isUseAsProjector() );
         architecturalVisualAid
-                .setNumberOfTargetZones( visualAidProperties.getNumberOfTargetZones() );
+                .setNumberOfProjectionZones( visualAidProperties.getNumberOfProjectionZones() );
 
         // Forward this method to the Architectural Visual Aid Placement Pane.
         _architecturalVisualAidPlacementPane

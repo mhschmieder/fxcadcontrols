@@ -59,8 +59,14 @@ public final class MultilevelVisualAidEditor extends ObjectPropertiesEditor {
     // Maintain a reference to the Multilevel Visual Aid collection.
     protected GraphicalObjectCollection< MultilevelVisualAid > _multilevelVisualAidCollection;
     
-    // Allow for customization of Target Plane Type (name identifier, not behavior).
-    protected String _targetPlaneType;
+    // Allow for customization of Projector Type (name identifier, not behavior).
+    protected String _projectorType;
+
+    // Allow for customization of Projection Zones Type (name identifier, not behavior).
+    protected String _projectionZonesType;
+    
+    // Projection Zones usage context, for constructing tooltips.
+    protected String _projectionZonesUsageContext;
 
     @SuppressWarnings("nls")
     public MultilevelVisualAidEditor( final boolean insertMode,
@@ -68,7 +74,9 @@ public final class MultilevelVisualAidEditor extends ObjectPropertiesEditor {
                                       final ProductBranding productBranding,
                                       final ClientProperties pClientProperties,
                                       final boolean pResetApplicable,
-                                      final String targetPlaneType ) {
+                                      final String projectorType,
+                                      final String projectionZonesType,
+                                      final String projectionZonesUsageContext ) {
         // Always call the superclass constructor first!
         super( insertMode, 
                OBJECT_TYPE, 
@@ -76,10 +84,12 @@ public final class MultilevelVisualAidEditor extends ObjectPropertiesEditor {
                productBranding, 
                pClientProperties,
                pResetApplicable );
-
+        
         _multilevelVisualAidCollection = multilevelVisualAidCollection;
         
-        _targetPlaneType = targetPlaneType;
+        _projectorType = projectorType;
+        _projectionZonesType = projectionZonesType;
+        _projectionZonesUsageContext = projectionZonesUsageContext;
 
         // Start with a default Multilevel Visual Aid until editing.
         _multilevelVisualAidReference = MultilevelVisualAid.getDefaultMultilevelVisualAid();
@@ -142,7 +152,9 @@ public final class MultilevelVisualAidEditor extends ObjectPropertiesEditor {
         // Instantiate and return the custom Content Node.
         _multilevelVisualAidPane = new MultilevelVisualAidPane( clientProperties,
                                                                 _multilevelVisualAidCollection,
-                                                                _targetPlaneType );
+                                                                _projectorType,
+                                                                _projectionZonesType,
+                                                                _projectionZonesUsageContext );
         return _multilevelVisualAidPane;
     }
 

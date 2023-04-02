@@ -46,14 +46,17 @@ public final class VisualAidPropertiesControls {
 
     public GraphicalObjectLabelEditor _visualAidLabelEditor;
     public LayerSelector              _layerSelector;
-    public CheckBox                   _useAsTargetPlaneCheckBox;
-    public IntegerSelector            _targetZonesSelector;
+    public CheckBox                   _useAsProjectorCheckBox;
+    public IntegerSelector            _projectionZonesSelector;
 
     // Default constructor
     public VisualAidPropertiesControls( final ClientProperties pClientProperties,
                                         final boolean applyToolkitCss,
                                         final String visualAidLabelDefault,
-                                        final GraphicalObjectCollection< ? extends VisualAid > visualAidCollection ) {
+                                        final GraphicalObjectCollection< ? extends VisualAid > visualAidCollection,
+                                        final String projectorType,
+                                        final String projectionZonesType,
+                                        final String projectionZonesUsageContext ) {
         // Make the Visual Aid Properties controls.
         _visualAidLabelEditor = new GraphicalObjectLabelEditor( pClientProperties,
                                                                 visualAidLabelDefault,
@@ -61,28 +64,35 @@ public final class VisualAidPropertiesControls {
 
         _layerSelector = new LayerSelector( pClientProperties, applyToolkitCss, false );
 
-        _useAsTargetPlaneCheckBox = GuiUtilities.getCheckBox( "Use As Target Plane", //$NON-NLS-1$
-                                                                false );
-        _targetZonesSelector = CadControlFactory.getTargetZonesSelector( pClientProperties,
-                                                                         applyToolkitCss );
+        final String useAsProjectorLabel = "Use as " + projectorType;
+        _useAsProjectorCheckBox = GuiUtilities.getCheckBox( useAsProjectorLabel, false );
+        
+        final StringBuilder projectionZonesTooltipText = new StringBuilder( projectionZonesType );
+        if ( ( projectionZonesUsageContext != null ) && !projectionZonesUsageContext.isEmpty() ) {
+            projectionZonesTooltipText.append( " for " );
+            projectionZonesTooltipText.append( projectionZonesUsageContext );
+        }
+        _projectionZonesSelector = CadControlFactory.getProjectionZonesSelector( pClientProperties,
+                                                                                 applyToolkitCss,
+                                                                                 projectionZonesTooltipText.toString() );
 
         // Try to get the buttons to be as tall as possible.
         GridPane.setFillHeight( _visualAidLabelEditor, true );
         GridPane.setFillHeight( _layerSelector, true );
-        GridPane.setFillHeight( _useAsTargetPlaneCheckBox, true );
-        GridPane.setFillHeight( _targetZonesSelector, true );
+        GridPane.setFillHeight( _useAsProjectorCheckBox, true );
+        GridPane.setFillHeight( _projectionZonesSelector, true );
 
         // Try to force sufficient width for custom label editing.
         _visualAidLabelEditor.setMinWidth( GuiUtilities.LABEL_EDITOR_WIDTH_DEFAULT );
         _visualAidLabelEditor.setPrefWidth( GuiUtilities.LABEL_EDITOR_WIDTH_DEFAULT );
 
-        // Try to force minimum width on Use as Target Plane Check Box to
+        // Try to force minimum width on Use as Projector Check Box to
         // avoid clipping.
-        _useAsTargetPlaneCheckBox.setMinWidth( 140d );
+        _useAsProjectorCheckBox.setMinWidth( 140d );
 
-        // Bind Target Zones Pane enablement to the Target Plane Check Box.
-        _targetZonesSelector.disableProperty()
-                .bind( _useAsTargetPlaneCheckBox.selectedProperty().not() );
+        // Bind Projection Zones Pane enablement to the Projector Check Box.
+        _projectionZonesSelector.disableProperty()
+                .bind( _useAsProjectorCheckBox.selectedProperty().not() );
     }
 
     public String getLayerName() {
@@ -95,9 +105,9 @@ public final class VisualAidPropertiesControls {
         return _visualAidLabelEditor.getNewGraphicalObjectLabelDefault();
     }
 
-    public int getNumberOfTargetZones() {
-        // Forward this method to the Target Zones Selector.
-        return _targetZonesSelector.getIntegerValue();
+    public int getNumberOfProjectionZones() {
+        // Forward this method to the Projection Zones Selector.
+        return _projectionZonesSelector.getIntegerValue();
     }
 
     public String getUniqueVisualAidLabel( final String visualAidLabelCandidate ) {
@@ -105,9 +115,9 @@ public final class VisualAidPropertiesControls {
         return _visualAidLabelEditor.getUniqueGraphicalObjectLabel( visualAidLabelCandidate );
     }
 
-    public boolean isUseAsTargetPlane() {
-        // Forward this method to the Use As Target Plane Check Box.
-        return _useAsTargetPlaneCheckBox.isSelected();
+    public boolean isUseAsProjector() {
+        // Forward this method to the Use As Projector Check Box.
+        return _useAsProjectorCheckBox.isSelected();
     }
 
     public boolean isVisualAidLabelUnique( final String visualAidLabelCandidate ) {
@@ -125,14 +135,14 @@ public final class VisualAidPropertiesControls {
         _layerSelector.setLayerNameIfChanged( layerNameCurrent );
     }
 
-    public void setNumberOfTargetZones( final int numberOfTargetZones ) {
-        // Forward this method to the Target Zones Selector.
-        _targetZonesSelector.setIntegerValue( numberOfTargetZones );
+    public void setNumberOfProjectionZones( final int numberOfProjectionZones ) {
+        // Forward this method to the Projection Zones Selector.
+        _projectionZonesSelector.setIntegerValue( numberOfProjectionZones );
     }
 
-    public void setUseAsTargetPlane( final boolean useAsTargetPlane ) {
-        // Forward this method to the Use As Target Plane Check Box.
-        _useAsTargetPlaneCheckBox.setSelected( useAsTargetPlane );
+    public void setUseAsProjector( final boolean useAsProjector ) {
+        // Forward this method to the Use As Projector Check Box.
+        _useAsProjectorCheckBox.setSelected( useAsProjector );
     }
 
 }

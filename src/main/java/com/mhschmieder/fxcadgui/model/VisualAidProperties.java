@@ -38,29 +38,29 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-// TODO: Refresh background of why Number of target Zones is modeled as String.
+// TODO: Research why Number of Projections Zones is modeled as a String.
 public class VisualAidProperties implements LabelAssignable, LayerNameAssignable {
 
     private final StringProperty  label;
     private final StringProperty  layerName;
-    private final BooleanProperty useAsTargetPlane;
-    private final StringProperty  numberOfTargetZones;
+    private final BooleanProperty useAsProjector;
+    private final StringProperty  numberOfProjectionZones;
 
     public VisualAidProperties( final String pLabel,
                                 final String pLayerName,
-                                final boolean pUseAsTargetPlane,
-                                final int pNumberOfTargetZones ) {
-        this( pLabel, pLayerName, pUseAsTargetPlane, Integer.toString( pNumberOfTargetZones ) );
+                                final boolean pUseAsProjector,
+                                final int pNumberOfProjectionZones ) {
+        this( pLabel, pLayerName, pUseAsProjector, Integer.toString( pNumberOfProjectionZones ) );
     }
 
     public VisualAidProperties( final String pLabel,
                                 final String pLayerName,
-                                final boolean pUseAsTargetPlane,
-                                final String pNumberOfTargetZones ) {
+                                final boolean pUseAsProjector,
+                                final String pNumberOfProjectionZones ) {
         label = new SimpleStringProperty( pLabel );
         layerName = new SimpleStringProperty( pLayerName );
-        useAsTargetPlane = new SimpleBooleanProperty( pUseAsTargetPlane );
-        numberOfTargetZones = new SimpleStringProperty( pNumberOfTargetZones );
+        useAsProjector = new SimpleBooleanProperty( pUseAsProjector );
+        numberOfProjectionZones = new SimpleStringProperty( pNumberOfProjectionZones );
     }
 
     @Override
@@ -93,32 +93,32 @@ public class VisualAidProperties implements LabelAssignable, LayerNameAssignable
         return layerName.get();
     }
 
-    public final BooleanProperty useAsTargetPlaneProperty() {
-        return useAsTargetPlane;
+    public final BooleanProperty useAsProjectorProperty() {
+        return useAsProjector;
     }
 
-    public final void setUseAsTargetPlane( final boolean pUseAsTargetPlane ) {
-        useAsTargetPlane.set( pUseAsTargetPlane );
+    public final void setUseAsProjector( final boolean pUseAsProjector ) {
+        useAsProjector.set( pUseAsProjector );
     }
 
-    public final boolean isUseAsTargetPlane() {
-        return useAsTargetPlane.get();
+    public final boolean isUseAsProjector() {
+        return useAsProjector.get();
     }
 
-    public final StringProperty numberOfTargetZonesProperty() {
-        return numberOfTargetZones;
+    public final StringProperty numberOfProjectionZonesProperty() {
+        return numberOfProjectionZones;
     }
 
-    public final void setNumberOfTargetZones( final String pNumberOfTargetZones ) {
-        numberOfTargetZones.set( pNumberOfTargetZones );
+    public final void setNumberOfProjectionZones( final String pNumberOfProjectionZones ) {
+        numberOfProjectionZones.set( pNumberOfProjectionZones );
     }
 
-    public final void setNumberOfTargetZones( final int pNumberOfTargetZones ) {
-        numberOfTargetZones.set( Integer.toString( pNumberOfTargetZones ) );
+    public final void setNumberOfProjectionZones( final int pNumberOfProjectionZones ) {
+        numberOfProjectionZones.set( Integer.toString( pNumberOfProjectionZones ) );
     }
 
-    public final int getNumberOfTargetZones() {
-        return Integer.parseInt( numberOfTargetZones.get() );
+    public final int getNumberOfProjectionZones() {
+        return Integer.parseInt( numberOfProjectionZones.get() );
     }
 
 }

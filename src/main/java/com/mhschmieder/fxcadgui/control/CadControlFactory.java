@@ -58,30 +58,28 @@ public final class CadControlFactory {
         return surfaceMaterialSelector;
     }
 
-    public static IntegerSelector getTargetZonesSelector( final ClientProperties pClientProperties,
-                                                          final boolean applyToolkitCss ) {
-        // TODO: Get this from an external locale-based localized resource.
-        final String tooltipText = "Target Zones for Auto-Splay"; //$NON-NLS-1$
-
+    public static IntegerSelector getProjectionZonesSelector( final ClientProperties pClientProperties,   
+                                                              final boolean applyToolkitCss,
+                                                              final String tooltipText) {
         // NOTE: Limit to 12 zones vs. 24 for now, due to moire patterns that
         // occur in integer-based pixel systems such as AWT (JavaFX is
         // floating-point based), when the number of zones is large relative to
         // the number of pixels between start and end points of the Visual Aid.
-        final int minimumNumberOfTargetZones = 1;
-        final int maximumNumberOfTargetZones = 12; // 24
-        final int targetZonesIncrement = 1;
+        final int minimumNumberOfProjectionZones = 1;
+        final int maximumNumberOfProjectionZones = 12; // 24
+        final int projectionZonesIncrement = 1;
 
-        final IntegerSelector targetZonesSelector = new IntegerSelector( pClientProperties,
-                                                                         true,
-                                                                         tooltipText,
-                                                                         applyToolkitCss,
-                                                                         false,
-                                                                         false,
-                                                                         minimumNumberOfTargetZones,
-                                                                         maximumNumberOfTargetZones,
-                                                                         targetZonesIncrement );
+        final IntegerSelector projectionZonesSelector = new IntegerSelector( pClientProperties,
+                                                                             true,
+                                                                             tooltipText,
+                                                                             applyToolkitCss,
+                                                                             false,
+                                                                             false,
+                                                                             minimumNumberOfProjectionZones,
+                                                                             maximumNumberOfProjectionZones,
+                                                                             projectionZonesIncrement );
 
-        return targetZonesSelector;
+        return projectionZonesSelector;
     }
 
 }
