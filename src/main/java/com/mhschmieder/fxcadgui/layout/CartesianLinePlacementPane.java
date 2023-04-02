@@ -31,7 +31,7 @@
 package com.mhschmieder.fxcadgui.layout;
 
 import com.mhschmieder.commonstoolkit.util.ClientProperties;
-import com.mhschmieder.fxcadgraphics.ArchitecturalVisualAid;
+import com.mhschmieder.fxcadgraphics.CartesianLine;
 import com.mhschmieder.fxguitoolkit.GuiUtilities;
 import com.mhschmieder.fxguitoolkit.ScrollingSensitivity;
 import com.mhschmieder.fxphysicsgui.layout.CartesianPositionPane;
@@ -44,13 +44,13 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 
-public final class ArchitecturalVisualAidPlacementPane extends HBox {
+public final class CartesianLinePlacementPane extends HBox {
 
     protected GraphicalObjectPreviewPane _previewPane;
     public CartesianPositionPane         _startCartesianPositionPane;
     public PositioningPane               _endPositionPane;
 
-    public ArchitecturalVisualAidPlacementPane( final ClientProperties pClientProperties ) {
+    public CartesianLinePlacementPane( final ClientProperties pClientProperties ) {
         // Always call the superclass constructor first!
         super();
 
@@ -88,14 +88,14 @@ public final class ArchitecturalVisualAidPlacementPane extends HBox {
         _endPositionPane.saveEdits();
     }
 
-    protected void setEndPointPosition( final ArchitecturalVisualAid architecturalVisualAid ) {
-        _endPositionPane.setCartesianPosition2D( architecturalVisualAid.getX2(),
-                                                 architecturalVisualAid.getY2() );
+    protected void setEndPointPosition( final CartesianLine cartesianLine ) {
+        _endPositionPane.setCartesianPosition2D( cartesianLine.getX2(),
+                                                 cartesianLine.getY2() );
     }
 
-    protected void setEndPolarPosition( final ArchitecturalVisualAid architecturalVisualAid ) {
-        _endPositionPane.setPolarPosition( architecturalVisualAid.getAngleDegrees(),
-                                           architecturalVisualAid.getDistance() );
+    protected void setEndPolarPosition( final CartesianLine cartesianLine ) {
+        _endPositionPane.setPolarPosition( cartesianLine.getAngleDegrees(),
+                                           cartesianLine.getDistance() );
     }
 
     public void setGesturesEnabled( final boolean gesturesEnabled ) {
@@ -114,35 +114,35 @@ public final class ArchitecturalVisualAidPlacementPane extends HBox {
         _endPositionPane.setScrollingSensitivity( scrollingSensitivity );
     }
 
-    protected void setStartPointPosition( final ArchitecturalVisualAid architecturalVisualAid ) {
-        _startCartesianPositionPane.setCartesianPosition2D( architecturalVisualAid.getX1(),
-                                                            architecturalVisualAid.getY1() );
+    protected void setStartPointPosition( final CartesianLine cartesianLine ) {
+        _startCartesianPositionPane.setCartesianPosition2D( cartesianLine.getX1(),
+                                                            cartesianLine.getY1() );
     }
 
-    public void syncArchitecturalVisualAidToView( final ArchitecturalVisualAid architecturalVisualAid ) {
+    public void syncCartesianLineToView( final CartesianLine cartesianLine ) {
         final Point2D startPosition2D = _startCartesianPositionPane.getCartesianPosition2D();
         if ( _endPositionPane.isCartesianPositionActive() ) {
             final Point2D endPosition2D = _endPositionPane.getCartesianPosition2D();
-            architecturalVisualAid.setLine( startPosition2D.getX(),
-                                            startPosition2D.getY(),
-                                            endPosition2D.getX(),
-                                            endPosition2D.getY() );
+            cartesianLine.setLine( startPosition2D.getX(),
+                                   startPosition2D.getY(),
+                                   endPosition2D.getX(),
+                                   endPosition2D.getY() );
         }
         else {
             final double angleDegrees = _endPositionPane.getRotationAngle();
             final double distance = _endPositionPane.getDistance();
-            architecturalVisualAid.setLine( startPosition2D, angleDegrees, distance );
+            cartesianLine.setLine( startPosition2D, angleDegrees, distance );
         }
 
-        // Update the preview of the current Architectural Visual Aid.
-        updatePreview( architecturalVisualAid );
+        // Update the preview of the current Cartesian Line.
+        updatePreview( cartesianLine );
     }
 
-    public void syncViewToArchitecturalVisualAid( final ArchitecturalVisualAid architecturalVisualAid ) {
+    public void syncViewToCartesianLine( final CartesianLine cartesianLine ) {
         // Make sure the positioning parameters are in sync with the data model
         // as they could change outside this editor, such as via mouse
         // move/rotate in the Sound Field.
-        updatePositioning( architecturalVisualAid );
+        updatePositioning( cartesianLine );
     }
 
     public void toggleGestures() {
@@ -161,9 +161,9 @@ public final class ArchitecturalVisualAidPlacementPane extends HBox {
         _endPositionPane.updateDistanceUnit( distanceUnit );
     }
 
-    public void updatePositioning( final ArchitecturalVisualAid architecturalVisualAid ) {
-        setStartPointPosition( architecturalVisualAid );
-        setEndPointPosition( architecturalVisualAid );
+    public void updatePositioning( final CartesianLine cartesianLine ) {
+        setStartPointPosition( cartesianLine );
+        setEndPointPosition( cartesianLine );
 
         // NOTE: We have to avoid recursion between the Cartesian and Polar
         // Coordinate editors, as the sliders may have set "Snap to Ticks" and
@@ -176,21 +176,20 @@ public final class ArchitecturalVisualAidPlacementPane extends HBox {
         // There does not appear to be any resultant recursion, so probably we
         // added some data binding approaches after this code was first written.
         // if ( _endPositionPane.isCartesianPositionActive() ) {
-        setEndPolarPosition( architecturalVisualAid );
+        setEndPolarPosition( cartesianLine );
         // }
     }
 
-    public void updatePreview( final ArchitecturalVisualAid architecturalVisualAidCurrent ) {
+    public void updatePreview( final CartesianLine cartesianLineCurrent ) {
         // Forward this to the preview pane, at the origin.
-        final ArchitecturalVisualAid architecturalVisualAid =
-                                                            new ArchitecturalVisualAid( architecturalVisualAidCurrent );
+        final CartesianLine cartesianLine = new CartesianLine( cartesianLineCurrent );
         final double x1 = 0;
         final double y1 = 0;
-        final double x2 = architecturalVisualAid.getX2() - architecturalVisualAid.getX1();
-        final double y2 = architecturalVisualAid.getY2() - architecturalVisualAid.getY1();
-        architecturalVisualAid.setLine( x1, y1, x2, y2 );
+        final double x2 = cartesianLine.getX2() - cartesianLine.getX1();
+        final double y2 = cartesianLine.getY2() - cartesianLine.getY1();
+        cartesianLine.setLine( x1, y1, x2, y2 );
 
-        _previewPane.updatePreview( architecturalVisualAid, 2.0d );
+        _previewPane.updatePreview( cartesianLine, 2.0d );
     }
 
 }

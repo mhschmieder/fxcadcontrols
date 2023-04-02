@@ -33,8 +33,8 @@ package com.mhschmieder.fxcadgui.stage;
 import com.mhschmieder.commonstoolkit.branding.ProductBranding;
 import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxcadgraphics.GraphicalObjectCollection;
-import com.mhschmieder.fxcadgraphics.MultilevelVisualAid;
-import com.mhschmieder.fxcadgui.layout.MultilevelVisualAidPane;
+import com.mhschmieder.fxcadgraphics.PolarLine;
+import com.mhschmieder.fxcadgui.layout.PolarLinePane;
 import com.mhschmieder.fxguitoolkit.ScrollingSensitivity;
 import com.mhschmieder.fxguitoolkit.stage.ObjectPropertiesEditor;
 import com.mhschmieder.fxlayergraphics.model.LayerProperties;
@@ -44,21 +44,20 @@ import com.mhschmieder.physicstoolkit.DistanceUnit;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 
-public final class MultilevelVisualAidEditor extends ObjectPropertiesEditor {
-
-    // Declare a constant for the object type, to avoid cut/paste errors.
-    public static final String                                 OBJECT_TYPE =
-                                                                           "Multilevel Visual Aid"; //$NON-NLS-1$
+public final class PolarLineEditor extends ObjectPropertiesEditor {
 
     // Declare the main content pane.
-    protected MultilevelVisualAidPane                          _multilevelVisualAidPane;
+    protected PolarLinePane                          _polarLinePane;
 
-    // Maintain a reference to the current Multilevel Visual Aid object.
-    protected MultilevelVisualAid                              _multilevelVisualAidReference;
+    // Maintain a reference to the current Polar Line object.
+    protected PolarLine                              _polarLineReference;
 
-    // Maintain a reference to the Multilevel Visual Aid collection.
-    protected GraphicalObjectCollection< MultilevelVisualAid > _multilevelVisualAidCollection;
+    // Maintain a reference to the Polar Line collection.
+    protected GraphicalObjectCollection< PolarLine > _polarLineCollection;
     
+    // Allow for customization of Polar Line Type (name identifier, not behavior).
+    protected String _polarLineType;
+
     // Allow for customization of Projector Type (name identifier, not behavior).
     protected String _projectorType;
 
@@ -69,30 +68,32 @@ public final class MultilevelVisualAidEditor extends ObjectPropertiesEditor {
     protected String _projectionZonesUsageContext;
 
     @SuppressWarnings("nls")
-    public MultilevelVisualAidEditor( final boolean insertMode,
-                                      final GraphicalObjectCollection< MultilevelVisualAid > multilevelVisualAidCollection,
-                                      final ProductBranding productBranding,
-                                      final ClientProperties pClientProperties,
-                                      final boolean pResetApplicable,
-                                      final String projectorType,
-                                      final String projectionZonesType,
-                                      final String projectionZonesUsageContext ) {
+    public PolarLineEditor( final boolean insertMode,
+                            final GraphicalObjectCollection< PolarLine > polarLineCollection,
+                            final ProductBranding productBranding,
+                            final ClientProperties pClientProperties,
+                            final boolean pResetApplicable,
+                            final String polarLineType,
+                            final String projectorType,
+                            final String projectionZonesType,
+                            final String projectionZonesUsageContext ) {
         // Always call the superclass constructor first!
         super( insertMode, 
-               OBJECT_TYPE, 
-               "multilevelVisualAid", 
+               polarLineType, 
+               "polarLine", 
                productBranding, 
                pClientProperties,
                pResetApplicable );
         
-        _multilevelVisualAidCollection = multilevelVisualAidCollection;
+        _polarLineCollection = polarLineCollection;
         
+        _polarLineType = polarLineType;
         _projectorType = projectorType;
         _projectionZonesType = projectionZonesType;
         _projectionZonesUsageContext = projectionZonesUsageContext;
 
-        // Start with a default Multilevel Visual Aid until editing.
-        _multilevelVisualAidReference = MultilevelVisualAid.getDefaultMultilevelVisualAid();
+        // Start with a default Polar Line until editing.
+        _polarLineReference = PolarLine.getDefaultPolarLine();
 
         try {
             initStage();
@@ -102,44 +103,43 @@ public final class MultilevelVisualAidEditor extends ObjectPropertiesEditor {
         }
     }
 
-    // Open the editor initialized to a mouse-selected Multilevel Visual Aid.
-    public void editMultilevelVisualAid( final MultilevelVisualAid multilevelVisualAid ) {
+    // Open the editor initialized to a mouse-selected Polar Line.
+    public void editPolarLine( final PolarLine polarLine ) {
         // Make sure an active editing session is always enabled when visible.
         setDisable( false );
 
         // Make sure the Layer Names are up-to-date, and that we avoid any side
-        // effects against the selected Layer for the new Multilevel Visual Aid
-        // Reference.
-        final LayerProperties currentLayer = multilevelVisualAid.getLayer();
+        // effects against the selected Layer for the new Polar Line Reference.
+        final LayerProperties currentLayer = polarLine.getLayer();
         updateLayerNames( currentLayer );
 
         // Ensure that an object already being edited doesn't reset and re-sync
         // the reference lest it flush its view for the last cached values.
-        if ( _multilevelVisualAidReference.equals( multilevelVisualAid ) ) {
+        if ( _polarLineReference.equals( polarLine ) ) {
             return;
         }
 
-        // Replace the current Multilevel Visual Aid reference with the one
-        // selected for the Edit action when opening this window.
-        setMultilevelVisualAidReference( multilevelVisualAid );
+        // Replace the current Polar Line reference with the one selected
+        // for the Edit action when opening this window.
+        setPolarLineReference( polarLine );
 
-        // Sync the editor to the selected Multilevel Visual Aid.
+        // Sync the editor to the selected Polar Line.
         syncViewToModel();
     }
 
-    public MultilevelVisualAid getMultilevelVisualAidReference() {
-        return _multilevelVisualAidReference;
+    public PolarLine getPolarLineReference() {
+        return _polarLineReference;
     }
 
-    public String getNewMultilevelVisualAidLabelDefault() {
-        // Forward this method to the Multilevel Visual Aid Pane.
-        return _multilevelVisualAidPane.getNewMultilevelVisualAidLabelDefault();
+    public String getNewPolarLineLabelDefault() {
+        // Forward this method to the Polar Line Pane.
+        return _polarLinePane.getNewPolarLineLabelDefault();
     }
 
     private void initStage() {
         // First have the superclass initialize its content.
-        initStage( "/com/fatCow/icons/Measure16.png", //$NON-NLS-1$
-                   OBJECT_TYPE,
+        initStage( "/icons/fatCow/Measure16.png", //$NON-NLS-1$
+                   _polarLineType,
                    1200,
                    420,
                    false,
@@ -150,12 +150,13 @@ public final class MultilevelVisualAidEditor extends ObjectPropertiesEditor {
     @Override
     protected Node loadContent() {
         // Instantiate and return the custom Content Node.
-        _multilevelVisualAidPane = new MultilevelVisualAidPane( clientProperties,
-                                                                _multilevelVisualAidCollection,
-                                                                _projectorType,
-                                                                _projectionZonesType,
-                                                                _projectionZonesUsageContext );
-        return _multilevelVisualAidPane;
+        _polarLinePane = new PolarLinePane( clientProperties,
+                                            _polarLineCollection,
+                                            _polarLineType,
+                                            _projectorType,
+                                            _projectionZonesType,
+                                            _projectionZonesUsageContext );
+        return _polarLinePane;
     }
 
     @Override
@@ -163,18 +164,17 @@ public final class MultilevelVisualAidEditor extends ObjectPropertiesEditor {
         // Cache the current values that we want to preserve.
         // TODO: Determine whether location is the best positional field to
         // save/restore.
-        // final Point2D location = _multilevelVisualAidReference.getLocation();
-        final String multilevelVisualAidLabel = _multilevelVisualAidReference.getLabel();
+        // final Point2D location = _polarLineReference.getLocation();
+        final String polarLineLabel = _polarLineReference.getLabel();
 
-        // Make a default Multilevel Visual Aid to effectively reset all the
-        // fields.
-        final MultilevelVisualAid multilevelVisualAidDefault = MultilevelVisualAid
-                .getDefaultMultilevelVisualAid();
-        _multilevelVisualAidReference.setMultilevelVisualAid( multilevelVisualAidDefault );
+        // Make a default Polar Line to effectively reset all the fields.
+        final PolarLine polarLineDefault = PolarLine
+                .getDefaultPolarLine();
+        _polarLineReference.setPolarLine( polarLineDefault );
 
         // Restore the fields we want to preserve.
-        // _multilevelVisualAidReference.setLocation( location );
-        _multilevelVisualAidReference.setLabel( multilevelVisualAidLabel );
+        // _polarLineReference.setLocation( location );
+        _polarLineReference.setLabel( polarLineLabel );
 
         // Update the view to match the new model, but don't apply it yet.
         syncViewToModel();
@@ -186,22 +186,22 @@ public final class MultilevelVisualAidEditor extends ObjectPropertiesEditor {
         // such as the action buttons.
         super.setDisable( disable );
 
-        // Forward this method to the Multilevel Visual Aid Pane.
-        _multilevelVisualAidPane.setDisable( disable );
+        // Forward this method to the Polar Line Pane.
+        _polarLinePane.setDisable( disable );
     }
 
     public void setGesturesEnabled( final boolean gesturesEnabled ) {
-        // Forward this method to the Multilevel Visual Aid Pane.
-        _multilevelVisualAidPane.setGesturesEnabled( gesturesEnabled );
+        // Forward this method to the Polar Line Pane.
+        _polarLinePane.setGesturesEnabled( gesturesEnabled );
     }
 
     public void setLayerCollection( final ObservableList< LayerProperties > layerCollection ) {
-        // Forward this method to the Multilevel Visual Aid Pane.
-        _multilevelVisualAidPane.setLayerCollection( layerCollection );
+        // Forward this method to the Polar Line Pane.
+        _polarLinePane.setLayerCollection( layerCollection );
     }
 
-    public void setMultilevelVisualAidReference( final MultilevelVisualAid multilevelVisualAid ) {
-        _multilevelVisualAidReference = multilevelVisualAid;
+    public void setPolarLineReference( final PolarLine polarLine ) {
+        _polarLineReference = polarLine;
     }
 
     /**
@@ -211,35 +211,35 @@ public final class MultilevelVisualAidEditor extends ObjectPropertiesEditor {
      *            The sensitivity of the mouse scroll wheel
      */
     public void setScrollingSensitivity( final ScrollingSensitivity scrollingSensitivity ) {
-        // Forward this method to the Multilevel Visual Aid Pane.
-        _multilevelVisualAidPane.setScrollingSensitivity( scrollingSensitivity );
+        // Forward this method to the Polar Line Pane.
+        _polarLinePane.setScrollingSensitivity( scrollingSensitivity );
     }
 
     @Override
     protected void syncEditorToObjectReference() {
-        // Forward this method to the Multilevel Visual Aid Pane.
-        _multilevelVisualAidPane.syncViewToMultilevelVisualAid( _multilevelVisualAidReference );
+        // Forward this method to the Polar Line Pane.
+        _polarLinePane.syncViewToPolarLine( _polarLineReference );
     }
 
     @Override
     protected void syncObjectReferenceToEditor() {
-        // Forward this method to the Multilevel Visual Aid Pane.
-        _multilevelVisualAidPane.syncMultilevelVisualAidToView( _multilevelVisualAidReference );
+        // Forward this method to the Polar Line Pane.
+        _polarLinePane.syncPolarLineToView( _polarLineReference );
     }
 
     public void syncToSelectedLayerName() {
-        // Forward this method to the Multilevel Visual Aid Pane.
-        _multilevelVisualAidPane.syncToSelectedLayerName( _multilevelVisualAidReference );
+        // Forward this method to the Polar Line Pane.
+        _polarLinePane.syncToSelectedLayerName( _polarLineReference );
     }
 
     public void toggleGestures() {
-        // Forward this method to the Multilevel Visual Aid Pane.
-        _multilevelVisualAidPane.toggleGestures();
+        // Forward this method to the Polar Line Pane.
+        _polarLinePane.toggleGestures();
     }
 
     public void updateAngleUnit( final AngleUnit angleUnit ) {
-        // Forward this method to the Multilevel Visual Aid Pane.
-        _multilevelVisualAidPane.updateAngleUnit( angleUnit );
+        // Forward this method to the Polar Line Pane.
+        _polarLinePane.updateAngleUnit( angleUnit );
 
         // Make sure all displayed fields update to the new Angle Unit.
         // NOTE: We skip this if running as a modal dialog, as this change can
@@ -251,8 +251,8 @@ public final class MultilevelVisualAidEditor extends ObjectPropertiesEditor {
     }
 
     public void updateDistanceUnit( final DistanceUnit distanceUnit ) {
-        // Forward this method to the Multilevel Visual Aid Pane.
-        _multilevelVisualAidPane.updateDistanceUnit( distanceUnit );
+        // Forward this method to the Polar Line Pane.
+        _polarLinePane.updateDistanceUnit( distanceUnit );
 
         // Make sure all displayed fields update to the new Distance Unit.
         // NOTE: We skip this if running as a modal dialog, as this change can
@@ -265,27 +265,27 @@ public final class MultilevelVisualAidEditor extends ObjectPropertiesEditor {
 
     public void updateLayerNames( final boolean preserveSelectedLayerByIndex,
                                   final boolean preserveSelectedLayerByName ) {
-        // Forward this method to the Multilevel Visual Aid Pane.
-        _multilevelVisualAidPane.updateLayerNames( preserveSelectedLayerByIndex,
+        // Forward this method to the Polar Line Pane.
+        _polarLinePane.updateLayerNames( preserveSelectedLayerByIndex,
                                                    preserveSelectedLayerByName );
     }
 
     public void updateLayerNames( final LayerProperties currentLayer ) {
-        // Forward this method to the Multilevel Visual Aid Pane.
-        _multilevelVisualAidPane.updateLayerNames( currentLayer );
+        // Forward this method to the Polar Line Pane.
+        _polarLinePane.updateLayerNames( currentLayer );
     }
 
     // TODO: Verify whether we need to synchronize both positions.
     @Override
     public void updatePositioning() {
-        // Forward this method to the Multilevel Visual Aid Pane.
-        _multilevelVisualAidPane.updatePositioning( _multilevelVisualAidReference );
+        // Forward this method to the Polar Line Pane.
+        _polarLinePane.updatePositioning( _polarLineReference );
     }
 
     @Override
     public void updatePreview() {
-        // Forward this method to the Multilevel Visual Aid Pane.
-        _multilevelVisualAidPane.updatePreview( _multilevelVisualAidReference );
+        // Forward this method to the Polar Line Pane.
+        _polarLinePane.updatePreview( _polarLineReference );
     }
 
 }

@@ -46,7 +46,7 @@ public final class CadLabeledActionFactory {
     public static XAction getArchitectureToolChoice( final ClientProperties pClientProperties ) {
         return getMouseToolChoice( pClientProperties,
                                    "architectureTool",
-                                   "/com/yusukeKamiyamane/icons/LayerShapeLine16.png" );
+                                   "/icons/yusukeKamiyamane/LayerShapeLine16.png" );
     }
 
     @SuppressWarnings("nls")
@@ -64,14 +64,14 @@ public final class CadLabeledActionFactory {
     public static XAction getRotateToolChoice( final ClientProperties pClientProperties ) {
         return getMouseToolChoice( pClientProperties,
                                    "rotateTool",
-                                   "/com/everaldo/icons/RotateCWLight16.png" );
+                                   "/icons/everaldo/RotateCWLight16.png" );
     }
 
     @SuppressWarnings("nls")
     public static XAction getSelectToolChoice( final ClientProperties pClientProperties ) {
         return getMouseToolChoice( pClientProperties,
                                    "selectTool",
-                                   "/com/everaldo/icons/Select16.png" );
+                                   "/icons/everaldo/Select16.png" );
     }
 
     @SuppressWarnings("nls")
@@ -80,7 +80,7 @@ public final class CadLabeledActionFactory {
                                          BUNDLE_NAME,
                                          "view",
                                          "zoomToDrawingLimits",
-                                         "/com/everaldo/icons/ViewMagFit16.png" );
+                                         "/icons/everaldo/ViewMagFit16.png" );
     }
 
     @SuppressWarnings("nls")
@@ -89,14 +89,14 @@ public final class CadLabeledActionFactory {
                                          BUNDLE_NAME,
                                          "view",
                                          "zoomToPredictionPlane",
-                                         "/com/everaldo/icons/ViewMagToReference16.png" );
+                                         "/icons/everaldo/ViewMagToReference16.png" );
     }
 
     @SuppressWarnings("nls")
     public static XAction getZoomToolChoice( final ClientProperties pClientProperties ) {
         return getMouseToolChoice( pClientProperties,
                                    "zoomTool",
-                                   "/com/everaldo/icons/ViewMag16.png" );
+                                   "/icons/everaldo/ViewMag16.png" );
     }
 
 }

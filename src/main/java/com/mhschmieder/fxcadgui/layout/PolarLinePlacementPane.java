@@ -31,7 +31,7 @@
 package com.mhschmieder.fxcadgui.layout;
 
 import com.mhschmieder.commonstoolkit.util.ClientProperties;
-import com.mhschmieder.fxcadgraphics.MultilevelVisualAid;
+import com.mhschmieder.fxcadgraphics.PolarLine;
 import com.mhschmieder.fxguitoolkit.GuiUtilities;
 import com.mhschmieder.fxguitoolkit.ScrollingSensitivity;
 import com.mhschmieder.fxphysicsgui.layout.CartesianPositionPane;
@@ -44,14 +44,14 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 
-public final class MultilevelVisualAidPlacementPane extends HBox {
+public final class PolarLinePlacementPane extends HBox {
 
     protected GraphicalObjectPreviewPane _previewPane;
     public CartesianPositionPane         _inclinometerPositionPane;
     public PolarPositionPane             _startPolarPositionPane;
     public PolarPositionPane             _endPolarPositionPane;
 
-    public MultilevelVisualAidPlacementPane( final ClientProperties pClientProperties ) {
+    public PolarLinePlacementPane( final ClientProperties pClientProperties ) {
         // Always call the superclass constructor first!
         super();
 
@@ -96,9 +96,9 @@ public final class MultilevelVisualAidPlacementPane extends HBox {
         _endPolarPositionPane.saveEdits();
     }
 
-    protected void setEndPolarPosition( final MultilevelVisualAid multilevelVisualAid ) {
-        _endPolarPositionPane.setPolarPosition( multilevelVisualAid.getEndAngleDegrees(),
-                                                multilevelVisualAid.getEndDistance() );
+    protected void setEndPolarPosition( final PolarLine polarLine ) {
+        _endPolarPositionPane.setPolarPosition( polarLine.getEndAngleDegrees(),
+                                                polarLine.getEndDistance() );
     }
 
     public void setGesturesEnabled( final boolean gesturesEnabled ) {
@@ -109,10 +109,10 @@ public final class MultilevelVisualAidPlacementPane extends HBox {
         _endPolarPositionPane.setGesturesEnabled( gesturesEnabled );
     }
 
-    protected void setInclinometerPosition( final MultilevelVisualAid multilevelVisualAid ) {
+    protected void setInclinometerPosition( final PolarLine polarLine ) {
         _inclinometerPositionPane
-                .setCartesianPosition2D( multilevelVisualAid.getInclinometerPositionX(),
-                                         multilevelVisualAid.getInclinometerPositioneY() );
+                .setCartesianPosition2D( polarLine.getInclinometerPositionX(),
+                                         polarLine.getInclinometerPositioneY() );
     }
 
     /**
@@ -129,33 +129,33 @@ public final class MultilevelVisualAidPlacementPane extends HBox {
         _endPolarPositionPane.setScrollingSensitivity( scrollingSensitivity );
     }
 
-    protected void setStartPolarPosition( final MultilevelVisualAid multilevelVisualAid ) {
-        _startPolarPositionPane.setPolarPosition( multilevelVisualAid.getStartAngleDegrees(),
-                                                  multilevelVisualAid.getStartDistance() );
+    protected void setStartPolarPosition( final PolarLine polarLine ) {
+        _startPolarPositionPane.setPolarPosition( polarLine.getStartAngleDegrees(),
+                                                  polarLine.getStartDistance() );
     }
 
-    public void syncMultilevelVisualAidToView( final MultilevelVisualAid multilevelVisualAid ) {
+    public void syncPolarLineToView( final PolarLine polarLine ) {
         final Point2D inclinometerPosition2D = _inclinometerPositionPane.getCartesianPosition2D();
         final double startAngleDegrees = _startPolarPositionPane.getRotationAngle();
         final double startDistance = _startPolarPositionPane.getDistance();
         final double endAngleDegrees = _endPolarPositionPane.getRotationAngle();
         final double endDistance = _endPolarPositionPane.getDistance();
-        multilevelVisualAid.setLine( inclinometerPosition2D.getX(),
-                                     inclinometerPosition2D.getY(),
-                                     startAngleDegrees,
-                                     startDistance,
-                                     endAngleDegrees,
-                                     endDistance );
+        polarLine.setLine( inclinometerPosition2D.getX(),
+                           inclinometerPosition2D.getY(),
+                           startAngleDegrees,
+                           startDistance,
+                           endAngleDegrees,
+                           endDistance );
 
-        // Update the preview of the current Multilevel Visual Aid.
-        updatePreview( multilevelVisualAid );
+        // Update the preview of the current Polar Line.
+        updatePreview( polarLine );
     }
 
-    public void syncViewToMultilevelVisualAid( final MultilevelVisualAid multilevelVisualAid ) {
+    public void syncViewToPolarLine( final PolarLine polarLine ) {
         // Make sure the positioning parameters are in sync with the data model
         // as they could change outside this editor, such as via mouse
         // move/rotate in the Sound Field.
-        updatePositioning( multilevelVisualAid );
+        updatePositioning( polarLine );
     }
 
     public void toggleGestures() {
@@ -179,23 +179,23 @@ public final class MultilevelVisualAidPlacementPane extends HBox {
         _endPolarPositionPane.updateDistanceUnit( distanceUnit );
     }
 
-    public void updatePositioning( final MultilevelVisualAid multilevelVisualAid ) {
-        setInclinometerPosition( multilevelVisualAid );
-        setStartPolarPosition( multilevelVisualAid );
-        setEndPolarPosition( multilevelVisualAid );
+    public void updatePositioning( final PolarLine polarLine ) {
+        setInclinometerPosition( polarLine );
+        setStartPolarPosition( polarLine );
+        setEndPolarPosition( polarLine );
     }
 
-    public void updatePreview( final MultilevelVisualAid multilevelVisualAidCurrent ) {
+    public void updatePreview( final PolarLine polarLineCurrent ) {
         // Forward this to the preview pane, at the origin.
-        final MultilevelVisualAid multilevelVisualAid =
-                                                      new MultilevelVisualAid( multilevelVisualAidCurrent );
+        final PolarLine polarLine =
+                                                      new PolarLine( polarLineCurrent );
         final double x1 = 0.0d;
         final double y1 = 0.0d;
-        final double x2 = multilevelVisualAid.getX2() - multilevelVisualAid.getX1();
-        final double y2 = multilevelVisualAid.getY2() - multilevelVisualAid.getY1();
-        multilevelVisualAid.setLine( x1, y1, x2, y2 );
+        final double x2 = polarLine.getX2() - polarLine.getX1();
+        final double y2 = polarLine.getY2() - polarLine.getY1();
+        polarLine.setLine( x1, y1, x2, y2 );
 
-        _previewPane.updatePreview( multilevelVisualAid, 2.0d );
+        _previewPane.updatePreview( polarLine, 2.0d );
     }
 
-}// class MultilevelVisualAidPlacementPane
+}
