@@ -38,46 +38,29 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+// TODO: Refresh background of why Number of target Zones is modeled as String.
 public class VisualAidProperties implements LabelAssignable, LayerNameAssignable {
 
     private final StringProperty  label;
     private final StringProperty  layerName;
-    private final BooleanProperty useAsListenerPlane;
+    private final BooleanProperty useAsTargetPlane;
     private final StringProperty  numberOfTargetZones;
 
     public VisualAidProperties( final String pLabel,
                                 final String pLayerName,
-                                final boolean pUseAsListenerPlane,
+                                final boolean pUseAsTargetPlane,
                                 final int pNumberOfTargetZones ) {
-        this( pLabel, pLayerName, pUseAsListenerPlane, Integer.toString( pNumberOfTargetZones ) );
+        this( pLabel, pLayerName, pUseAsTargetPlane, Integer.toString( pNumberOfTargetZones ) );
     }
 
     public VisualAidProperties( final String pLabel,
                                 final String pLayerName,
-                                final boolean pUseAsListenerPlane,
+                                final boolean pUseAsTargetPlane,
                                 final String pNumberOfTargetZones ) {
         label = new SimpleStringProperty( pLabel );
         layerName = new SimpleStringProperty( pLayerName );
-        useAsListenerPlane = new SimpleBooleanProperty( pUseAsListenerPlane );
+        useAsTargetPlane = new SimpleBooleanProperty( pUseAsTargetPlane );
         numberOfTargetZones = new SimpleStringProperty( pNumberOfTargetZones );
-    }
-
-    @Override
-    public final String getLabel() {
-        return label.get();
-    }
-
-    @Override
-    public final String getLayerName() {
-        return layerName.get();
-    }
-
-    public final int getNumberOfTargetZones() {
-        return Integer.parseInt( numberOfTargetZones.get() );
-    }
-
-    public final boolean isUseAsListenerPlane() {
-        return useAsListenerPlane.get();
     }
 
     @Override
@@ -86,17 +69,18 @@ public class VisualAidProperties implements LabelAssignable, LayerNameAssignable
     }
 
     @Override
-    public final StringProperty layerNameProperty() {
-        return layerName;
-    }
-
-    public final StringProperty numberOfTargetZonesProperty() {
-        return numberOfTargetZones;
+    public final void setLabel( final String pLabel ) {
+        label.set( pLabel );
     }
 
     @Override
-    public final void setLabel( final String pLabel ) {
-        label.set( pLabel );
+    public final String getLabel() {
+        return label.get();
+    }
+
+    @Override
+    public final StringProperty layerNameProperty() {
+        return layerName;
     }
 
     @Override
@@ -104,20 +88,37 @@ public class VisualAidProperties implements LabelAssignable, LayerNameAssignable
         layerName.set( pLayerName );
     }
 
-    public final void setNumberOfTargetZones( final int pNumberOfTargetZones ) {
-        numberOfTargetZones.set( Integer.toString( pNumberOfTargetZones ) );
+    @Override
+    public final String getLayerName() {
+        return layerName.get();
+    }
+
+    public final BooleanProperty useAsTargetPlaneProperty() {
+        return useAsTargetPlane;
+    }
+
+    public final void setUseAsTargetPlane( final boolean pUseAsTargetPlane ) {
+        useAsTargetPlane.set( pUseAsTargetPlane );
+    }
+
+    public final boolean isUseAsTargetPlane() {
+        return useAsTargetPlane.get();
+    }
+
+    public final StringProperty numberOfTargetZonesProperty() {
+        return numberOfTargetZones;
     }
 
     public final void setNumberOfTargetZones( final String pNumberOfTargetZones ) {
         numberOfTargetZones.set( pNumberOfTargetZones );
     }
 
-    public final void setUseAsListenerPlane( final boolean pUseAsListenerPlane ) {
-        useAsListenerPlane.set( pUseAsListenerPlane );
+    public final void setNumberOfTargetZones( final int pNumberOfTargetZones ) {
+        numberOfTargetZones.set( Integer.toString( pNumberOfTargetZones ) );
     }
 
-    public final BooleanProperty useAsListenerPlaneProperty() {
-        return useAsListenerPlane;
+    public final int getNumberOfTargetZones() {
+        return Integer.parseInt( numberOfTargetZones.get() );
     }
 
 }

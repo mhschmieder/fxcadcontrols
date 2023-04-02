@@ -54,7 +54,7 @@ public class VisualAidPropertiesPane extends BorderPane {
     // Declare the table column header names.
     private static final String        COLUMN_HEADER_VISUAL_AID_LABEL = "Visual Aid Label";         //$NON-NLS-1$
     private static final String        COLUMN_HEADER_LAYER            = "Layer";                    //$NON-NLS-1$
-    private static final String        COLUMN_HEADER_LISTENER_PLANE   = "Listener Plane";           //$NON-NLS-1$
+    private static final String        COLUMN_HEADER_TARGET_PLANE     = "Target Plane";             //$NON-NLS-1$
     private static final String        COLUMN_HEADER_TARGET_ZONES     = "Target Zones";             //$NON-NLS-1$
 
     // Declare static constant to use for symbolically referencing grid column
@@ -62,8 +62,8 @@ public class VisualAidPropertiesPane extends BorderPane {
     public static final int            COLUMN_FIRST                   = 0;
     public static final int            COLUMN_VISUAL_AID_LABEL        = COLUMN_FIRST;
     public static final int            COLUMN_LAYER                   = COLUMN_VISUAL_AID_LABEL + 1;
-    public static final int            COLUMN_LISTENER_PLANE          = COLUMN_LAYER + 1;
-    public static final int            COLUMN_TARGET_ZONES            = COLUMN_LISTENER_PLANE + 1;
+    public static final int            COLUMN_TARGET_PLANE            = COLUMN_LAYER + 1;
+    public static final int            COLUMN_TARGET_ZONES            = COLUMN_TARGET_PLANE + 1;
     public static final int            COLUMN_LAST                    = COLUMN_TARGET_ZONES;
     public static final int            NUMBER_OF_COLUMNS              =
                                                          ( COLUMN_LAST - COLUMN_FIRST ) + 1;
@@ -90,6 +90,16 @@ public class VisualAidPropertiesPane extends BorderPane {
     public VisualAidPropertiesPane( final ClientProperties pClientProperties,
                                     final String visualAidLabelDefault,
                                     final GraphicalObjectCollection< ? extends VisualAid > visualAidCollection ) {
+        this( pClientProperties, 
+              visualAidLabelDefault, 
+              visualAidCollection, 
+              COLUMN_HEADER_TARGET_PLANE );
+    }
+
+    public VisualAidPropertiesPane( final ClientProperties pClientProperties,
+                                    final String visualAidLabelDefault,
+                                    final GraphicalObjectCollection< ? extends VisualAid > visualAidCollection,
+                                    final String targetPlaneType ) {
         // Always call the superclass constructor first!
         super();
 
@@ -97,11 +107,11 @@ public class VisualAidPropertiesPane extends BorderPane {
         // later updates.
         _visualAidProperties = new VisualAidProperties( visualAidLabelDefault,
                                                         LayerUtilities.DEFAULT_LAYER_NAME,
-                                                        VisualAid.USE_AS_LISTENER_PLANE_DEFAULT,
+                                                        VisualAid.USE_AS_TARGET_PLANE_DEFAULT,
                                                         VisualAid.NUMBER_OF_TARGET_ZONES_DEFAULT );
 
         try {
-            initPane( pClientProperties, visualAidLabelDefault, visualAidCollection );
+            initPane( pClientProperties, visualAidLabelDefault, visualAidCollection, targetPlaneType );
         }
         catch ( final Exception ex ) {
             ex.printStackTrace();
@@ -117,8 +127,8 @@ public class VisualAidPropertiesPane extends BorderPane {
                 .bindBidirectional( _visualAidProperties.labelProperty() );
         _visualAidPropertiesControls._layerSelector.valueProperty()
                 .bindBidirectional( _visualAidProperties.layerNameProperty() );
-        _visualAidPropertiesControls._useAsListenerPlaneCheckBox.selectedProperty()
-                .bindBidirectional( _visualAidProperties.useAsListenerPlaneProperty() );
+        _visualAidPropertiesControls._useAsTargetPlaneCheckBox.selectedProperty()
+                .bindBidirectional( _visualAidProperties.useAsTargetPlaneProperty() );
         _visualAidPropertiesControls._targetZonesSelector.valueProperty()
                 .bindBidirectional( _visualAidProperties.numberOfTargetZonesProperty() );
     }
@@ -139,7 +149,8 @@ public class VisualAidPropertiesPane extends BorderPane {
 
     private final void initPane( final ClientProperties pClientProperties,
                                  final String visualAidLabelDefault,
-                                 final GraphicalObjectCollection< ? extends VisualAid > visualAidCollection ) {
+                                 final GraphicalObjectCollection< ? extends VisualAid > visualAidCollection,
+                                 final String targetPlaneType ) {
         // Make the grid of individual Visual Aid Properties controls.
         _visualAidPropertiesGrid = new GridPane();
 
@@ -147,14 +158,14 @@ public class VisualAidPropertiesPane extends BorderPane {
         final Label visualAidLabelLabel = GuiUtilities
                 .getColumnHeader( COLUMN_HEADER_VISUAL_AID_LABEL );
         final Label layerLabel = GuiUtilities.getColumnHeader( COLUMN_HEADER_LAYER );
-        final Label listenerPlaneLabel =
-                                       GuiUtilities.getColumnHeader( COLUMN_HEADER_LISTENER_PLANE );
+        final Label targetPlaneLabel =
+                                       GuiUtilities.getColumnHeader( targetPlaneType );
         final Label targetZonesLabel = GuiUtilities.getColumnHeader( COLUMN_HEADER_TARGET_ZONES );
 
         // Force all the labels to center within the grid.
         GridPane.setHalignment( visualAidLabelLabel, HPos.CENTER );
         GridPane.setHalignment( layerLabel, HPos.CENTER );
-        GridPane.setHalignment( listenerPlaneLabel, HPos.CENTER );
+        GridPane.setHalignment( targetPlaneLabel, HPos.CENTER );
         GridPane.setHalignment( targetZonesLabel, HPos.CENTER );
 
         _visualAidPropertiesGrid.setPadding( new Insets( 6.0d ) );
@@ -163,7 +174,7 @@ public class VisualAidPropertiesPane extends BorderPane {
 
         _visualAidPropertiesGrid.add( visualAidLabelLabel, COLUMN_VISUAL_AID_LABEL, ROW_HEADER );
         _visualAidPropertiesGrid.add( layerLabel, COLUMN_LAYER, ROW_HEADER );
-        _visualAidPropertiesGrid.add( listenerPlaneLabel, COLUMN_LISTENER_PLANE, ROW_HEADER );
+        _visualAidPropertiesGrid.add( targetPlaneLabel, COLUMN_TARGET_PLANE, ROW_HEADER );
         _visualAidPropertiesGrid.add( targetZonesLabel, COLUMN_TARGET_ZONES, ROW_HEADER );
 
         // Make the individual Visual Aid Properties Controls and place in a
@@ -179,8 +190,8 @@ public class VisualAidPropertiesPane extends BorderPane {
         _visualAidPropertiesGrid.add( _visualAidPropertiesControls._layerSelector,
                                       COLUMN_LAYER,
                                       ROW_PROPERTIES_FIRST );
-        _visualAidPropertiesGrid.add( _visualAidPropertiesControls._useAsListenerPlaneCheckBox,
-                                      COLUMN_LISTENER_PLANE,
+        _visualAidPropertiesGrid.add( _visualAidPropertiesControls._useAsTargetPlaneCheckBox,
+                                      COLUMN_TARGET_PLANE,
                                       ROW_PROPERTIES_FIRST );
         _visualAidPropertiesGrid.add( _visualAidPropertiesControls._targetZonesSelector,
                                       COLUMN_TARGET_ZONES,
@@ -229,8 +240,8 @@ public class VisualAidPropertiesPane extends BorderPane {
         visualAidProperties.setLabel( visualAid.getLabel() );
         visualAidProperties.setLayerName( visualAid.getLayerName() );
 
-        // Update the Listener Plane values.
-        visualAidProperties.setUseAsListenerPlane( visualAid.isUseAsListenerPlane() );
+        // Update the Target Plane values.
+        visualAidProperties.setUseAsTargetPlane( visualAid.isUseAsTargetPlane() );
         visualAidProperties.setNumberOfTargetZones( visualAid.getNumberOfTargetZones() );
 
         // Make sure the cached editor value matches the latest saved label.

@@ -58,7 +58,8 @@ public final class ArchitecturalVisualAidPane extends VBox {
     public ClientProperties                  _clientProperties;
 
     public ArchitecturalVisualAidPane( final ClientProperties pClientProperties,
-                                       final GraphicalObjectCollection< ArchitecturalVisualAid > architecturalVisualAidCollection ) {
+                                       final GraphicalObjectCollection< ArchitecturalVisualAid > architecturalVisualAidCollection,
+                                       final String targetPlaneType ) {
         // Always call the superclass constructor first!
         super();
 
@@ -68,7 +69,7 @@ public final class ArchitecturalVisualAidPane extends VBox {
         _layerCollection = LayerUtilities.makeLayerCollection();
 
         try {
-            initPane( architecturalVisualAidCollection );
+            initPane( architecturalVisualAidCollection, targetPlaneType );
         }
         catch ( final Exception ex ) {
             ex.printStackTrace();
@@ -91,12 +92,14 @@ public final class ArchitecturalVisualAidPane extends VBox {
         return _visualAidPropertiesPane.getVisualAidProperties();
     }
 
-    private void initPane( final GraphicalObjectCollection< ArchitecturalVisualAid > architecturalVisualAidCollection ) {
+    private void initPane( final GraphicalObjectCollection< ArchitecturalVisualAid > architecturalVisualAidCollection,
+                           final String targetPlaneType ) {
         final String architecturalVisualAidLabelDefault = ArchitecturalVisualAid
                 .getArchitecturalVisualAidLabelDefault();
         _visualAidPropertiesPane = new VisualAidPropertiesPane( _clientProperties,
                                                                 architecturalVisualAidLabelDefault,
-                                                                architecturalVisualAidCollection );
+                                                                architecturalVisualAidCollection,
+                                                                targetPlaneType );
 
         _architecturalVisualAidPlacementPane =
                                              new ArchitecturalVisualAidPlacementPane( _clientProperties );
@@ -110,8 +113,8 @@ public final class ArchitecturalVisualAidPane extends VBox {
         // Make sure the Placement Pane always gets grow priority.
         VBox.setVgrow( _architecturalVisualAidPlacementPane, Priority.ALWAYS );
 
-        // If the Listener Plane status changes in any way, update the Preview.
-        _visualAidPropertiesPane._visualAidPropertiesControls._useAsListenerPlaneCheckBox
+        // If the Target Plane status changes in any way, update the Preview.
+        _visualAidPropertiesPane._visualAidPropertiesControls._useAsTargetPlaneCheckBox
                 .selectedProperty().addListener( ( observable, oldValue, newValue ) -> {
                     final ArchitecturalVisualAid architecturalVisualAid =
                                                                         new ArchitecturalVisualAid();
@@ -226,8 +229,8 @@ public final class ArchitecturalVisualAidPane extends VBox {
         final LayerProperties layer = LayerUtilities.getLayerByName( _layerCollection, layerName );
         architecturalVisualAid.setLayer( layer );
 
-        // Update the Listener Plane values.
-        architecturalVisualAid.setUseAsListenerPlane( visualAidProperties.isUseAsListenerPlane() );
+        // Update the Target Plane values.
+        architecturalVisualAid.setUseAsTargetPlane( visualAidProperties.isUseAsTargetPlane() );
         architecturalVisualAid
                 .setNumberOfTargetZones( visualAidProperties.getNumberOfTargetZones() );
 

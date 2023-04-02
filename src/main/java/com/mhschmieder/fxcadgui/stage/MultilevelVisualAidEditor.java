@@ -58,13 +58,17 @@ public final class MultilevelVisualAidEditor extends ObjectPropertiesEditor {
 
     // Maintain a reference to the Multilevel Visual Aid collection.
     protected GraphicalObjectCollection< MultilevelVisualAid > _multilevelVisualAidCollection;
+    
+    // Allow for customization of Target Plane Type (name identifier, not behavior).
+    protected String _targetPlaneType;
 
     @SuppressWarnings("nls")
     public MultilevelVisualAidEditor( final boolean insertMode,
                                       final GraphicalObjectCollection< MultilevelVisualAid > multilevelVisualAidCollection,
                                       final ProductBranding productBranding,
                                       final ClientProperties pClientProperties,
-                                      final boolean pResetApplicable ) {
+                                      final boolean pResetApplicable,
+                                      final String targetPlaneType ) {
         // Always call the superclass constructor first!
         super( insertMode, 
                OBJECT_TYPE, 
@@ -74,6 +78,8 @@ public final class MultilevelVisualAidEditor extends ObjectPropertiesEditor {
                pResetApplicable );
 
         _multilevelVisualAidCollection = multilevelVisualAidCollection;
+        
+        _targetPlaneType = targetPlaneType;
 
         // Start with a default Multilevel Visual Aid until editing.
         _multilevelVisualAidReference = MultilevelVisualAid.getDefaultMultilevelVisualAid();
@@ -135,7 +141,8 @@ public final class MultilevelVisualAidEditor extends ObjectPropertiesEditor {
     protected Node loadContent() {
         // Instantiate and return the custom Content Node.
         _multilevelVisualAidPane = new MultilevelVisualAidPane( clientProperties,
-                                                                _multilevelVisualAidCollection );
+                                                                _multilevelVisualAidCollection,
+                                                                _targetPlaneType );
         return _multilevelVisualAidPane;
     }
 

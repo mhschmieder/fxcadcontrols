@@ -46,7 +46,7 @@ public final class VisualAidPropertiesControls {
 
     public GraphicalObjectLabelEditor _visualAidLabelEditor;
     public LayerSelector              _layerSelector;
-    public CheckBox                   _useAsListenerPlaneCheckBox;
+    public CheckBox                   _useAsTargetPlaneCheckBox;
     public IntegerSelector            _targetZonesSelector;
 
     // Default constructor
@@ -61,7 +61,7 @@ public final class VisualAidPropertiesControls {
 
         _layerSelector = new LayerSelector( pClientProperties, applyToolkitCss, false );
 
-        _useAsListenerPlaneCheckBox = GuiUtilities.getCheckBox( "Use As Listener Plane", //$NON-NLS-1$
+        _useAsTargetPlaneCheckBox = GuiUtilities.getCheckBox( "Use As Target Plane", //$NON-NLS-1$
                                                                 false );
         _targetZonesSelector = CadControlFactory.getTargetZonesSelector( pClientProperties,
                                                                          applyToolkitCss );
@@ -69,20 +69,20 @@ public final class VisualAidPropertiesControls {
         // Try to get the buttons to be as tall as possible.
         GridPane.setFillHeight( _visualAidLabelEditor, true );
         GridPane.setFillHeight( _layerSelector, true );
-        GridPane.setFillHeight( _useAsListenerPlaneCheckBox, true );
+        GridPane.setFillHeight( _useAsTargetPlaneCheckBox, true );
         GridPane.setFillHeight( _targetZonesSelector, true );
 
         // Try to force sufficient width for custom label editing.
         _visualAidLabelEditor.setMinWidth( GuiUtilities.LABEL_EDITOR_WIDTH_DEFAULT );
         _visualAidLabelEditor.setPrefWidth( GuiUtilities.LABEL_EDITOR_WIDTH_DEFAULT );
 
-        // Try to force minimum width on Use as Listener Plane Check Box to
+        // Try to force minimum width on Use as Target Plane Check Box to
         // avoid clipping.
-        _useAsListenerPlaneCheckBox.setMinWidth( 140d );
+        _useAsTargetPlaneCheckBox.setMinWidth( 140d );
 
-        // Bind Target Zones Pane enablement to the Listener Plane Check Box.
+        // Bind Target Zones Pane enablement to the Target Plane Check Box.
         _targetZonesSelector.disableProperty()
-                .bind( _useAsListenerPlaneCheckBox.selectedProperty().not() );
+                .bind( _useAsTargetPlaneCheckBox.selectedProperty().not() );
     }
 
     public String getLayerName() {
@@ -105,9 +105,9 @@ public final class VisualAidPropertiesControls {
         return _visualAidLabelEditor.getUniqueGraphicalObjectLabel( visualAidLabelCandidate );
     }
 
-    public boolean isUseAsListenerPlane() {
-        // Forward this method to the Use As Listener Plane Check Box.
-        return _useAsListenerPlaneCheckBox.isSelected();
+    public boolean isUseAsTargetPlane() {
+        // Forward this method to the Use As Target Plane Check Box.
+        return _useAsTargetPlaneCheckBox.isSelected();
     }
 
     public boolean isVisualAidLabelUnique( final String visualAidLabelCandidate ) {
@@ -130,9 +130,9 @@ public final class VisualAidPropertiesControls {
         _targetZonesSelector.setIntegerValue( numberOfTargetZones );
     }
 
-    public void setUseAsListenerPlane( final boolean useAsListenerPlane ) {
-        // Forward this method to the Use As Listener Plane Check Box.
-        _useAsListenerPlaneCheckBox.setSelected( useAsListenerPlane );
+    public void setUseAsTargetPlane( final boolean useAsTargetPlane ) {
+        // Forward this method to the Use As Target Plane Check Box.
+        _useAsTargetPlaneCheckBox.setSelected( useAsTargetPlane );
     }
 
 }

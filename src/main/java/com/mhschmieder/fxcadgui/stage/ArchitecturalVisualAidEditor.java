@@ -59,12 +59,16 @@ public final class ArchitecturalVisualAidEditor extends ObjectPropertiesEditor {
     // Maintain a reference to the Architectural Visual Aid collection.
     protected GraphicalObjectCollection< ArchitecturalVisualAid > _architecturalVisualAidCollection;
 
+    // Allow for customization of Target Plane Type (name identifier, not behavior).
+    protected String _targetPlaneType;
+
     @SuppressWarnings("nls")
     public ArchitecturalVisualAidEditor( final boolean insertMode,
                                          final GraphicalObjectCollection< ArchitecturalVisualAid > architecturalVisualAidCollection,
                                          final ProductBranding productBranding,
                                          final ClientProperties pClientProperties,
-                                         final boolean pResetApplicable ) {
+                                         final boolean pResetApplicable,
+                                         final String targetPlaneType ) {
         // Always call the superclass constructor first!
         super( insertMode, 
                OBJECT_TYPE, 
@@ -74,6 +78,8 @@ public final class ArchitecturalVisualAidEditor extends ObjectPropertiesEditor {
                pResetApplicable );
 
         _architecturalVisualAidCollection = architecturalVisualAidCollection;
+        
+        _targetPlaneType = targetPlaneType;
 
         // Start with a default Architectural Visual Aid until editing.
         _architecturalVisualAidReference =
@@ -138,7 +144,8 @@ public final class ArchitecturalVisualAidEditor extends ObjectPropertiesEditor {
         // Instantiate and return the custom Content Node.
         _architecturalVisualAidPane =
                                     new ArchitecturalVisualAidPane( clientProperties,
-                                                                    _architecturalVisualAidCollection );
+                                                                    _architecturalVisualAidCollection,
+                                                                    _targetPlaneType );
         return _architecturalVisualAidPane;
     }
 

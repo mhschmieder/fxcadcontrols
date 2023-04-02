@@ -58,7 +58,8 @@ public final class MultilevelVisualAidPane extends VBox {
     public ClientProperties                 _clientProperties;
 
     public MultilevelVisualAidPane( final ClientProperties pClientProperties,
-                                    final GraphicalObjectCollection< MultilevelVisualAid > multilevelVisualAidCollection ) {
+                                    final GraphicalObjectCollection< MultilevelVisualAid > multilevelVisualAidCollection,
+                                    final String targetPlaneType ) {
         // Always call the superclass constructor first!
         super();
 
@@ -68,7 +69,7 @@ public final class MultilevelVisualAidPane extends VBox {
         _layerCollection = LayerUtilities.makeLayerCollection();
 
         try {
-            initPane( multilevelVisualAidCollection );
+            initPane( multilevelVisualAidCollection, targetPlaneType );
         }
         catch ( final Exception ex ) {
             ex.printStackTrace();
@@ -91,12 +92,14 @@ public final class MultilevelVisualAidPane extends VBox {
         return _visualAidPropertiesPane.getVisualAidProperties();
     }
 
-    private void initPane( final GraphicalObjectCollection< MultilevelVisualAid > multilevelVisualAidCollection ) {
+    private void initPane( final GraphicalObjectCollection< MultilevelVisualAid > multilevelVisualAidCollection,
+                           final String targetPlaneType) {
         final String multilevelVisualAidLabelDefault = MultilevelVisualAid
                 .getMultilevelVisualAidLabelDefault();
         _visualAidPropertiesPane = new VisualAidPropertiesPane( _clientProperties,
                                                                 multilevelVisualAidLabelDefault,
-                                                                multilevelVisualAidCollection );
+                                                                multilevelVisualAidCollection,
+                                                                targetPlaneType );
 
         _multilevelVisualAidPlacementPane = new MultilevelVisualAidPlacementPane( _clientProperties );
 
@@ -109,8 +112,8 @@ public final class MultilevelVisualAidPane extends VBox {
         // Make sure the Placement Pane always gets grow priority.
         VBox.setVgrow( _multilevelVisualAidPlacementPane, Priority.ALWAYS );
 
-        // If the Listener Plane status changes in any way, update the Preview.
-        _visualAidPropertiesPane._visualAidPropertiesControls._useAsListenerPlaneCheckBox
+        // If the Target Plane status changes in any way, update the Preview.
+        _visualAidPropertiesPane._visualAidPropertiesControls._useAsTargetPlaneCheckBox
                 .selectedProperty().addListener( ( observable, oldValue, newValue ) -> {
                     final MultilevelVisualAid multilevelVisualAid = new MultilevelVisualAid();
                     syncMultilevelVisualAidToView( multilevelVisualAid );
@@ -213,8 +216,8 @@ public final class MultilevelVisualAidPane extends VBox {
         final LayerProperties layer = LayerUtilities.getLayerByName( _layerCollection, layerName );
         multilevelVisualAid.setLayer( layer );
 
-        // Update the Listener Plane values.
-        multilevelVisualAid.setUseAsListenerPlane( visualAidProperties.isUseAsListenerPlane() );
+        // Update the Target Plane values.
+        multilevelVisualAid.setUseAsTargetPlane( visualAidProperties.isUseAsTargetPlane() );
         multilevelVisualAid.setNumberOfTargetZones( visualAidProperties.getNumberOfTargetZones() );
 
         // Forward this method to the Multilevel Visual Aid Placement Pane.
