@@ -33,7 +33,7 @@ package com.mhschmieder.fxcadgui.layout;
 import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxcadgraphics.GraphicalObjectCollection;
 import com.mhschmieder.fxcadgraphics.MultilevelVisualAid;
-import com.mhschmieder.fxcadgui.model.VisualAidProperties;
+import com.mhschmieder.fxcadgui.model.LinearObjectProperties;
 import com.mhschmieder.fxguitoolkit.ScrollingSensitivity;
 import com.mhschmieder.fxlayergraphics.LayerUtilities;
 import com.mhschmieder.fxlayergraphics.model.LayerProperties;
@@ -48,7 +48,7 @@ import javafx.scene.layout.VBox;
 
 public final class MultilevelVisualAidPane extends VBox {
 
-    public VisualAidPropertiesPane            _visualAidPropertiesPane;
+    public LinearObjectPropertiesPane            _linearObjectPropertiesPane;
     public MultilevelVisualAidPlacementPane   _multilevelVisualAidPlacementPane;
 
     /** Layer Collection reference. */
@@ -82,19 +82,19 @@ public final class MultilevelVisualAidPane extends VBox {
     }
 
     public String getNewMultilevelVisualAidLabelDefault() {
-        // Forward this method to the Visual Aid Properties Pane.
-        return _visualAidPropertiesPane.getNewVisualAidLabelDefault();
+        // Forward this method to the Linear Object Properties Pane.
+        return _linearObjectPropertiesPane.getNewLinearObjectLabelDefault();
     }
 
     public String getUniqueMultilevelVisualAidLabel( final String multilevelVisualAidLabelCandidate ) {
-        // Forward this method to the Visual Aid Properties Pane.
-        return _visualAidPropertiesPane
-                .getUniqueVisualAidLabel( multilevelVisualAidLabelCandidate );
+        // Forward this method to the Linear Object Properties Pane.
+        return _linearObjectPropertiesPane
+                .getUniqueLinearObjectLabel( multilevelVisualAidLabelCandidate );
     }
 
-    public VisualAidProperties getVisualAidProperties() {
-        // Forward this method to the Visual Aid Properties Pane.
-        return _visualAidPropertiesPane.getVisualAidProperties();
+    public LinearObjectProperties getLinearObjectProperties() {
+        // Forward this method to the Linear Object Properties Pane.
+        return _linearObjectPropertiesPane.getLinearObjectProperties();
     }
 
     private void initPane( final GraphicalObjectCollection< MultilevelVisualAid > multilevelVisualAidCollection,
@@ -103,7 +103,7 @@ public final class MultilevelVisualAidPane extends VBox {
                            final String projectionZonesUsageContext ) {
         final String multilevelVisualAidLabelDefault = MultilevelVisualAid
                 .getMultilevelVisualAidLabelDefault();
-        _visualAidPropertiesPane = new VisualAidPropertiesPane( _clientProperties,
+        _linearObjectPropertiesPane = new LinearObjectPropertiesPane( _clientProperties,
                                                                 multilevelVisualAidLabelDefault,
                                                                 multilevelVisualAidCollection,
                                                                 projectorType,
@@ -113,7 +113,7 @@ public final class MultilevelVisualAidPane extends VBox {
         _multilevelVisualAidPlacementPane = new MultilevelVisualAidPlacementPane( _clientProperties );
 
         final ObservableList< Node > layout = getChildren();
-        layout.addAll( _visualAidPropertiesPane, _multilevelVisualAidPlacementPane );
+        layout.addAll( _linearObjectPropertiesPane, _multilevelVisualAidPlacementPane );
 
         setSpacing( 12 );
         setPadding( new Insets( 6 ) );
@@ -122,12 +122,12 @@ public final class MultilevelVisualAidPane extends VBox {
         VBox.setVgrow( _multilevelVisualAidPlacementPane, Priority.ALWAYS );
 
         // If the Projector status changes in any way, update the Preview.
-        _visualAidPropertiesPane._visualAidPropertiesControls._useAsProjectorCheckBox
+        _linearObjectPropertiesPane._linearObjectPropertiesControls._useAsProjectorCheckBox
                 .selectedProperty().addListener( ( observable, oldValue, newValue ) -> {
                     final MultilevelVisualAid multilevelVisualAid = new MultilevelVisualAid();
                     syncMultilevelVisualAidToView( multilevelVisualAid );
                 } );
-        _visualAidPropertiesPane._visualAidPropertiesControls._projectionZonesSelector
+        _linearObjectPropertiesPane._linearObjectPropertiesControls._projectionZonesSelector
                 .setOnAction( evt -> {
                     final MultilevelVisualAid multilevelVisualAid = new MultilevelVisualAid();
                     syncMultilevelVisualAidToView( multilevelVisualAid );
@@ -182,8 +182,8 @@ public final class MultilevelVisualAidPane extends VBox {
     }
 
     public boolean isMultilevelVisualAidLabelUnique( final String multilevelVisualAidLabelCandidate ) {
-        // Forward this method to the Visual Aid Properties Pane.
-        return _visualAidPropertiesPane.isVisualAidLabelUnique( multilevelVisualAidLabelCandidate );
+        // Forward this method to the Linear Object Properties Pane.
+        return _linearObjectPropertiesPane.isLinearObjectLabelUnique( multilevelVisualAidLabelCandidate );
     }
 
     public void saveEdits() {
@@ -200,8 +200,8 @@ public final class MultilevelVisualAidPane extends VBox {
         // Cache a local copy of the Layer Collection.
         _layerCollection = layerCollection;
 
-        // Forward this method to the Visual Aid Properties Pane.
-        _visualAidPropertiesPane.setLayerCollection( layerCollection );
+        // Forward this method to the Linear Object Properties Pane.
+        _linearObjectPropertiesPane.setLayerCollection( layerCollection );
     }
 
     /**
@@ -216,31 +216,31 @@ public final class MultilevelVisualAidPane extends VBox {
     }
 
     public void syncMultilevelVisualAidToView( final MultilevelVisualAid multilevelVisualAid ) {
-        // Get all of the Visual Aid Properties.
-        final VisualAidProperties visualAidProperties = getVisualAidProperties();
-        multilevelVisualAid.setLabel( visualAidProperties.getLabel() );
+        // Get all of the Linear Object Properties.
+        final LinearObjectProperties linearObjectProperties = getLinearObjectProperties();
+        multilevelVisualAid.setLabel( linearObjectProperties.getLabel() );
 
         // Cache the current Layer selection via Layer Name lookup.
-        final String layerName = visualAidProperties.getLayerName();
+        final String layerName = linearObjectProperties.getLayerName();
         final LayerProperties layer = LayerUtilities.getLayerByName( _layerCollection, layerName );
         multilevelVisualAid.setLayer( layer );
 
         // Update the Projector values.
-        multilevelVisualAid.setUseAsProjector( visualAidProperties.isUseAsProjector() );
-        multilevelVisualAid.setNumberOfProjectionZones( visualAidProperties.getNumberOfProjectionZones() );
+        multilevelVisualAid.setUseAsProjector( linearObjectProperties.isUseAsProjector() );
+        multilevelVisualAid.setNumberOfProjectionZones( linearObjectProperties.getNumberOfProjectionZones() );
 
         // Forward this method to the Multilevel Visual Aid Placement Pane.
         _multilevelVisualAidPlacementPane.syncMultilevelVisualAidToView( multilevelVisualAid );
     }
 
     public void syncToSelectedLayerName( final MultilevelVisualAid multilevelVisualAid ) {
-        // Forward this method to the Visual Aid Properties Pane.
-        _visualAidPropertiesPane.syncToSelectedLayerName( multilevelVisualAid );
+        // Forward this method to the Linear Object Properties Pane.
+        _linearObjectPropertiesPane.syncToSelectedLayerName( multilevelVisualAid );
     }
 
     public void syncViewToMultilevelVisualAid( final MultilevelVisualAid multilevelVisualAid ) {
-        // Forward this method to the Visual Aid Properties Pane.
-        _visualAidPropertiesPane.syncViewToVisualAidProperties( multilevelVisualAid );
+        // Forward this method to the Linear Object Properties Pane.
+        _linearObjectPropertiesPane.syncViewToLinearObjectProperties( multilevelVisualAid );
 
         // Forward this method to the Multilevel Visual Aid Placement Pane.
         _multilevelVisualAidPlacementPane.syncViewToMultilevelVisualAid( multilevelVisualAid );
@@ -263,8 +263,8 @@ public final class MultilevelVisualAidPane extends VBox {
 
     public void updateLayerNames( final boolean preserveSelectedLayerByIndex,
                                   final boolean preserveSelectedLayerByName ) {
-        // Forward this method to the Visual Aid Properties Pane.
-        _visualAidPropertiesPane.updateLayerNames( preserveSelectedLayerByIndex,
+        // Forward this method to the Linear Object Properties Pane.
+        _linearObjectPropertiesPane.updateLayerNames( preserveSelectedLayerByIndex,
                                                    preserveSelectedLayerByName );
     }
 
@@ -272,8 +272,8 @@ public final class MultilevelVisualAidPane extends VBox {
         final ObservableList< LayerProperties > layerCollection = _layerCollection;
         final int currentLayerIndex = LayerUtilities.getLayerIndex( layerCollection, currentLayer );
 
-        // Forward this method to the Visual Aid Properties Pane.
-        _visualAidPropertiesPane.updateLayerNames( currentLayerIndex );
+        // Forward this method to the Linear Object Properties Pane.
+        _linearObjectPropertiesPane.updateLayerNames( currentLayerIndex );
     }
 
     public void updatePositioning( final MultilevelVisualAid multilevelVisualAid ) {

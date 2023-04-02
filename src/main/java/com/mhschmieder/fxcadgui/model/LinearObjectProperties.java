@@ -39,24 +39,24 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 // TODO: Research why Number of Projections Zones is modeled as a String.
-public class VisualAidProperties implements LabelAssignable, LayerNameAssignable {
+public class LinearObjectProperties implements LabelAssignable, LayerNameAssignable {
 
     private final StringProperty  label;
     private final StringProperty  layerName;
     private final BooleanProperty useAsProjector;
     private final StringProperty  numberOfProjectionZones;
 
-    public VisualAidProperties( final String pLabel,
-                                final String pLayerName,
-                                final boolean pUseAsProjector,
-                                final int pNumberOfProjectionZones ) {
+    public LinearObjectProperties( final String pLabel,
+                                   final String pLayerName,
+                                   final boolean pUseAsProjector,
+                                   final int pNumberOfProjectionZones ) {
         this( pLabel, pLayerName, pUseAsProjector, Integer.toString( pNumberOfProjectionZones ) );
     }
 
-    public VisualAidProperties( final String pLabel,
-                                final String pLayerName,
-                                final boolean pUseAsProjector,
-                                final String pNumberOfProjectionZones ) {
+    public LinearObjectProperties( final String pLabel,
+                                   final String pLayerName,
+                                   final boolean pUseAsProjector,
+                                   final String pNumberOfProjectionZones ) {
         label = new SimpleStringProperty( pLabel );
         layerName = new SimpleStringProperty( pLayerName );
         useAsProjector = new SimpleBooleanProperty( pUseAsProjector );

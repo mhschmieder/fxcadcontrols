@@ -32,7 +32,7 @@ package com.mhschmieder.fxcadgui.control;
 
 import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxcadgraphics.GraphicalObjectCollection;
-import com.mhschmieder.fxcadgraphics.VisualAid;
+import com.mhschmieder.fxcadgraphics.LinearObject;
 import com.mhschmieder.fxguitoolkit.GuiUtilities;
 import com.mhschmieder.fxguitoolkit.control.IntegerSelector;
 import com.mhschmieder.fxlayergraphics.model.LayerProperties;
@@ -42,25 +42,25 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.GridPane;
 
-public final class VisualAidPropertiesControls {
+public final class LinearObjectPropertiesControls {
 
-    public GraphicalObjectLabelEditor _visualAidLabelEditor;
+    public GraphicalObjectLabelEditor _linearObjectLabelEditor;
     public LayerSelector              _layerSelector;
     public CheckBox                   _useAsProjectorCheckBox;
     public IntegerSelector            _projectionZonesSelector;
 
     // Default constructor
-    public VisualAidPropertiesControls( final ClientProperties pClientProperties,
+    public LinearObjectPropertiesControls( final ClientProperties pClientProperties,
                                         final boolean applyToolkitCss,
-                                        final String visualAidLabelDefault,
-                                        final GraphicalObjectCollection< ? extends VisualAid > visualAidCollection,
+                                        final String linearObjectLabelDefault,
+                                        final GraphicalObjectCollection< ? extends LinearObject > linearObjectCollection,
                                         final String projectorType,
                                         final String projectionZonesType,
                                         final String projectionZonesUsageContext ) {
-        // Make the Visual Aid Properties controls.
-        _visualAidLabelEditor = new GraphicalObjectLabelEditor( pClientProperties,
-                                                                visualAidLabelDefault,
-                                                                visualAidCollection );
+        // Make the Linear Object Properties controls.
+        _linearObjectLabelEditor = new GraphicalObjectLabelEditor( pClientProperties,
+                                                                   linearObjectLabelDefault,
+                                                                   linearObjectCollection );
 
         _layerSelector = new LayerSelector( pClientProperties, applyToolkitCss, false );
 
@@ -77,14 +77,14 @@ public final class VisualAidPropertiesControls {
                                                                                  projectionZonesTooltipText.toString() );
 
         // Try to get the buttons to be as tall as possible.
-        GridPane.setFillHeight( _visualAidLabelEditor, true );
+        GridPane.setFillHeight( _linearObjectLabelEditor, true );
         GridPane.setFillHeight( _layerSelector, true );
         GridPane.setFillHeight( _useAsProjectorCheckBox, true );
         GridPane.setFillHeight( _projectionZonesSelector, true );
 
         // Try to force sufficient width for custom label editing.
-        _visualAidLabelEditor.setMinWidth( GuiUtilities.LABEL_EDITOR_WIDTH_DEFAULT );
-        _visualAidLabelEditor.setPrefWidth( GuiUtilities.LABEL_EDITOR_WIDTH_DEFAULT );
+        _linearObjectLabelEditor.setMinWidth( GuiUtilities.LABEL_EDITOR_WIDTH_DEFAULT );
+        _linearObjectLabelEditor.setPrefWidth( GuiUtilities.LABEL_EDITOR_WIDTH_DEFAULT );
 
         // Try to force minimum width on Use as Projector Check Box to
         // avoid clipping.
@@ -100,9 +100,9 @@ public final class VisualAidPropertiesControls {
         return _layerSelector.getLayerName();
     }
 
-    public String getNewVisualAidLabelDefault() {
-        // Forward this method to the Visual Aid Label Editor.
-        return _visualAidLabelEditor.getNewGraphicalObjectLabelDefault();
+    public String getNewLinearObjectLabelDefault() {
+        // Forward this method to the Linear Object Label Editor.
+        return _linearObjectLabelEditor.getNewGraphicalObjectLabelDefault();
     }
 
     public int getNumberOfProjectionZones() {
@@ -110,9 +110,9 @@ public final class VisualAidPropertiesControls {
         return _projectionZonesSelector.getIntegerValue();
     }
 
-    public String getUniqueVisualAidLabel( final String visualAidLabelCandidate ) {
-        // Forward this method to the Visual Aid Label Editor.
-        return _visualAidLabelEditor.getUniqueGraphicalObjectLabel( visualAidLabelCandidate );
+    public String getUniqueLinearObjectLabel( final String linearObjectLabelCandidate ) {
+        // Forward this method to the Linear Object Label Editor.
+        return _linearObjectLabelEditor.getUniqueGraphicalObjectLabel( linearObjectLabelCandidate );
     }
 
     public boolean isUseAsProjector() {
@@ -120,9 +120,9 @@ public final class VisualAidPropertiesControls {
         return _useAsProjectorCheckBox.isSelected();
     }
 
-    public boolean isVisualAidLabelUnique( final String visualAidLabelCandidate ) {
-        // Forward this method to the Visual Aid Label Editor.
-        return _visualAidLabelEditor.isGraphicalObjectLabelUnique( visualAidLabelCandidate );
+    public boolean isLinearObjectLabelUnique( final String linearObjectLabelCandidate ) {
+        // Forward this method to the Linear Object Label Editor.
+        return _linearObjectLabelEditor.isGraphicalObjectLabelUnique( linearObjectLabelCandidate );
     }
 
     public void setLayerCollection( final ObservableList< LayerProperties > layerCollection ) {

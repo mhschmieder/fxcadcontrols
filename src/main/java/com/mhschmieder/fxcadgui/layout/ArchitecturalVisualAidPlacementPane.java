@@ -171,7 +171,7 @@ public final class ArchitecturalVisualAidPlacementPane extends HBox {
         // Cartesian coordinates to then re-sync the Polar coordinates,
         // eventually causing stack overflow from too much recursion.
         // NOTE: This is unconditionally re-enabled, as otherwise selecting a
-        // different Visual Aid while the Editor is open, can result in the
+        // different Linear Object while the Editor is open, can result in the
         // Polar Coordinates not updating, if they are the active selection.
         // There does not appear to be any resultant recursion, so probably we
         // added some data binding approaches after this code was first written.

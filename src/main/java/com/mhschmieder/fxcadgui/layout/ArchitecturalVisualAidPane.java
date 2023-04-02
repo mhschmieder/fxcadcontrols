@@ -33,7 +33,7 @@ package com.mhschmieder.fxcadgui.layout;
 import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxcadgraphics.ArchitecturalVisualAid;
 import com.mhschmieder.fxcadgraphics.GraphicalObjectCollection;
-import com.mhschmieder.fxcadgui.model.VisualAidProperties;
+import com.mhschmieder.fxcadgui.model.LinearObjectProperties;
 import com.mhschmieder.fxguitoolkit.ScrollingSensitivity;
 import com.mhschmieder.fxlayergraphics.LayerUtilities;
 import com.mhschmieder.fxlayergraphics.model.LayerProperties;
@@ -48,7 +48,7 @@ import javafx.scene.layout.VBox;
 
 public final class ArchitecturalVisualAidPane extends VBox {
 
-    public VisualAidPropertiesPane             _visualAidPropertiesPane;
+    public LinearObjectPropertiesPane             _linearObjectPropertiesPane;
     public ArchitecturalVisualAidPlacementPane _architecturalVisualAidPlacementPane;
 
     /** Layer Collection reference. */
@@ -82,19 +82,19 @@ public final class ArchitecturalVisualAidPane extends VBox {
     }
 
     public String getNewArchitecturalVisualAidLabelDefault() {
-        // Forward this method to the Visual Aid Properties Pane.
-        return _visualAidPropertiesPane.getNewVisualAidLabelDefault();
+        // Forward this method to the Linear Object Properties Pane.
+        return _linearObjectPropertiesPane.getNewLinearObjectLabelDefault();
     }
 
     public String getUniqueArchitecturalVisualAidLabel( final String architecturalVisualAidLabelCandidate ) {
-        // Forward this method to the Visual Aid Properties Pane.
-        return _visualAidPropertiesPane
-                .getUniqueVisualAidLabel( architecturalVisualAidLabelCandidate );
+        // Forward this method to the Linear Object Properties Pane.
+        return _linearObjectPropertiesPane
+                .getUniqueLinearObjectLabel( architecturalVisualAidLabelCandidate );
     }
 
-    public VisualAidProperties getVisualAidProperties() {
-        // Forward this method to the Visual Aid Properties Pane.
-        return _visualAidPropertiesPane.getVisualAidProperties();
+    public LinearObjectProperties getVisualAidProperties() {
+        // Forward this method to the Linear Object Properties Pane.
+        return _linearObjectPropertiesPane.getLinearObjectProperties();
     }
 
     private void initPane( final GraphicalObjectCollection< ArchitecturalVisualAid > architecturalVisualAidCollection,
@@ -103,7 +103,7 @@ public final class ArchitecturalVisualAidPane extends VBox {
                            final String projectionZonesUsageContext ) {
         final String architecturalVisualAidLabelDefault = ArchitecturalVisualAid
                 .getArchitecturalVisualAidLabelDefault();
-        _visualAidPropertiesPane = new VisualAidPropertiesPane( _clientProperties,
+        _linearObjectPropertiesPane = new LinearObjectPropertiesPane( _clientProperties,
                                                                 architecturalVisualAidLabelDefault,
                                                                 architecturalVisualAidCollection,
                                                                 projectorType,
@@ -117,19 +117,19 @@ public final class ArchitecturalVisualAidPane extends VBox {
         setPadding( new Insets( 6 ) );
 
         final ObservableList< Node > layout = getChildren();
-        layout.addAll( _visualAidPropertiesPane, _architecturalVisualAidPlacementPane );
+        layout.addAll( _linearObjectPropertiesPane, _architecturalVisualAidPlacementPane );
 
         // Make sure the Placement Pane always gets grow priority.
         VBox.setVgrow( _architecturalVisualAidPlacementPane, Priority.ALWAYS );
 
         // If the Projector status changes in any way, update the Preview.
-        _visualAidPropertiesPane._visualAidPropertiesControls._useAsProjectorCheckBox
+        _linearObjectPropertiesPane._linearObjectPropertiesControls._useAsProjectorCheckBox
                 .selectedProperty().addListener( ( observable, oldValue, newValue ) -> {
                     final ArchitecturalVisualAid architecturalVisualAid =
                                                                         new ArchitecturalVisualAid();
                     syncArchitecturalVisualAidToView( architecturalVisualAid );
                 } );
-        _visualAidPropertiesPane._visualAidPropertiesControls._projectionZonesSelector
+        _linearObjectPropertiesPane._linearObjectPropertiesControls._projectionZonesSelector
                 .setOnAction( evt -> {
                     final ArchitecturalVisualAid architecturalVisualAid =
                                                                         new ArchitecturalVisualAid();
@@ -194,9 +194,9 @@ public final class ArchitecturalVisualAidPane extends VBox {
     }
 
     public boolean isArchitecturalVisualAidLabelUnique( final String architecturalVisualAidLabelCandidate ) {
-        // Forward this method to the Visual Aid Properties Pane.
-        return _visualAidPropertiesPane
-                .isVisualAidLabelUnique( architecturalVisualAidLabelCandidate );
+        // Forward this method to the Linear Object Properties Pane.
+        return _linearObjectPropertiesPane
+                .isLinearObjectLabelUnique( architecturalVisualAidLabelCandidate );
     }
 
     public void saveEdits() {
@@ -205,7 +205,7 @@ public final class ArchitecturalVisualAidPane extends VBox {
     }
 
     public void setGesturesEnabled( final boolean gesturesEnabled ) {
-        // Forward this method to the Architectural Visual Aid Placement Pane.
+        // Forward this method to the Architectural Linear Object Placement Pane.
         _architecturalVisualAidPlacementPane.setGesturesEnabled( gesturesEnabled );
     }
 
@@ -213,8 +213,8 @@ public final class ArchitecturalVisualAidPane extends VBox {
         // Cache a local copy of the Layer Collection.
         _layerCollection = layerCollection;
 
-        // Forward this method to the Visual Aid Properties Pane.
-        _visualAidPropertiesPane.setLayerCollection( layerCollection );
+        // Forward this method to the Linear Object Properties Pane.
+        _linearObjectPropertiesPane.setLayerCollection( layerCollection );
     }
 
     /**
@@ -224,24 +224,24 @@ public final class ArchitecturalVisualAidPane extends VBox {
      *            The sensitivity of the mouse scroll wheel
      */
     public void setScrollingSensitivity( final ScrollingSensitivity scrollingSensitivity ) {
-        // Forward this method to the Architectural Visual Aid Placement Pane.
+        // Forward this method to the Architectural Linear Object Placement Pane.
         _architecturalVisualAidPlacementPane.setScrollingSensitivity( scrollingSensitivity );
     }
 
     public void syncArchitecturalVisualAidToView( final ArchitecturalVisualAid architecturalVisualAid ) {
-        // Get all of the Visual Aid properties.
-        final VisualAidProperties visualAidProperties = getVisualAidProperties();
-        architecturalVisualAid.setLabel( visualAidProperties.getLabel() );
+        // Get all of the Linear Object properties.
+        final LinearObjectProperties linearObjectProperties = getVisualAidProperties();
+        architecturalVisualAid.setLabel( linearObjectProperties.getLabel() );
 
         // Cache the current Layer selection via Layer Name lookup.
-        final String layerName = visualAidProperties.getLayerName();
+        final String layerName = linearObjectProperties.getLayerName();
         final LayerProperties layer = LayerUtilities.getLayerByName( _layerCollection, layerName );
         architecturalVisualAid.setLayer( layer );
 
         // Update the Projector values.
-        architecturalVisualAid.setUseAsProjector( visualAidProperties.isUseAsProjector() );
+        architecturalVisualAid.setUseAsProjector( linearObjectProperties.isUseAsProjector() );
         architecturalVisualAid
-                .setNumberOfProjectionZones( visualAidProperties.getNumberOfProjectionZones() );
+                .setNumberOfProjectionZones( linearObjectProperties.getNumberOfProjectionZones() );
 
         // Forward this method to the Architectural Visual Aid Placement Pane.
         _architecturalVisualAidPlacementPane
@@ -249,13 +249,13 @@ public final class ArchitecturalVisualAidPane extends VBox {
     }
 
     public void syncToSelectedLayerName( final ArchitecturalVisualAid architecturalVisualAid ) {
-        // Forward this method to the Visual Aid Properties Pane.
-        _visualAidPropertiesPane.syncToSelectedLayerName( architecturalVisualAid );
+        // Forward this method to the Linear Object Properties Pane.
+        _linearObjectPropertiesPane.syncToSelectedLayerName( architecturalVisualAid );
     }
 
     public void syncViewToArchitecturalVisualAid( final ArchitecturalVisualAid architecturalVisualAid ) {
-        // Forward this method to the Visual Aid Properties Pane.
-        _visualAidPropertiesPane.syncViewToVisualAidProperties( architecturalVisualAid );
+        // Forward this method to the Linear Object Properties Pane.
+        _linearObjectPropertiesPane.syncViewToLinearObjectProperties( architecturalVisualAid );
 
         // Forward this method to the Architectural Visual Aid Placement Pane.
         _architecturalVisualAidPlacementPane
@@ -268,19 +268,19 @@ public final class ArchitecturalVisualAidPane extends VBox {
     }
 
     public void updateAngleUnit( final AngleUnit angleUnit ) {
-        // Forward this method to the Visual Aid Placement Pane.
+        // Forward this method to the Linear Object Placement Pane.
         _architecturalVisualAidPlacementPane.updateAngleUnit( angleUnit );
     }
 
     public void updateDistanceUnit( final DistanceUnit distanceUnit ) {
-        // Forward this method to the Visual Aid Placement Pane.
+        // Forward this method to the Linear Object Placement Pane.
         _architecturalVisualAidPlacementPane.updateDistanceUnit( distanceUnit );
     }
 
     public void updateLayerNames( final boolean preserveSelectedLayerByIndex,
                                   final boolean preserveSelectedLayerByName ) {
-        // Forward this method to the Visual Aid Properties Pane.
-        _visualAidPropertiesPane.updateLayerNames( preserveSelectedLayerByIndex,
+        // Forward this method to the Linear Object Properties Pane.
+        _linearObjectPropertiesPane.updateLayerNames( preserveSelectedLayerByIndex,
                                                    preserveSelectedLayerByName );
     }
 
@@ -288,8 +288,8 @@ public final class ArchitecturalVisualAidPane extends VBox {
         final ObservableList< LayerProperties > layerCollection = _layerCollection;
         final int currentLayerIndex = LayerUtilities.getLayerIndex( layerCollection, currentLayer );
 
-        // Forward this method to the Visual Aid Properties Pane.
-        _visualAidPropertiesPane.updateLayerNames( currentLayerIndex );
+        // Forward this method to the Linear Object Properties Pane.
+        _linearObjectPropertiesPane.updateLayerNames( currentLayerIndex );
     }
 
     public void updatePositioning( final ArchitecturalVisualAid architecturalVisualAid ) {

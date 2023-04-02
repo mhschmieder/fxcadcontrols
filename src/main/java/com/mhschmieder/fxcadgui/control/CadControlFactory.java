@@ -64,7 +64,7 @@ public final class CadControlFactory {
         // NOTE: Limit to 12 zones vs. 24 for now, due to moire patterns that
         // occur in integer-based pixel systems such as AWT (JavaFX is
         // floating-point based), when the number of zones is large relative to
-        // the number of pixels between start and end points of the Visual Aid.
+        // the number of pixels between start and end points of the Linear Object.
         final int minimumNumberOfProjectionZones = 1;
         final int maximumNumberOfProjectionZones = 12; // 24
         final int projectionZonesIncrement = 1;
