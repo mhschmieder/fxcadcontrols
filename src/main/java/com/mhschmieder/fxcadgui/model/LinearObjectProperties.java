@@ -30,6 +30,7 @@
  */
 package com.mhschmieder.fxcadgui.model;
 
+import com.mhschmieder.commonstoolkit.lang.NumberUtilities;
 import com.mhschmieder.fxgraphicstoolkit.LabelAssignable;
 import com.mhschmieder.fxlayergraphics.model.LayerNameAssignable;
 
@@ -118,7 +119,7 @@ public class LinearObjectProperties implements LabelAssignable, LayerNameAssigna
     }
 
     public final int getNumberOfProjectionZones() {
-        return Integer.parseInt( numberOfProjectionZones.get() );
+        return NumberUtilities.parseInteger( numberOfProjectionZones.get() );
     }
 
 }
