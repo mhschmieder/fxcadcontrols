@@ -106,7 +106,6 @@ public final class Region2DStage extends XStage {
     // Add all of the relevant action handlers.
     @Override
     protected void addActionHandlers() {
-
         // Load the action handlers for the "Export" actions.
         _actions._fileActions._exportActions._exportImageGraphicsAction
                 .setEventHandler( evt -> doExportImageGraphics() );

@@ -84,11 +84,11 @@ public final class CadLabeledActionFactory {
     }
 
     @SuppressWarnings("nls")
-    public static XAction getViewZoomToPredictionPlaneAction( final ClientProperties pClientProperties ) {
+    public static XAction getViewZoomToReferencePlaneAction( final ClientProperties pClientProperties ) {
         return ActionFactory.makeAction( pClientProperties,
                                          BUNDLE_NAME,
                                          "view",
-                                         "zoomToPredictionPlane",
+                                         "zoomToReferencePlane",
                                          "/icons/everaldo/ViewMagToReference16.png" );
     }
 
