@@ -130,7 +130,7 @@ public class LinearObjectPropertiesPane extends BorderPane {
     private final void bindProperties() {
         // Bind the Linear Object Properties to their respective controls.
         // NOTE: Bind the label property to our custom value property vs. the
-        // editor's built-in text property, as this is designed to more reliably
+        // textField's built-in text property, as this is designed to more reliably
         // reflect committed edits vs. incomplete or uncorrected typing.
         _linearObjectPropertiesControls._linearObjectLabelEditor.textProperty()
                 .bindBidirectional( _linearObjectProperties.labelProperty() );
@@ -257,7 +257,7 @@ public class LinearObjectPropertiesPane extends BorderPane {
         linearObjectProperties.setUseAsProjector( linearObject.isUseAsProjector() );
         linearObjectProperties.setNumberOfProjectionZones( linearObject.getNumberOfProjectionZones() );
 
-        // Make sure the cached editor value matches the latest saved label.
+        // Make sure the cached textField value matches the latest saved label.
         _linearObjectPropertiesControls._linearObjectLabelEditor.setValue( linearObject.getLabel() );
     }
 

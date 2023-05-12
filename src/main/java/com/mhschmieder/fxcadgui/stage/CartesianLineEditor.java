@@ -103,7 +103,7 @@ public final class CartesianLineEditor extends ObjectPropertiesEditor {
         }
     }
 
-    // Open the editor initialized to a mouse-selected Cartesian Line.
+    // Open the textField initialized to a mouse-selected Cartesian Line.
     public void editCartesianLine( final CartesianLine cartesianLine ) {
         // Make sure an active editing session is always enabled when visible.
         setDisable( false );
@@ -123,7 +123,7 @@ public final class CartesianLineEditor extends ObjectPropertiesEditor {
         // for the Edit action when opening this window.
         setCartesianLineReference( cartesianLine );
 
-        // Sync the editor to the selected Cartesian Line.
+        // Sync the textField to the selected Cartesian Line.
         syncViewToModel();
     }
 

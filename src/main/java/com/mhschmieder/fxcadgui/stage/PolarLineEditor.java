@@ -103,7 +103,7 @@ public final class PolarLineEditor extends ObjectPropertiesEditor {
         }
     }
 
-    // Open the editor initialized to a mouse-selected Polar Line.
+    // Open the textField initialized to a mouse-selected Polar Line.
     public void editPolarLine( final PolarLine polarLine ) {
         // Make sure an active editing session is always enabled when visible.
         setDisable( false );
@@ -123,7 +123,7 @@ public final class PolarLineEditor extends ObjectPropertiesEditor {
         // for the Edit action when opening this window.
         setPolarLineReference( polarLine );
 
-        // Sync the editor to the selected Polar Line.
+        // Sync the textField to the selected Polar Line.
         syncViewToModel();
     }
 

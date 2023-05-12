@@ -39,7 +39,7 @@ import com.mhschmieder.fxcadgraphics.GraphicalObjectCollection;
 import com.mhschmieder.fxguitoolkit.control.TextEditor;
 
 /**
- * This is a specialized label editor for Graphical Objects, that guarantees
+ * This is a specialized label textField for Graphical Objects, that guarantees
  * name uniqueness, among other special contracts.
  */
 public final class GraphicalObjectLabelEditor extends TextEditor {
@@ -94,6 +94,11 @@ public final class GraphicalObjectLabelEditor extends TextEditor {
         }
     }
 
+    private void initEditor() {
+        _uniquefierNumberFormat = NumberFormatUtilities
+                .getUniquefierNumberFormat( clientProperties.locale );
+    }
+
     @Override
     public String getAdjustedValue( final String text ) {
         // First, get the potentially trimmed version of the current input.
@@ -127,11 +132,6 @@ public final class GraphicalObjectLabelEditor extends TextEditor {
                                                           graphicalObjectLabelDefault,
                                                           graphicalObjectLabelCurrent,
                                                           _uniquefierNumberFormat );
-    }
-
-    private void initEditor() {
-        _uniquefierNumberFormat = NumberFormatUtilities
-                .getUniquefierNumberFormat( clientProperties.locale );
     }
 
     // Find out if the candidate label is unique.

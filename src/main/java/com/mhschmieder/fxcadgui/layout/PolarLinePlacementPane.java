@@ -153,7 +153,7 @@ public final class PolarLinePlacementPane extends HBox {
 
     public void syncViewToPolarLine( final PolarLine polarLine ) {
         // Make sure the positioning parameters are in sync with the data model
-        // as they could change outside this editor, such as via mouse
+        // as they could change outside this textField, such as via mouse
         // move/rotate in the Sound Field.
         updatePositioning( polarLine );
     }
