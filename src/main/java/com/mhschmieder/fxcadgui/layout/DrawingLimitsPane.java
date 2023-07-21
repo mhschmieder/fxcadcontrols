@@ -137,7 +137,7 @@ public final class DrawingLimitsPane extends GridPane {
         bindProperties();
     }
 
-    /**
+    /*
      * Conditionally set the Drawing Limits to match the current Auto-Sync
      * Boundary.
      * <p>
@@ -163,12 +163,11 @@ public final class DrawingLimitsPane extends GridPane {
         }
     }
 
-    /**
+    /*
      * Propagate the new Distance Unit to the subcomponents.
      */
     public void updateDistanceUnit( final DistanceUnit distanceUnit ) {
         // Forward this method to the Extents Pane.
         _extentsPane.updateDistanceUnit( distanceUnit );
     }
-
 }

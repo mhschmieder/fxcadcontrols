@@ -65,9 +65,21 @@
             <version>0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
+       <dependency>
+            <groupId>com.mhschmieder</groupId>
+            <artifactId>fxcharttoolkit</artifactId>
+            <version>0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
         <dependency>
             <groupId>com.mhschmieder</groupId>
             <artifactId>fxlayergraphics</artifactId>
+            <version>0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.mhschmieder</groupId>
+            <artifactId>fxdxfconverter</artifactId>
             <version>0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
