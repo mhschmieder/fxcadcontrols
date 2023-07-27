@@ -164,7 +164,7 @@ public final class SurfacesPane extends BorderPane {
         // Make the array of individual Surface Selector controls.
         _surfaceSelectorGrid = new GridPane();
 
-        // We center the column header labels to follow Compass conventions.
+        // We center the column header labels to follow modern conventions.
         _surfaceIdLabel = GuiUtilities.getColumnHeader( COLUMN_HEADER_SURFACE_ID );
         _surfaceNameLabel = GuiUtilities.getColumnHeader( COLUMN_HEADER_SURFACE_NAME );
         _statusLabel = GuiUtilities.getColumnHeader( COLUMN_HEADER_STATUS );

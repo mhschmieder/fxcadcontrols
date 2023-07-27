@@ -43,7 +43,7 @@ public final class CadLabeledControlFactory {
         final String tooltipText = "Click to Toggle Surface Status Between Bypassed and Enabled"; //$NON-NLS-1$
 
         // NOTE: JavaFX CSS automatically darkens unselected buttons, and
-        // auto-selects the foreground for text fill, but we mimic Compass.
+        //  auto-selects the foreground for text fill, but we override.
         final XToggleButton toggleButton = new XToggleButton( selectedText,
                                                               deselectedText,
                                                               tooltipText,
@@ -55,5 +55,4 @@ public final class CadLabeledControlFactory {
 
         return toggleButton;
     }
-
 }
