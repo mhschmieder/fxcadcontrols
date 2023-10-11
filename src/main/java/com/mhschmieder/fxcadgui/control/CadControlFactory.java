@@ -52,8 +52,9 @@ public final class CadControlFactory {
                                                                        applyToolkitCss,
                                                                        false,
                                                                        false,
-                                                                       surfaceMaterialNames,
-                                                                       surfaceMaterialNameDefault );
+                                                                       surfaceMaterialNames.length,
+                                                                       surfaceMaterialNameDefault,
+                                                                       surfaceMaterialNames );
 
         return surfaceMaterialSelector;
     }
