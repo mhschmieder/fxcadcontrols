@@ -215,7 +215,7 @@ public final class SurfacesPane extends BorderPane {
                         // Once the Surface Name Editor loses editing focus,
                         // uniquefy the Name (if necessary) and commit.
                         if ( !isNowFocused ) {
-                            syncSurfaceNameToView( currentSurfaceIndex );
+                            updateSurfaceNameView( currentSurfaceIndex );
                         }
                     } );
             surfaceSelectorControls._surfaceNameEditor.setOnKeyReleased( keyEvent -> {
@@ -223,8 +223,8 @@ public final class SurfacesPane extends BorderPane {
                 // and use it to save edits in place.
                 final KeyCombination keyCombo = new KeyCodeCombination( KeyCode.ENTER );
                 if ( keyCombo.match( keyEvent ) ) {
-                    // Save the current Surface Name edits.
-                    syncSurfaceNameToView( currentSurfaceIndex );
+                    // Save the current Surface Name edits to its view controller.
+                    updateSurfaceNameView( currentSurfaceIndex );
 
                     // Consume the ENTER key so it doesn't get processed twice.
                     keyEvent.consume();
@@ -313,7 +313,7 @@ public final class SurfacesPane extends BorderPane {
         bindProperties();
     }
 
-    private void syncSurfaceNameToView( final int surfaceIndex ) {
+    private void updateSurfaceNameView( final int surfaceIndex ) {
         if ( ( _surfaceProperties == null )
                 || ( _surfaceProperties.size() < Region2D.NUMBER_OF_SURFACES ) ) {
             return;

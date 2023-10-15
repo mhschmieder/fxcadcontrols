@@ -119,7 +119,7 @@ public final class CartesianLinePlacementPane extends HBox {
                                                             cartesianLine.getY1() );
     }
 
-    public void syncCartesianLineToView( final CartesianLine cartesianLine ) {
+    public void updateCartesianLineModel( final CartesianLine cartesianLine ) {
         final Point2D startPosition2D = _startCartesianPositionPane.getCartesianPosition2D();
         if ( _endPositionPane.isCartesianPositionActive() ) {
             final Point2D endPosition2D = _endPositionPane.getCartesianPosition2D();
@@ -138,7 +138,7 @@ public final class CartesianLinePlacementPane extends HBox {
         updatePreview( cartesianLine );
     }
 
-    public void syncViewToCartesianLine( final CartesianLine cartesianLine ) {
+    public void updateCartesianLineView( final CartesianLine cartesianLine ) {
         // Make sure the positioning parameters are in sync with the data model
         // as they could change outside this textField, such as via mouse
         // move/rotate in the Sound Field.

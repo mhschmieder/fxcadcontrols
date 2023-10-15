@@ -123,8 +123,8 @@ public final class PolarLineEditor extends ObjectPropertiesEditor {
         // for the Edit action when opening this window.
         setPolarLineReference( polarLine );
 
-        // Sync the textField to the selected Polar Line.
-        syncViewToModel();
+        // Update the TextField to match the selected Polar Line.
+        updateView();
     }
 
     public PolarLine getPolarLineReference() {
@@ -177,7 +177,7 @@ public final class PolarLineEditor extends ObjectPropertiesEditor {
         _polarLineReference.setLabel( polarLineLabel );
 
         // Update the view to match the new model, but don't apply it yet.
-        syncViewToModel();
+        updateView();
     }
 
     @Override
@@ -216,20 +216,20 @@ public final class PolarLineEditor extends ObjectPropertiesEditor {
     }
 
     @Override
-    protected void syncEditorToObjectReference() {
+    protected void updateObjectPropertiesView() {
         // Forward this method to the Polar Line Pane.
-        _polarLinePane.syncViewToPolarLine( _polarLineReference );
+        _polarLinePane.updatePolarLineView( _polarLineReference );
     }
 
     @Override
-    protected void syncObjectReferenceToEditor() {
+    protected void updateObjectPropertiesModel() {
         // Forward this method to the Polar Line Pane.
-        _polarLinePane.syncPolarLineToView( _polarLineReference );
+        _polarLinePane.updatePolarLineModel( _polarLineReference );
     }
 
-    public void syncToSelectedLayerName() {
+    public void updateLayerNameSelection() {
         // Forward this method to the Polar Line Pane.
-        _polarLinePane.syncToSelectedLayerName( _polarLineReference );
+        _polarLinePane.updateLayerNameSelection( _polarLineReference );
     }
 
     public void toggleGestures() {
@@ -246,7 +246,7 @@ public final class PolarLineEditor extends ObjectPropertiesEditor {
         // only come from the dialog not showing anyway, and can hit
         // performance.
         if ( isEditMode() ) {
-            syncEditorToObjectReference();
+            updateObjectPropertiesView();
         }
     }
 
@@ -259,7 +259,7 @@ public final class PolarLineEditor extends ObjectPropertiesEditor {
         // only come from the dialog not showing anyway, and can hit
         // performance.
         if ( isEditMode() ) {
-            syncEditorToObjectReference();
+            updateObjectPropertiesView();
         }
     }
 

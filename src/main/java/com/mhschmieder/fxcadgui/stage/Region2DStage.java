@@ -279,7 +279,7 @@ public final class Region2DStage extends XStage {
     }
 
     @Override
-    public void syncViewToModel() {
+    public void updateView() {
         // Forward this reference to the Region2D Pane.
         _region2DPane.updateView();
     }

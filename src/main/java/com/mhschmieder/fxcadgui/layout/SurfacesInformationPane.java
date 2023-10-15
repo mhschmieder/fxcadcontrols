@@ -165,7 +165,7 @@ public final class SurfacesInformationPane extends VBox {
         } );
     }
 
-    public void syncViewToModel() {
+    public void updateView() {
         updateLabels();
     }
 

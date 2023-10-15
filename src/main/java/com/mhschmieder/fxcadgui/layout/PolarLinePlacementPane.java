@@ -134,7 +134,7 @@ public final class PolarLinePlacementPane extends HBox {
                                                   polarLine.getStartDistance() );
     }
 
-    public void syncPolarLineToView( final PolarLine polarLine ) {
+    public void updatePolarLineModel( final PolarLine polarLine ) {
         final Point2D inclinometerPosition2D = _inclinometerPositionPane.getCartesianPosition2D();
         final double startAngleDegrees = _startPolarPositionPane.getRotationAngle();
         final double startDistance = _startPolarPositionPane.getDistance();
@@ -151,7 +151,7 @@ public final class PolarLinePlacementPane extends HBox {
         updatePreview( polarLine );
     }
 
-    public void syncViewToPolarLine( final PolarLine polarLine ) {
+    public void updatePolarLineView( final PolarLine polarLine ) {
         // Make sure the positioning parameters are in sync with the data model
         // as they could change outside this textField, such as via mouse
         // move/rotate in the Sound Field.

@@ -127,12 +127,12 @@ public final class PolarLinePane extends VBox {
         _linearObjectPropertiesPane._linearObjectPropertiesControls._useAsProjectorCheckBox
                 .selectedProperty().addListener( ( observable, oldValue, newValue ) -> {
                     final PolarLine polarLine = new PolarLine();
-                    syncPolarLineToView( polarLine );
+                    updatePolarLineModel( polarLine );
                 } );
         _linearObjectPropertiesPane._linearObjectPropertiesControls._projectionZonesSelector
                 .setOnAction( evt -> {
                     final PolarLine polarLine = new PolarLine();
-                    syncPolarLineToView( polarLine );
+                    updatePolarLineModel( polarLine );
                 } );
 
         // Make sure that any edits to any of the coordinates or angles, update
@@ -144,42 +144,42 @@ public final class PolarLinePane extends VBox {
         _polarLinePlacementPane._inclinometerPositionPane._xPositionEditor
                 .focusedProperty().addListener( ( observable, oldValue, newValue ) -> {
                     final PolarLine polarLine = new PolarLine();
-                    syncPolarLineToView( polarLine );
+                    updatePolarLineModel( polarLine );
                 } );
         _polarLinePlacementPane._inclinometerPositionPane._yPositionEditor
                 .focusedProperty().addListener( ( observable, oldValue, newValue ) -> {
                     final PolarLine polarLine = new PolarLine();
-                    syncPolarLineToView( polarLine );
+                    updatePolarLineModel( polarLine );
                 } );
         _polarLinePlacementPane._startPolarPositionPane._anglePane._angleEditor
                 .focusedProperty().addListener( ( observable, oldValue, newValue ) -> {
                     final PolarLine polarLine = new PolarLine();
-                    syncPolarLineToView( polarLine );
+                    updatePolarLineModel( polarLine );
                 } );
         _polarLinePlacementPane._startPolarPositionPane._anglePane._angleSlider
                 .valueProperty().addListener( ( observable, oldValue, newValue ) -> {
                     final PolarLine polarLine = new PolarLine();
-                    syncPolarLineToView( polarLine );
+                    updatePolarLineModel( polarLine );
                 } );
         _polarLinePlacementPane._startPolarPositionPane._distanceEditor.focusedProperty()
                 .addListener( ( observable, oldValue, newValue ) -> {
                     final PolarLine polarLine = new PolarLine();
-                    syncPolarLineToView( polarLine );
+                    updatePolarLineModel( polarLine );
                 } );
         _polarLinePlacementPane._endPolarPositionPane._anglePane._angleEditor
                 .focusedProperty().addListener( ( observable, oldValue, newValue ) -> {
                     final PolarLine polarLine = new PolarLine();
-                    syncPolarLineToView( polarLine );
+                    updatePolarLineModel( polarLine );
                 } );
         _polarLinePlacementPane._endPolarPositionPane._anglePane._angleSlider
                 .valueProperty().addListener( ( observable, oldValue, newValue ) -> {
                     final PolarLine polarLine = new PolarLine();
-                    syncPolarLineToView( polarLine );
+                    updatePolarLineModel( polarLine );
                 } );
         _polarLinePlacementPane._endPolarPositionPane._distanceEditor.focusedProperty()
                 .addListener( ( observable, oldValue, newValue ) -> {
                     final PolarLine polarLine = new PolarLine();
-                    syncPolarLineToView( polarLine );
+                    updatePolarLineModel( polarLine );
                 } );
     }
 
@@ -217,7 +217,7 @@ public final class PolarLinePane extends VBox {
         _polarLinePlacementPane.setScrollingSensitivity( scrollingSensitivity );
     }
 
-    public void syncPolarLineToView( final PolarLine polarLine ) {
+    public void updatePolarLineModel( final PolarLine polarLine ) {
         // Get all of the Linear Object Properties.
         final LinearObjectProperties linearObjectProperties = getLinearObjectProperties();
         polarLine.setLabel( linearObjectProperties.getLabel() );
@@ -232,20 +232,20 @@ public final class PolarLinePane extends VBox {
         polarLine.setNumberOfProjectionZones( linearObjectProperties.getNumberOfProjectionZones() );
 
         // Forward this method to the Polar Line Placement Pane.
-        _polarLinePlacementPane.syncPolarLineToView( polarLine );
+        _polarLinePlacementPane.updatePolarLineModel( polarLine );
     }
 
-    public void syncToSelectedLayerName( final PolarLine polarLine ) {
+    public void updateLayerNameSelection( final PolarLine polarLine ) {
         // Forward this method to the Linear Object Properties Pane.
-        _linearObjectPropertiesPane.syncToSelectedLayerName( polarLine );
+        _linearObjectPropertiesPane.updateLayerNameSelection( polarLine );
     }
 
-    public void syncViewToPolarLine( final PolarLine polarLine ) {
+    public void updatePolarLineView( final PolarLine polarLine ) {
         // Forward this method to the Linear Object Properties Pane.
-        _linearObjectPropertiesPane.syncViewToLinearObjectProperties( polarLine );
+        _linearObjectPropertiesPane.updateLinearObjectView( polarLine );
 
         // Forward this method to the Polar Line Placement Pane.
-        _polarLinePlacementPane.syncViewToPolarLine( polarLine );
+        _polarLinePlacementPane.updatePolarLineView( polarLine );
     }
 
     public void toggleGestures() {

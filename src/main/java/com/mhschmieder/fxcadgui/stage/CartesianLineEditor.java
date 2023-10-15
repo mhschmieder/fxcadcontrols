@@ -123,8 +123,8 @@ public final class CartesianLineEditor extends ObjectPropertiesEditor {
         // for the Edit action when opening this window.
         setCartesianLineReference( cartesianLine );
 
-        // Sync the textField to the selected Cartesian Line.
-        syncViewToModel();
+        // Update the TextField from the selected Cartesian Line.
+        updateView();
     }
 
     public CartesianLine getCartesianLineReference() {
@@ -179,7 +179,7 @@ public final class CartesianLineEditor extends ObjectPropertiesEditor {
         _cartesianLineReference.setLabel( cartesianLineLabel );
 
         // Update the view to match the new model, but don't apply it yet.
-        syncViewToModel();
+        updateView();
     }
 
     public void setCartesianLineReference( final CartesianLine cartesianLine ) {
@@ -218,20 +218,20 @@ public final class CartesianLineEditor extends ObjectPropertiesEditor {
     }
 
     @Override
-    protected void syncEditorToObjectReference() {
+    protected void updateObjectPropertiesView() {
         // Forward this method to the Cartesian Line Pane.
-        _cartesianLinePane.syncViewToCartesianLine( _cartesianLineReference );
+        _cartesianLinePane.updateCartesianLineView( _cartesianLineReference );
     }
 
     @Override
-    protected void syncObjectReferenceToEditor() {
+    protected void updateObjectPropertiesModel() {
         // Forward this method to the Cartesian Line Pane.
-        _cartesianLinePane.syncCartesianLineToView( _cartesianLineReference );
+        _cartesianLinePane.updateCartesianLineModel( _cartesianLineReference );
     }
 
-    public void syncToSelectedLayerName() {
+    public void updateLayerNameSelection() {
         // Forward this method to the Cartesian Line Pane.
-        _cartesianLinePane.syncToSelectedLayerName( _cartesianLineReference );
+        _cartesianLinePane.updateLayerNameSelection( _cartesianLineReference );
     }
 
     public void toggleGestures() {
@@ -248,7 +248,7 @@ public final class CartesianLineEditor extends ObjectPropertiesEditor {
         // only come from the dialog not showing anyway, and can hit
         // performance.
         if ( isEditMode() ) {
-            syncEditorToObjectReference();
+            updateObjectPropertiesView();
         }
     }
 
@@ -261,7 +261,7 @@ public final class CartesianLineEditor extends ObjectPropertiesEditor {
         // only come from the dialog not showing anyway, and can hit
         // performance.
         if ( isEditMode() ) {
-            syncEditorToObjectReference();
+            updateObjectPropertiesView();
         }
     }
 

@@ -127,12 +127,12 @@ public final class CartesianLinePane extends VBox {
         _linearObjectPropertiesPane._linearObjectPropertiesControls._useAsProjectorCheckBox
                 .selectedProperty().addListener( ( observable, oldValue, newValue ) -> {
                     final CartesianLine cartesianLine = new CartesianLine();
-                    syncCartesianLineToView( cartesianLine );
+                    updateCartesianLineModel( cartesianLine );
                 } );
         _linearObjectPropertiesPane._linearObjectPropertiesControls._projectionZonesSelector
                 .setOnAction( evt -> {
                     final CartesianLine cartesianLine = new CartesianLine();
-                    syncCartesianLineToView( cartesianLine );
+                    updateCartesianLineModel( cartesianLine );
                 } );
 
         // Make sure that any edits to one end position control affect the
@@ -146,42 +146,42 @@ public final class CartesianLinePane extends VBox {
         _cartesianLinePlacementPane._startCartesianPositionPane._xPositionEditor
                 .focusedProperty().addListener( ( observable, oldValue, newValue ) -> {
                     final CartesianLine cartesianLine = new CartesianLine();
-                    syncCartesianLineToView( cartesianLine );
+                    updateCartesianLineModel( cartesianLine );
                 } );
         _cartesianLinePlacementPane._startCartesianPositionPane._yPositionEditor
                 .focusedProperty().addListener( ( observable, oldValue, newValue ) -> {
                     final CartesianLine cartesianLine = new CartesianLine();
-                    syncCartesianLineToView( cartesianLine );
+                    updateCartesianLineModel( cartesianLine );
                 } );
         _cartesianLinePlacementPane._endPositionPane._cartesianPositionPane._xPositionEditor
                 .focusedProperty().addListener( ( observable, oldValue, newValue ) -> {
                     final CartesianLine cartesianLine = new CartesianLine();
-                    syncCartesianLineToView( cartesianLine );
-                    syncViewToCartesianLine( cartesianLine );
+                    updateCartesianLineModel( cartesianLine );
+                    updateCartesianLineView( cartesianLine );
                 } );
         _cartesianLinePlacementPane._endPositionPane._cartesianPositionPane._yPositionEditor
                 .focusedProperty().addListener( ( observable, oldValue, newValue ) -> {
                     final CartesianLine cartesianLine = new CartesianLine();
-                    syncCartesianLineToView( cartesianLine );
-                    syncViewToCartesianLine( cartesianLine );
+                    updateCartesianLineModel( cartesianLine );
+                    updateCartesianLineView( cartesianLine );
                 } );
         _cartesianLinePlacementPane._endPositionPane._polarPositionPane._anglePane._angleEditor
                 .focusedProperty().addListener( ( observable, oldValue, newValue ) -> {
                     final CartesianLine cartesianLine = new CartesianLine();
-                    syncCartesianLineToView( cartesianLine );
-                    syncViewToCartesianLine( cartesianLine );
+                    updateCartesianLineModel( cartesianLine );
+                    updateCartesianLineView( cartesianLine );
                 } );
         _cartesianLinePlacementPane._endPositionPane._polarPositionPane._anglePane._angleSlider
                 .valueProperty().addListener( ( observable, oldValue, newValue ) -> {
                     final CartesianLine cartesianLine = new CartesianLine();
-                    syncCartesianLineToView( cartesianLine );
-                    syncViewToCartesianLine( cartesianLine );
+                    updateCartesianLineModel( cartesianLine );
+                    updateCartesianLineView( cartesianLine );
                 } );
         _cartesianLinePlacementPane._endPositionPane._polarPositionPane._distanceEditor
                 .focusedProperty().addListener( ( observable, oldValue, newValue ) -> {
                     final CartesianLine cartesianLine = new CartesianLine();
-                    syncCartesianLineToView( cartesianLine );
-                    syncViewToCartesianLine( cartesianLine );
+                    updateCartesianLineModel( cartesianLine );
+                    updateCartesianLineView( cartesianLine );
                 } );
     }
 
@@ -220,7 +220,7 @@ public final class CartesianLinePane extends VBox {
         _cartesianLinePlacementPane.setScrollingSensitivity( scrollingSensitivity );
     }
 
-    public void syncCartesianLineToView( final CartesianLine cartesianLine ) {
+    public void updateCartesianLineModel( final CartesianLine cartesianLine ) {
         // Get all of the Linear Object properties.
         final LinearObjectProperties linearObjectProperties = getLinearObjectProperties();
         cartesianLine.setLabel( linearObjectProperties.getLabel() );
@@ -236,20 +236,20 @@ public final class CartesianLinePane extends VBox {
                 .setNumberOfProjectionZones( linearObjectProperties.getNumberOfProjectionZones() );
 
         // Forward this method to the Cartesian Line Placement Pane.
-        _cartesianLinePlacementPane.syncCartesianLineToView( cartesianLine );
+        _cartesianLinePlacementPane.updateCartesianLineModel( cartesianLine );
     }
 
-    public void syncToSelectedLayerName( final CartesianLine cartesianLine ) {
+    public void updateLayerNameSelection( final CartesianLine cartesianLine ) {
         // Forward this method to the Linear Object Properties Pane.
-        _linearObjectPropertiesPane.syncToSelectedLayerName( cartesianLine );
+        _linearObjectPropertiesPane.updateLayerNameSelection( cartesianLine );
     }
 
-    public void syncViewToCartesianLine( final CartesianLine cartesianLine ) {
+    public void updateCartesianLineView( final CartesianLine cartesianLine ) {
         // Forward this method to the Linear Object Properties Pane.
-        _linearObjectPropertiesPane.syncViewToLinearObjectProperties( cartesianLine );
+        _linearObjectPropertiesPane.updateLinearObjectView( cartesianLine );
 
         // Forward this method to the Cartesian Line Placement Pane.
-        _cartesianLinePlacementPane.syncViewToCartesianLine( cartesianLine );
+        _cartesianLinePlacementPane.updateCartesianLineView( cartesianLine );
     }
 
     public void toggleGestures() {

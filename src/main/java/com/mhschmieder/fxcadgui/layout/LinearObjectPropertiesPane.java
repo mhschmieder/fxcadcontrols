@@ -238,7 +238,7 @@ public class LinearObjectPropertiesPane extends BorderPane {
         _linearObjectPropertiesControls.setLayerCollection( layerCollection );
     }
 
-    public final void syncToSelectedLayerName( final GraphicalObject linearObject ) {
+    public final void updateLayerNameSelection( final GraphicalObject linearObject ) {
         // Forward this method to the Linear Object Properties Group.
         final String layerName = linearObject.getLayerName();
         final SingleSelectionModel< String > selectionModel =
@@ -247,8 +247,8 @@ public class LinearObjectPropertiesPane extends BorderPane {
         selectionModel.select( layerName );
     }
 
-    public final void syncViewToLinearObjectProperties( final LinearObject linearObject ) {
-        // Sync the table to the Linear Object Properties.
+    public final void updateLinearObjectView( final LinearObject linearObject ) {
+        // Update the table to match the new Linear Object Properties.
         final LinearObjectProperties linearObjectProperties = getLinearObjectProperties();
         linearObjectProperties.setLabel( linearObject.getLabel() );
         linearObjectProperties.setLayerName( linearObject.getLayerName() );
