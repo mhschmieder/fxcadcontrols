@@ -39,8 +39,9 @@ import com.mhschmieder.fxguitoolkit.action.XAction;
  */
 public final class CadLabeledActionFactory {
 
+    // NOTE: We must substitute "." for resource directory tree delimiters.
     @SuppressWarnings("nls") public static final String BUNDLE_NAME =
-                                                                    "com.mhschmieder.fxcadgui.action.CadActionLabels";
+                                                                    "properties.CadActionLabels";
 
     @SuppressWarnings("nls")
     public static XAction getArchitectureToolChoice( final ClientProperties pClientProperties ) {
