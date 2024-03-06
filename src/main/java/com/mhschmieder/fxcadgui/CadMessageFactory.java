@@ -46,11 +46,23 @@ public class CadMessageFactory {
     private CadMessageFactory() {}
 
 
+    public static final String getCopyReferencePointTitle() {
+        return "Copy Reference Point"; //$NON-NLS-1$
+    }
+
     public static final String getGraphicsImportHelpBanner() {
         return "Graphics Import Help"; //$NON-NLS-1$
     }
 
     public static final String getGraphicsImportOptionsMasthead() {
         return "Graphics Import Options"; //$NON-NLS-1$
+    }
+
+    public static final String getInsertReferencePointTitle() {
+        return "Insert Reference Point"; //$NON-NLS-1$
+    }
+
+    public static final String getSurfaceMaterialTooltip() {
+        return "Double-Click for List of Materials from Elements of Acoustical Engineering (Olson); Click ESC to Cancel and Exit List and Cell"; //$NON-NLS-1$
     }
 }
