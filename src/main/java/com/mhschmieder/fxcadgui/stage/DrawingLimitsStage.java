@@ -81,7 +81,7 @@ public final class DrawingLimitsStage extends XStage {
         _autoSyncLabel = autoSyncLabel;
 
         try {
-            initStage( "/com/led24/icons/RulerCrop16.png" );
+            initStage( "/icons/led24/RulerCrop16.png" );
         }
         catch ( final Exception ex ) {
             ex.printStackTrace();

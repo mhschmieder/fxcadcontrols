@@ -76,6 +76,22 @@ public final class CadLabeledActionFactory {
     }
 
     @SuppressWarnings("nls")
+    public static XAction getZoomToolChoice( final ClientProperties pClientProperties ) {
+        return getMouseToolChoice( pClientProperties,
+                                   "zoomTool",
+                                   "/icons/everaldo/ViewMag16.png" );
+    }
+
+    @SuppressWarnings("nls")
+    public static XAction getViewDrawingLimitsAction( final ClientProperties clientProperties ) {
+        return ActionFactory.makeAction( clientProperties,
+                                         BUNDLE_NAME,
+                                         "view",
+                                         "drawingLimits",
+                                         "/icons/led24/RulerCrop16.png" );
+    }
+
+    @SuppressWarnings("nls")
     public static XAction getViewZoomToDrawingLimitsAction( final ClientProperties pClientProperties ) {
         return ActionFactory.makeAction( pClientProperties,
                                          BUNDLE_NAME,
@@ -92,12 +108,4 @@ public final class CadLabeledActionFactory {
                                          "zoomToReferencePlane",
                                          "/icons/everaldo/ViewMagToReference16.png" );
     }
-
-    @SuppressWarnings("nls")
-    public static XAction getZoomToolChoice( final ClientProperties pClientProperties ) {
-        return getMouseToolChoice( pClientProperties,
-                                   "zoomTool",
-                                   "/icons/everaldo/ViewMag16.png" );
-    }
-
 }
