@@ -44,45 +44,6 @@ public final class CadLabeledActionFactory {
                                                                     "properties.CadActionLabels";
 
     @SuppressWarnings("nls")
-    public static XAction getArchitectureToolChoice( final ClientProperties pClientProperties ) {
-        return getMouseToolChoice( pClientProperties,
-                                   "architectureTool",
-                                   "/icons/yusukeKamiyamane/LayerShapeLine16.png" );
-    }
-
-    @SuppressWarnings("nls")
-    public static XAction getMouseToolChoice( final ClientProperties pClientProperties,
-                                              final String itemName,
-                                              final String jarRelativeIconFilename ) {
-        return ActionFactory.makeChoice( pClientProperties,
-                                         BUNDLE_NAME,
-                                         "mouseTool",
-                                         itemName,
-                                         jarRelativeIconFilename );
-    }
-
-    @SuppressWarnings("nls")
-    public static XAction getRotateToolChoice( final ClientProperties pClientProperties ) {
-        return getMouseToolChoice( pClientProperties,
-                                   "rotateTool",
-                                   "/icons/everaldo/RotateCWLight16.png" );
-    }
-
-    @SuppressWarnings("nls")
-    public static XAction getSelectToolChoice( final ClientProperties pClientProperties ) {
-        return getMouseToolChoice( pClientProperties,
-                                   "selectTool",
-                                   "/icons/everaldo/Select16.png" );
-    }
-
-    @SuppressWarnings("nls")
-    public static XAction getZoomToolChoice( final ClientProperties pClientProperties ) {
-        return getMouseToolChoice( pClientProperties,
-                                   "zoomTool",
-                                   "/icons/everaldo/ViewMag16.png" );
-    }
-
-    @SuppressWarnings("nls")
     public static XAction getViewDrawingLimitsAction( final ClientProperties clientProperties ) {
         return ActionFactory.makeAction( clientProperties,
                                          BUNDLE_NAME,
