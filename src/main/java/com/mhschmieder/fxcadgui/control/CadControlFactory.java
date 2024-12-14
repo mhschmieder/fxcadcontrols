@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2023 Mark Schmieder
+ * Copyright (c) 2020, 2025 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -35,17 +35,20 @@ import java.util.List;
 import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxguitoolkit.control.IntegerSelector;
 import com.mhschmieder.fxguitoolkit.control.TextSelector;
-import com.mhschmieder.physicstoolkit.SurfaceMaterialNames;
+import com.mhschmieder.physicstoolkit.SurfaceMaterial;
+import com.mhschmieder.physicstoolkit.SurfaceMaterialUtilities;
 
 public final class CadControlFactory {
 
     public static TextSelector getSurfaceMaterialSelector( final ClientProperties pClientProperties,
                                                            final String tooltipText,
                                                            final boolean applyToolkitCss ) {
-        final List< String > surfaceMaterialList = SurfaceMaterialNames.getSurfaceMaterials();
+        final List< String > surfaceMaterialList = SurfaceMaterialUtilities
+                .getSurfaceMaterialNames();
         final String[] surfaceMaterialNames = surfaceMaterialList
                 .toArray( new String[ surfaceMaterialList.size() ] );
-        final String surfaceMaterialNameDefault = SurfaceMaterialNames.RIGID;
+        final String surfaceMaterialNameDefault = SurfaceMaterial.RIGID
+                .toPresentationString();
 
         final TextSelector surfaceMaterialSelector = new TextSelector( pClientProperties,
                                                                        tooltipText,
