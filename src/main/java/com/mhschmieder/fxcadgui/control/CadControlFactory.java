@@ -33,10 +33,10 @@ package com.mhschmieder.fxcadgui.control;
 import java.util.List;
 
 import com.mhschmieder.commonstoolkit.util.ClientProperties;
+import com.mhschmieder.fxcadgraphics.SurfaceMaterial;
+import com.mhschmieder.fxcadgraphics.SurfaceMaterialUtilities;
 import com.mhschmieder.fxguitoolkit.control.IntegerSelector;
 import com.mhschmieder.fxguitoolkit.control.TextSelector;
-import com.mhschmieder.physicstoolkit.SurfaceMaterial;
-import com.mhschmieder.physicstoolkit.SurfaceMaterialUtilities;
 
 public final class CadControlFactory {
 
