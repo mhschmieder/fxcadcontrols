@@ -31,7 +31,7 @@
 package com.mhschmieder.fxcadgui.model;
 
 import com.mhschmieder.commonstoolkit.lang.NumberUtilities;
-import com.mhschmieder.fxgraphicstoolkit.LabelAssignable;
+import com.mhschmieder.fxgraphicstoolkit.FxLabelAssignable;
 import com.mhschmieder.fxlayergraphics.model.LayerNameAssignable;
 
 import javafx.beans.property.BooleanProperty;
@@ -40,7 +40,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 // TODO: Research why Number of Projections Zones is modeled as a String.
-public class LinearObjectProperties implements LabelAssignable, LayerNameAssignable {
+public class LinearObjectProperties implements FxLabelAssignable, LayerNameAssignable {
 
     private final StringProperty  label;
     private final StringProperty  layerName;
