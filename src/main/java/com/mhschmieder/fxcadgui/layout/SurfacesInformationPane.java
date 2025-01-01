@@ -148,21 +148,23 @@ public final class SurfacesInformationPane extends VBox {
 
         // Load the invalidation listener for the "Surface Name Changed"
         // binding.
-        _region2D.surfaceNameChanged.addListener( invalidationListener -> {
-            // Clear the invalidation and process the change.
-            if ( _region2D.surfaceNameChanged.getValue() ) {
-                updateLabels();
-            }
-        } );
+        _region2D.surfaceNameChangedProperty().addListener( 
+            invalidationListener -> {
+                // Clear the invalidation and process the change.
+                if ( _region2D.isSurfaceNameChanged() ) {
+                    updateLabels();
+                }
+            } );
 
         // Load the invalidation listener for the "Surface Value Changed"
         // binding.
-        _region2D.surfaceValueChanged.addListener( invalidationListener -> {
-            // Clear the invalidation and process the change.
-            if ( _region2D.surfaceValueChanged.getValue() ) {
-                updateLabels();
-            }
-        } );
+        _region2D.surfaceValueChangedProperty().addListener( 
+            invalidationListener -> {
+                // Clear the invalidation and process the change.
+                if ( _region2D.isSurfaceValueChanged() ) {
+                    updateLabels();
+                }
+            } );
     }
 
     public void updateView() {
