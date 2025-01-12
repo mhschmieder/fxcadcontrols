@@ -149,15 +149,21 @@ public final class Region2DStage extends XStage {
     public void doExportImageGraphics() {
         // Switch on export context, so we know which type of data and format to
         // save.
-        final String imageCategory = _propertiesCategory;
-        fileExportImageGraphics( imageCategory );
+        final String graphicsCategory = _propertiesCategory;
+        fileExportRasterGraphics( this, 
+                                  _defaultDirectory, 
+                                  clientProperties, 
+                                  graphicsCategory );
     }
 
     public void doExportVectorGraphics() {
         // Switch on export context, so we know which type of data and format to
         // save.
         final String graphicsCategory = _propertiesCategory;
-        fileExportVectorGraphics( graphicsCategory );
+        fileExportVectorGraphics( this, 
+                                  _defaultDirectory, 
+                                  clientProperties, 
+                                  graphicsCategory );
     }
 
     protected void doReset() {
