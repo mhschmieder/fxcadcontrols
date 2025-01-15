@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2023 Mark Schmieder
+ * Copyright (c) 2020, 2025 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -55,7 +55,7 @@ import javafx.scene.paint.Color;
 
 public final class Region2DStage extends XStage {
 
-    public static final String REGION2D_FRAME_TITLE_DEFAULT  = "Region2D"; //$NON-NLS-1$
+    public static final String REGION2D_FRAME_TITLE_DEFAULT  = "Region2D";
 
     // Default window locations and dimensions.
     public static final int    REGION2D_STAGE_X_DEFAULT      = 20;
@@ -72,9 +72,6 @@ public final class Region2DStage extends XStage {
     // Declare the main content pane.
     protected Region2DPane     _region2DPane;
 
-    // Cache the properties category for the current usage context.
-    protected String           _propertiesCategory;
-
     // Cache a reference to the global Region2D.
     protected Region2D         region2D;
 
@@ -84,14 +81,14 @@ public final class Region2DStage extends XStage {
     public Region2DStage( final String frameTitle,
                           final String windowKeyPrefix,
                           final String jarRelativeIconFilename,
-                          final String propertiesCategory,
+                          final String pGraphicsCategory,
                           final ProductBranding productBranding,
                           final ClientProperties pClientProperties,
                           final boolean vectorGraphicsSupported ) {
         // Always call the superclass constructor first!
         super( frameTitle, windowKeyPrefix, true, true, productBranding, pClientProperties );
 
-        _propertiesCategory = propertiesCategory;
+        graphicsCategory = pGraphicsCategory;
         
         _vectorGraphicsSupported = vectorGraphicsSupported;
 
@@ -107,7 +104,7 @@ public final class Region2DStage extends XStage {
     @Override
     protected void addActionHandlers() {
         // Load the action handlers for the "Export" actions.
-        _actions._fileActions._exportActions._exportImageGraphicsAction
+        _actions._fileActions._exportActions._exportRasterGraphicsAction
                 .setEventHandler( evt -> doExportImageGraphics() );
         _actions._fileActions._exportActions._exportVectorGraphicsAction
                 .setEventHandler( evt -> doExportVectorGraphics() );
@@ -146,26 +143,6 @@ public final class Region2DStage extends XStage {
         } );
     }
 
-    public void doExportImageGraphics() {
-        // Switch on export context, so we know which type of data and format to
-        // save.
-        final String graphicsCategory = _propertiesCategory;
-        fileExportRasterGraphics( this, 
-                                  _defaultDirectory, 
-                                  clientProperties, 
-                                  graphicsCategory );
-    }
-
-    public void doExportVectorGraphics() {
-        // Switch on export context, so we know which type of data and format to
-        // save.
-        final String graphicsCategory = _propertiesCategory;
-        fileExportVectorGraphics( this, 
-                                  _defaultDirectory, 
-                                  clientProperties, 
-                                  graphicsCategory );
-    }
-
     protected void doReset() {
         reset();
     }
@@ -182,7 +159,7 @@ public final class Region2DStage extends XStage {
     @Override
     protected void loadActions() {
         // Make all of the actions.
-        _actions = new Region2DActions( clientProperties, _propertiesCategory );
+        _actions = new Region2DActions( clientProperties, graphicsCategory );
     }
 
     @Override
@@ -191,7 +168,7 @@ public final class Region2DStage extends XStage {
         _region2DPane = new Region2DPane( clientProperties,
                                           Region2D.SIZE_METERS_MINIMUM,
                                           Region2D.SIZE_METERS_MAXIMUM,
-                                          _propertiesCategory );
+                                          graphicsCategory );
         return _region2DPane;
     }
 
@@ -310,5 +287,4 @@ public final class Region2DStage extends XStage {
         // Reset the default directory for local file operations.
         setDefaultDirectory( defaultDirectory );
     }
-
-}// class Region2DStage
+}
