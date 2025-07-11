@@ -35,7 +35,7 @@ import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxcadgraphics.CartesianLine;
 import com.mhschmieder.fxcadgraphics.GraphicalObjectCollection;
 import com.mhschmieder.fxcadgui.layout.CartesianLinePane;
-import com.mhschmieder.fxguitoolkit.ScrollingSensitivity;
+import com.mhschmieder.fxgraphicstoolkit.input.ScrollingSensitivity;
 import com.mhschmieder.fxguitoolkit.stage.ObjectPropertiesEditor;
 import com.mhschmieder.fxlayergraphics.model.LayerProperties;
 import com.mhschmieder.physicstoolkit.AngleUnit;

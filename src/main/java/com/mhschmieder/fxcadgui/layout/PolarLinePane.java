@@ -34,7 +34,7 @@ import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxcadgraphics.GraphicalObjectCollection;
 import com.mhschmieder.fxcadgraphics.PolarLine;
 import com.mhschmieder.fxcadgui.model.LinearObjectProperties;
-import com.mhschmieder.fxguitoolkit.ScrollingSensitivity;
+import com.mhschmieder.fxgraphicstoolkit.input.ScrollingSensitivity;
 import com.mhschmieder.fxlayergraphics.LayerUtilities;
 import com.mhschmieder.fxlayergraphics.model.LayerProperties;
 import com.mhschmieder.physicstoolkit.AngleUnit;
