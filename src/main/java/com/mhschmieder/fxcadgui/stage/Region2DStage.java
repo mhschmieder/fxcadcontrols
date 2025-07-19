@@ -30,18 +30,13 @@
  */
 package com.mhschmieder.fxcadgui.stage;
 
-import java.io.File;
-import java.util.prefs.Preferences;
-
 import com.mhschmieder.commonstoolkit.branding.ProductBranding;
-import com.mhschmieder.commonstoolkit.io.FileUtilities;
 import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxcadgraphics.Region2D;
 import com.mhschmieder.fxcadgui.action.Region2DActions;
 import com.mhschmieder.fxcadgui.control.CadMenuFactory;
 import com.mhschmieder.fxcadgui.control.Region2DToolBar;
 import com.mhschmieder.fxcadgui.layout.Region2DPane;
-import com.mhschmieder.fxguitoolkit.action.BackgroundColorChoices;
 import com.mhschmieder.fxguitoolkit.stage.XStage;
 import com.mhschmieder.physicstoolkit.DistanceUnit;
 
@@ -182,29 +177,6 @@ public final class Region2DStage extends XStage {
         return menuBar;
     }
 
-    // Load all of the User Preferences for this Stage.
-    // TODO: Make a class with get/set methods for user preferences, a la
-    // Listing 3.3 on p. 37 of "More Java Pitfalls" (Wiley), and including
-    // static default values for better modularity.
-    @SuppressWarnings("nls")
-    @Override
-    public void loadPreferences() {
-        // Get the user node for this package/class, so that we get the
-        // preferences specific to this frame and user.
-        final Preferences prefs = Preferences.userNodeForPackage( getClass() );
-
-        // Create and set the visualization parameters.
-        final String backgroundColor = prefs
-                .get( "backgroundColor", BackgroundColorChoices.DEFAULT_BACKGROUND_COLOR_NAME );
-
-        // Load the Default Directory from User Preferences.
-        final File defaultDirectory = FileUtilities.loadDefaultDirectoryPreferences( prefs );
-
-        // Forward the preferences data from the stored preferences to the
-        // common preferences handler.
-        updatePreferences( backgroundColor, defaultDirectory );
-    }
-
     // Add the Tool Bar for this Stage.
     @Override
     public ToolBar loadToolBar() {
@@ -223,22 +195,15 @@ public final class Region2DStage extends XStage {
         // Forward this method to the Region2D Pane.
         _region2DPane.reset();
     }
-
-    // Save all of the non-login User Preferences for this Stage.
-    // TODO: Make a class with get/set methods for user preferences, a la
-    // Listing 3.3 on p. 37 of "More Java Pitfalls" (Wiley).
-    @SuppressWarnings("nls")
+    
     @Override
-    public void savePreferences() {
-        // Get the user node for this package/class, so that we get the
-        // preferences specific to this frame and user.
-        final Preferences prefs = Preferences.userNodeForPackage( getClass() );
+    public String getBackgroundColor() {
+        return _actions.getSelectedBackgroundColorName();
+    }
 
-        final String backgroundColor = _actions.getSelectedBackgroundColorName();
-        prefs.put( "backgroundColor", backgroundColor );
-
-        // Save the Default Directory to User Preferences.
-        FileUtilities.saveDefaultDirectoryPreferences( _defaultDirectory, prefs );
+    @Override
+    public void selectBackgroundColor( final String backgroundColorName ) {
+        _actions.selectBackgroundColor( backgroundColorName );
     }
 
     @Override
@@ -273,18 +238,5 @@ public final class Region2DStage extends XStage {
     public void updateDistanceUnit( final DistanceUnit distanceUnit ) {
         // Forward this reference to the Region2D Pane.
         _region2DPane.updateDistanceUnit( distanceUnit );
-    }
-
-    // Update all of the User Preferences for this Stage.
-    // TODO: Make a preferences object instead, with get/set methods, which can
-    // be set from HTML, XML, or stored user preferences?
-    private void updatePreferences( final String backgroundColorName,
-                                    final File defaultDirectory ) {
-        // Set the background color for most layout content.
-        final Color backgroundColor = _actions.selectBackgroundColor( backgroundColorName );
-        setForegroundFromBackground( backgroundColor );
-
-        // Reset the default directory for local file operations.
-        setDefaultDirectory( defaultDirectory );
     }
 }
