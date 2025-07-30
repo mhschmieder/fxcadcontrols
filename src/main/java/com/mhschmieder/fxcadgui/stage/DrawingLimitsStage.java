@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2023 Mark Schmieder
+ * Copyright (c) 2020, 2025 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -35,7 +35,7 @@ import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxcadgraphics.DrawingLimits;
 import com.mhschmieder.fxcadgui.layout.DrawingLimitsPane;
 import com.mhschmieder.fxgraphicstoolkit.geometry.Extents2D;
-import com.mhschmieder.fxguitoolkit.action.ToolsActions;
+import com.mhschmieder.fxguitoolkit.action.SimulationActions;
 import com.mhschmieder.fxguitoolkit.control.PredictToolBar;
 import com.mhschmieder.fxguitoolkit.stage.XStage;
 import com.mhschmieder.physicstoolkit.DistanceUnit;
@@ -48,37 +48,36 @@ public final class DrawingLimitsStage extends XStage {
     public static final String DRAWING_LIMITS_FRAME_TITLE_DEFAULT  = "Drawing Limits"; //$NON-NLS-1$
 
     // Default frame dimensions.
-    private static final int   DRAWING_LIMITS_FRAME_WIDTH_DEFAULT  = 680;
-    private static final int   DRAWING_LIMITS_FRAME_HEIGHT_DEFAULT = 280;
+    private static final double DRAWING_LIMITS_FRAME_WIDTH_DEFAULT  = 680.0d;
+    private static final double DRAWING_LIMITS_FRAME_HEIGHT_DEFAULT = 280.0d;
 
     // Declare the actions.
-    public ToolsActions        _toolsActions;
+    public SimulationActions simulationActions;
 
     // Declare the main tool bar.
-    public PredictToolBar      _toolBar;
+    public PredictToolBar toolBar;
 
     // Declare the main content pane.
-    public DrawingLimitsPane   _drawingLimitsPane;
+    public DrawingLimitsPane drawingLimitsPane;
 
     // Cache the Auto-Sync label, as it is needed by lazy initialization.
-    protected String           _autoSyncLabel;
+    protected String autoSyncLabel;
 
     // Cache a reference to the global Drawing Limits.
-    protected DrawingLimits    drawingLimits;
+    protected DrawingLimits drawingLimits;
 
-    @SuppressWarnings("nls")
-    public DrawingLimitsStage( final String autoSyncLabel,
-                               final ProductBranding productBranding,
+    public DrawingLimitsStage( final String pAutoSyncLabel,
+                               final ProductBranding pProductBranding,
                                final ClientProperties pClientProperties ) {
         // Always call the superclass constructor first!
         super( DRAWING_LIMITS_FRAME_TITLE_DEFAULT,
                "drawingLimits",
                true,
                true,
-               productBranding,
+               pProductBranding,
                pClientProperties );
 
-        _autoSyncLabel = autoSyncLabel;
+        autoSyncLabel = pAutoSyncLabel;
 
         try {
             initStage( "/icons/led24/RulerCrop16.png" );
@@ -100,34 +99,35 @@ public final class DrawingLimitsStage extends XStage {
     @Override
     protected void loadActions() {
         // Make all of the actions.
-        _toolsActions = new ToolsActions( clientProperties );
+        simulationActions = new SimulationActions( clientProperties );
     }
 
     @Override
     protected Node loadContent() {
         // Instantiate and return the custom Content Node.
-        _drawingLimitsPane = new DrawingLimitsPane( clientProperties,
-                                                    _autoSyncLabel,
+        drawingLimitsPane = new DrawingLimitsPane( clientProperties,
+                                                    autoSyncLabel,
                                                     true,
                                                     -Double.MAX_VALUE,
                                                     Double.MAX_VALUE,
-                                                    "Drawing Limits" ); //$NON-NLS-1$
-        return _drawingLimitsPane;
+                                                    "Drawing Limits" );
+        return drawingLimitsPane;
     }
 
     // Add the Tool Bar for this Stage.
     @Override
     public ToolBar loadToolBar() {
         // Build the Tool Bar for this Stage.
-        _toolBar = new PredictToolBar( clientProperties, _toolsActions );
+        toolBar = new PredictToolBar( clientProperties, 
+                                      simulationActions );
 
         // Return the Tool Bar so the superclass can use it.
-        return _toolBar;
+        return toolBar;
     }
 
     public void setAutoSyncBoundary( final Extents2D pAutoSyncBoundary ) {
         // Forward this method to the Drawing Limits Pane.
-        _drawingLimitsPane.setAutoSyncBoundary( pAutoSyncBoundary );
+        drawingLimitsPane.setAutoSyncBoundary( pAutoSyncBoundary );
     }
 
     // Set and propagate the Drawing Limits reference.
@@ -137,7 +137,7 @@ public final class DrawingLimitsStage extends XStage {
         drawingLimits = pDrawingLimits;
 
         // Forward this reference to the Drawing Limits Pane.
-        _drawingLimitsPane.setDrawingLimits( pDrawingLimits );
+        drawingLimitsPane.setDrawingLimits( pDrawingLimits );
     }
 
     /**
@@ -145,7 +145,6 @@ public final class DrawingLimitsStage extends XStage {
      */
     public void updateDistanceUnit( final DistanceUnit distanceUnit ) {
         // Forward this reference to the Drawing Limits Pane.
-        _drawingLimitsPane.updateDistanceUnit( distanceUnit );
+        drawingLimitsPane.updateDistanceUnit( distanceUnit );
     }
-
 }

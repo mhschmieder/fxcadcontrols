@@ -64,9 +64,9 @@ public final class Region2DToolBar extends ToolBar {
     private void initToolBar( final ClientProperties pClientProperties,
                               final Region2DActions region2DActions ) {
         // Make the Nodes for the Tool Bar.
-        _predictButtons = new PredictButtons( pClientProperties, region2DActions._toolsActions );
+        _predictButtons = new PredictButtons( pClientProperties, region2DActions.simulationActions );
         _resetButton = LabeledControlFactory.getResetButton( pClientProperties,
-                                                             region2DActions._resetAction );
+                                                             region2DActions.resetAction );
 
         // Add a spacer to separate logical groupings.
         // NOTE: We also force the Reset Button to right-justify, and to stay
@@ -75,8 +75,8 @@ public final class Region2DToolBar extends ToolBar {
         HBox.setHgrow( spacer1, Priority.ALWAYS );
 
         // Add all the Nodes to the Tool Bar.
-        getItems().addAll( _predictButtons._predictButton,
-                           _predictButtons._clearButton,
+        getItems().addAll( _predictButtons.predictButton,
+                           _predictButtons.clearButton,
                            spacer1,
                            _resetButton );
     }

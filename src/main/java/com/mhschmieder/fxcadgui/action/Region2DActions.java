@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2023 Mark Schmieder
+ * Copyright (c) 2020, 2025 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -39,7 +39,7 @@ import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxguitoolkit.action.FileActions;
 import com.mhschmieder.fxguitoolkit.action.LabeledActionFactory;
 import com.mhschmieder.fxguitoolkit.action.SettingsActions;
-import com.mhschmieder.fxguitoolkit.action.ToolsActions;
+import com.mhschmieder.fxguitoolkit.action.SimulationActions;
 import com.mhschmieder.fxguitoolkit.action.XAction;
 import com.mhschmieder.fxguitoolkit.action.XActionGroup;
 
@@ -50,83 +50,85 @@ import javafx.scene.paint.Color;
  */
 public final class Region2DActions {
 
-    public FileActions     _fileActions;
-    public SettingsActions _settingsActions;
-    public ToolsActions    _toolsActions;
+    public FileActions fileActions;
+    public SettingsActions settingsActions;
+    public SimulationActions simulationActions;
 
-    public XAction         _resetAction;
+    public XAction resetAction;
 
     public Region2DActions( final ClientProperties pClientProperties,
                             final String propertiesCategory ) {
-        _fileActions = new FileActions( pClientProperties );
-        _settingsActions = new SettingsActions( pClientProperties );
-        _toolsActions = new ToolsActions( pClientProperties );
+        fileActions = new FileActions( pClientProperties );
+        settingsActions = new SettingsActions( pClientProperties );
+        simulationActions = new SimulationActions( pClientProperties );
 
-        _resetAction = com.mhschmieder.fxguitoolkit.action.LabeledActionFactory.getResetAction( pClientProperties );
+        resetAction = LabeledActionFactory.getResetAction( pClientProperties );
 
         // The tool tip for "Reset" is unique per context so isn't in the
         // locale-sensitive resources for the generic action lookup.
-        final String toolTipText = "Reset " + propertiesCategory + " to Default Values"; //$NON-NLS-1$ //$NON-NLS-2$
-        _resetAction.setLongText( toolTipText );
+        final String toolTipText 
+                = "Reset " + propertiesCategory + " to Default Values";
+        resetAction.setLongText( toolTipText );
     }
 
     public Collection< Action > getBackgroundColorChoiceCollection() {
         // Forward this method to the Settings actions container.
-        return _settingsActions.getBackgroundColorChoiceCollection();
+        return settingsActions.getBackgroundColorChoiceCollection();
     }
 
     public Collection< Action > getExportActionCollection() {
         // Forward this method to the File actions container.
-        return _fileActions.getExportActionCollection( true, false );
+        return fileActions.getExportActionCollection( true, false );
     }
 
     public Collection< Action > getFileActionCollection( final ClientProperties pClientProperties,
                                                          final boolean vectorGraphicsSupported ) {
         // Forward this method to the File actions container.
-        return _fileActions
+        return fileActions
                 .getFileActionCollection( pClientProperties, vectorGraphicsSupported, false );
     }
 
     public Collection< Action > getRegion2DMenuBarActionCollection( final ClientProperties pClientProperties,
                                                                     final boolean vectorGraphicsSupported ) {
         final XActionGroup fileActionGroup = LabeledActionFactory
-                .getFileActionGroup( pClientProperties, _fileActions, vectorGraphicsSupported, false );
+                .getFileActionGroup( pClientProperties, fileActions, vectorGraphicsSupported, false );
 
         final XActionGroup settingsActionGroup = LabeledActionFactory
-                .getSettingsActionGroup( pClientProperties, _settingsActions, true );
+                .getSettingsActionGroup( pClientProperties, settingsActions, true );
 
-        final XActionGroup toolsActionGroup = LabeledActionFactory
-                .getToolsActionGroup( pClientProperties, _toolsActions );
+        final XActionGroup simulationActionGroup = LabeledActionFactory
+                .getSimulationActionGroup( pClientProperties, simulationActions );
 
         final Collection< Action > region2DMenuBarActionCollection = Arrays
-                .asList( fileActionGroup, settingsActionGroup, toolsActionGroup );
+                .asList( fileActionGroup, settingsActionGroup, simulationActionGroup );
 
         return region2DMenuBarActionCollection;
     }
 
     public String getSelectedBackgroundColorName() {
         // Forward this method to the Settings actions container.
-        return _settingsActions.getSelectedBackgroundColorName();
+        return settingsActions.getSelectedBackgroundColorName();
     }
 
-    public Collection< Action > getSettingsActionCollection( final ClientProperties pClientProperties ) {
+    public Collection< Action > getSettingsActionCollection( 
+            final ClientProperties pClientProperties ) {
         // Forward this method to the File actions container.
-        return _settingsActions.getSettingsActionCollection( pClientProperties, true );
+        return settingsActions.getSettingsActionCollection( pClientProperties, true );
     }
 
-    public Collection< Action > getToolsActionCollection( final ClientProperties pClientProperties ) {
-        // Forward this method to the Tools actions container.
-        return _toolsActions.getToolsActionCollection( pClientProperties );
+    public Collection< Action > getSimulationActionCollection( 
+            final ClientProperties pClientProperties ) {
+        // Forward this method to the Simulation actions container.
+        return simulationActions.getSimulationActionCollection( pClientProperties );
     }
 
     public Collection< Action > getWindowSizeActionCollection() {
         // Forward this method to the Settings actions container.
-        return _settingsActions.getWindowSizeActionCollection( true );
+        return settingsActions.getWindowSizeActionCollection( true );
     }
 
     public Color selectBackgroundColor( final String backgroundColorName ) {
         // Forward this method to the Settings actions container.
-        return _settingsActions.selectBackgroundColor( backgroundColorName );
+        return settingsActions.selectBackgroundColor( backgroundColorName );
     }
-
 }
