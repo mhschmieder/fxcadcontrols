@@ -10,7 +10,7 @@
 	<version>0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>FxCadGui</name>
+	<name>fxcadgui</name>
 	<url>https://github.com/mhschmieder/fxcadgui</url>
 	<description>JavaFX based GUI toolkit for common CAD concepts</description>
 
