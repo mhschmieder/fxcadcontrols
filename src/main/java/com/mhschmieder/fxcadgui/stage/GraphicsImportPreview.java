@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2023 Mark Schmieder
+ * Copyright (c) 2020, 2025 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -39,7 +39,7 @@ import com.mhschmieder.fxdxfconverter.DxfShapeGroup;
 import com.mhschmieder.fxdxfconverter.GraphicsImportOptions;
 import com.mhschmieder.fxguitoolkit.stage.NoticeBox;
 import com.mhschmieder.fxguitoolkit.stage.XStage;
-import com.mhschmieder.fxphysicsgui.control.DistanceUnitSelector;
+import com.mhschmieder.physicstoolkit.DistanceUnit;
 
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -208,7 +208,7 @@ public final class GraphicsImportPreview extends XStage {
         // Do not allow an import action until units have been chosen.
         _graphicsImportButton.disableProperty()
                 .bind( _graphicsImportPreviewPane._distanceUnitSelector.valueProperty()
-                        .isEqualTo( DistanceUnitSelector.CHOOSE_ONE ) );
+                        .isEqualTo( DistanceUnit.UNITLESS ) );
     }
 
     public boolean isCanceled() {

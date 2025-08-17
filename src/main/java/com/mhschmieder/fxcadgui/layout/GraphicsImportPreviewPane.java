@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2023 Mark Schmieder
+ * Copyright (c) 2020, 2025 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -42,9 +42,10 @@ import com.mhschmieder.fxgraphicstoolkit.geometry.Extents2D;
 import com.mhschmieder.fxgraphicstoolkit.geometry.GeometryUtilities;
 import com.mhschmieder.fxguitoolkit.GuiUtilities;
 import com.mhschmieder.fxguitoolkit.control.LabeledControlFactory;
+import com.mhschmieder.fxguitoolkit.control.XComboBox;
 import com.mhschmieder.fxguitoolkit.layout.LayoutFactory;
 import com.mhschmieder.fxguitoolkit.layout.UnitlessPositionPane;
-import com.mhschmieder.fxphysicsgui.control.DistanceUnitSelector;
+import com.mhschmieder.fxphysicsgui.control.PhysicsControlFactory;
 import com.mhschmieder.physicstoolkit.DistanceUnit;
 
 import javafx.application.Platform;
@@ -101,7 +102,7 @@ public final class GraphicsImportPreviewPane extends GridPane {
 
     protected static final double                 IMPORTED_GRAPHICS_STROKE_WIDTH_RATIO = 0.75d;
 
-    public DistanceUnitSelector                   _distanceUnitSelector;
+    public XComboBox< DistanceUnit >              _distanceUnitSelector;
     private GraphicsImportDrawingLimitsSourcePane _drawingLimitsSourcePane;
     private UnitlessPositionPane                  _minimumPane;
     private UnitlessPositionPane                  _maximumPane;
@@ -343,10 +344,11 @@ public final class GraphicsImportPreviewPane extends GridPane {
         // Specifically query the Graphics Import Distance Unit, as most DXF
         // files are unitless and it is unlikely this unit will match the
         // current preference in the application itself.
-        _distanceUnitSelector = new DistanceUnitSelector( _clientProperties,
-                                                          true,
-                                                          true,
-                                                          DistanceUnit.defaultValue() );
+        _distanceUnitSelector = PhysicsControlFactory.makeDistanceUnitSelector( 
+                _clientProperties,
+                true,
+                true,
+                DistanceUnit.defaultValue() );
         _distanceUnitSelector
                 .setTooltip( new Tooltip( "Distance Unit for Graphics Import Source" ) ); //$NON-NLS-1$
 
@@ -443,14 +445,14 @@ public final class GraphicsImportPreviewPane extends GridPane {
         // Do not allow Application Drawing Limits until units have been chosen.
         _drawingLimitsSourcePane._applicationDrawingLimitsRadioButton.disableProperty()
                 .bind( _distanceUnitSelector.valueProperty()
-                        .isEqualTo( DistanceUnitSelector.CHOOSE_ONE ) );
+                        .isEqualTo( DistanceUnit.UNITLESS ) );
     }
 
     // Make the event handler for the Distance Unit Selector.
     private void makeDistanceUnitSelectionHandler() {
         distanceUnitSelectionHandler = evt -> {
             // Update the Distance Unit as it applies to Drawing Limits.
-            final DistanceUnit distanceUnit = _distanceUnitSelector.getDistanceUnit();
+            final DistanceUnit distanceUnit = _distanceUnitSelector.getValue();
             setDistanceUnit( distanceUnit );
         };
     }
@@ -569,7 +571,7 @@ public final class GraphicsImportPreviewPane extends GridPane {
                 .equals( drawingLimitsSource ) ) {
             final Extents2D applicationBounds = GeometryUtilities
                     .getExtentsInDistanceUnit( _applicationDrawingLimits,
-                                               _distanceUnitSelector.getDistanceUnit() );
+                                               _distanceUnitSelector.getValue() );
             final DrawingLimits prospectiveDrawingLimits = new DrawingLimits( applicationBounds );
             setProspectiveDrawingLimits( prospectiveDrawingLimits );
         }
@@ -721,7 +723,7 @@ public final class GraphicsImportPreviewPane extends GridPane {
 
     private void setGraphicsImportDistanceUnit( final DistanceUnit graphicsImportDistanceUnit ) {
         // Initialize the GUI to reflect the initial Distance Unit.
-        _distanceUnitSelector.setDistanceUnit( graphicsImportDistanceUnit );
+        _distanceUnitSelector.setValue( graphicsImportDistanceUnit );
     }
 
     public void setGraphicsImportOptions( final GraphicsImportOptions graphicsImportOptions ) {
@@ -751,6 +753,9 @@ public final class GraphicsImportPreviewPane extends GridPane {
             setGraphicsImportDistanceUnit( _graphicsImportOptions.getDistanceUnit() );
         }
         else {
+            // TODO: Add a hint for "Choose One" as in the old string-based version
+            //  of the Distance Unit Selector before we made it enum object based.
+            //  We now say "unitless" in the drop-list and the displayed text field.
             setGraphicsImportDistanceUnit( DistanceUnit.UNITLESS );
         }
 
