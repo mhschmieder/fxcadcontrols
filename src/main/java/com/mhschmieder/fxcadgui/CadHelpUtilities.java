@@ -30,10 +30,10 @@
  */
 package com.mhschmieder.fxcadgui;
 
-import java.net.URL;
-
 import com.mhschmieder.commonstoolkit.util.SystemType;
 import com.mhschmieder.fxguitoolkit.stage.NoticeBox;
+
+import java.net.URL;
 
 /**
  * This is a utility class for grabbing Help resources and pop-ups for CAD

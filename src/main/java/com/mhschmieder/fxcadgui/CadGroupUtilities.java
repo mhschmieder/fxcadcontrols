@@ -30,17 +30,15 @@
  */
 package com.mhschmieder.fxcadgui;
 
-import org.apache.commons.math3.util.FastMath;
-
 import com.mhschmieder.fxguitoolkit.GuiUtilities;
 import com.mhschmieder.fxguitoolkit.IconContext;
-
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import org.apache.commons.math3.util.FastMath;
 
 public final class CadGroupUtilities {
 

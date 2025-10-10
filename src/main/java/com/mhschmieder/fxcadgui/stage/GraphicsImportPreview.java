@@ -40,7 +40,6 @@ import com.mhschmieder.fxdxfconverter.GraphicsImportOptions;
 import com.mhschmieder.fxguitoolkit.stage.NoticeBox;
 import com.mhschmieder.fxguitoolkit.stage.XStage;
 import com.mhschmieder.physicstoolkit.DistanceUnit;
-
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Node;

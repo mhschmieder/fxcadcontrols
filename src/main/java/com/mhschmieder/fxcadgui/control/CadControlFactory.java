@@ -30,13 +30,13 @@
  */
 package com.mhschmieder.fxcadgui.control;
 
-import java.util.List;
-
 import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxcadgraphics.SurfaceMaterial;
 import com.mhschmieder.fxcadgraphics.SurfaceMaterialUtilities;
 import com.mhschmieder.fxguitoolkit.control.IntegerSelector;
 import com.mhschmieder.fxguitoolkit.control.TextSelector;
+
+import java.util.List;
 
 public final class CadControlFactory {
 
@@ -48,7 +48,7 @@ public final class CadControlFactory {
         final String[] surfaceMaterialNames = surfaceMaterialList
                 .toArray( new String[ surfaceMaterialList.size() ] );
         final String surfaceMaterialNameDefault = SurfaceMaterial.RIGID
-                .toPresentationString();
+                .abbreviation();
 
         final TextSelector surfaceMaterialSelector = new TextSelector( pClientProperties,
                                                                        tooltipText,

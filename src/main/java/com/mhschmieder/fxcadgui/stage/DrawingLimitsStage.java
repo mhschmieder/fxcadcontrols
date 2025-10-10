@@ -39,7 +39,6 @@ import com.mhschmieder.fxguitoolkit.action.SimulationActions;
 import com.mhschmieder.fxguitoolkit.control.PredictToolBar;
 import com.mhschmieder.fxguitoolkit.stage.XStage;
 import com.mhschmieder.physicstoolkit.DistanceUnit;
-
 import javafx.scene.Node;
 import javafx.scene.control.ToolBar;
 

@@ -31,7 +31,6 @@
 package com.mhschmieder.fxcadgui.layout;
 
 import com.mhschmieder.fxguitoolkit.GuiUtilities;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.RadioButton;

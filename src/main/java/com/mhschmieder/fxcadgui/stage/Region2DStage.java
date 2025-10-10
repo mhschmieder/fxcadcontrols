@@ -39,7 +39,6 @@ import com.mhschmieder.fxcadgui.control.Region2DToolBar;
 import com.mhschmieder.fxcadgui.layout.Region2DPane;
 import com.mhschmieder.fxguitoolkit.stage.XStage;
 import com.mhschmieder.physicstoolkit.DistanceUnit;
-
 import javafx.scene.Node;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.ToolBar;

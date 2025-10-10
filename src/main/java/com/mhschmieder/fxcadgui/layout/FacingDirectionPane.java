@@ -1,7 +1,7 @@
-/**
+/*
  * MIT License
  *
- * Copyright (c) 2020, 2023 Mark Schmieder
+ * Copyright (c) 2020, 2025 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,6 @@ package com.mhschmieder.fxcadgui.layout;
 import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxgraphicstoolkit.geometry.FacingDirection;
 import com.mhschmieder.fxguitoolkit.GuiUtilities;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.RadioButton;
@@ -67,12 +66,12 @@ public class FacingDirectionPane extends BorderPane {
                 : FacingDirection.defaultValue();
     }
 
-    private final void initPane( final ClientProperties pClientProperties ) {
+    private void initPane(final ClientProperties pClientProperties) {
         _facingDirectionToggleGroup = new ToggleGroup();
         _facingRightRadioButton = GuiUtilities.getRadioButton( FacingDirection.RIGHT
-                .toPresentationString(), _facingDirectionToggleGroup, true );
+                .label(), _facingDirectionToggleGroup, true );
         _facingLeftRadioButton = GuiUtilities.getRadioButton( FacingDirection.LEFT
-                .toPresentationString(), _facingDirectionToggleGroup, false );
+                .label(), _facingDirectionToggleGroup, false );
 
         final GridPane gridPane = new GridPane();
         gridPane.setHgap( 10.0d );

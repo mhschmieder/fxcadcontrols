@@ -30,8 +30,6 @@
  */
 package com.mhschmieder.fxcadgui.layout;
 
-import org.apache.commons.math3.util.FastMath;
-
 import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.commonstoolkit.util.SystemType;
 import com.mhschmieder.fxcadgraphics.DrawingLimits;
@@ -47,7 +45,6 @@ import com.mhschmieder.fxguitoolkit.layout.LayoutFactory;
 import com.mhschmieder.fxguitoolkit.layout.UnitlessPositionPane;
 import com.mhschmieder.fxphysicsgui.control.PhysicsControlFactory;
 import com.mhschmieder.physicstoolkit.DistanceUnit;
-
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
@@ -81,6 +78,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Scale;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import org.apache.commons.math3.util.FastMath;
 
 /**
  * This is the main content pane for Graphics Import Preview windows.

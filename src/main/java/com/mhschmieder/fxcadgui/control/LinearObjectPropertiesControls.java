@@ -37,7 +37,6 @@ import com.mhschmieder.fxguitoolkit.GuiUtilities;
 import com.mhschmieder.fxguitoolkit.control.IntegerSelector;
 import com.mhschmieder.fxlayergraphics.model.LayerProperties;
 import com.mhschmieder.fxlayergui.control.LayerSelector;
-
 import javafx.collections.ObservableList;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.GridPane;

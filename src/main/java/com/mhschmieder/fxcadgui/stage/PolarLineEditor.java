@@ -40,7 +40,6 @@ import com.mhschmieder.fxguitoolkit.stage.ObjectPropertiesEditor;
 import com.mhschmieder.fxlayergraphics.model.LayerProperties;
 import com.mhschmieder.physicstoolkit.AngleUnit;
 import com.mhschmieder.physicstoolkit.DistanceUnit;
-
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 

@@ -33,7 +33,6 @@ package com.mhschmieder.fxcadgui.model;
 import com.mhschmieder.commonstoolkit.lang.NumberUtilities;
 import com.mhschmieder.fxgraphicstoolkit.LabelAssignable;
 import com.mhschmieder.fxlayergraphics.model.LayerNameAssignable;
-
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;

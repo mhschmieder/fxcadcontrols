@@ -38,7 +38,6 @@ import com.mhschmieder.fxphysicsgui.layout.CartesianPositionPane;
 import com.mhschmieder.fxphysicsgui.layout.PolarPositionPane;
 import com.mhschmieder.physicstoolkit.AngleUnit;
 import com.mhschmieder.physicstoolkit.DistanceUnit;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;

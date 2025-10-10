@@ -30,17 +30,15 @@
  */
 package com.mhschmieder.fxcadgui.layout;
 
-import org.apache.commons.math3.util.FastMath;
-
 import com.mhschmieder.fxcadgraphics.GraphicalObject;
 import com.mhschmieder.fxgraphicstoolkit.shape.ShapeGroup;
-
 import javafx.collections.ObservableList;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
+import org.apache.commons.math3.util.FastMath;
 
 /**
  * The Graphical Object Preview Pane is a layout wrapper for displaying previews

@@ -30,13 +30,13 @@
  */
 package com.mhschmieder.fxcadgui.control;
 
-import java.text.NumberFormat;
-
 import com.mhschmieder.commonstoolkit.text.NumberFormatUtilities;
 import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxcadgraphics.GraphicalObject;
 import com.mhschmieder.fxcadgraphics.GraphicalObjectCollection;
 import com.mhschmieder.fxguitoolkit.control.TextEditor;
+
+import java.text.NumberFormat;
 
 /**
  * This is a specialized label textField for Graphical Objects, that guarantees

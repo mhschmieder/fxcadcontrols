@@ -42,7 +42,6 @@ import com.pdfjet.Align;
 import com.pdfjet.PDF;
 import com.pdfjet.Page;
 import com.pdfjet.Point;
-
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

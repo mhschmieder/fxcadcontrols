@@ -33,7 +33,6 @@ package com.mhschmieder.fxcadgui.control;
 import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxguitoolkit.control.TextEditor;
 import com.mhschmieder.fxguitoolkit.control.TextSelector;
-
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;

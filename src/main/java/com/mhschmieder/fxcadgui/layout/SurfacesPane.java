@@ -30,10 +30,6 @@
  */
 package com.mhschmieder.fxcadgui.layout;
 
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.mhschmieder.commonstoolkit.text.NumberFormatUtilities;
 import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxcadgraphics.CadUtilities;
@@ -43,7 +39,6 @@ import com.mhschmieder.fxcadgui.control.SurfaceSelectorControls;
 import com.mhschmieder.fxgraphicstoolkit.paint.ColorUtilities;
 import com.mhschmieder.fxguitoolkit.GuiUtilities;
 import com.mhschmieder.fxguitoolkit.layout.LayoutFactory;
-
 import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -57,6 +52,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class SurfacesPane extends BorderPane {
 
