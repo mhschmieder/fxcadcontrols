@@ -143,7 +143,7 @@ public final class SurfacesPane extends BorderPane {
                 surfaceSelectorGroup._surfaceStatusButton.selectedProperty()
                         .bindBidirectional( numberedSurfaceProperties.surfaceBypassedProperty() );
                 surfaceSelectorGroup._surfaceMaterialSelector.valueProperty()
-                        .bindBidirectional( numberedSurfaceProperties.materialNameProperty() );
+                        .bindBidirectional( numberedSurfaceProperties.surfaceMaterialProperty() );
             }
         }
     }
@@ -255,7 +255,7 @@ public final class SurfacesPane extends BorderPane {
     public void reset() {
         for ( final SurfaceProperties numberedSurfaceProperties : _surfaceProperties ) {
             numberedSurfaceProperties.setSurfaceBypassed( SurfaceProperties.BYPASSED_DEFAULT );
-            numberedSurfaceProperties.setMaterialName( SurfaceProperties.MATERIAL_NAME_DEFAULT );
+            numberedSurfaceProperties.setSurfaceMaterial( SurfaceProperties.SURFACE_MATERIAL_DEFAULT);
         }
     }
 
@@ -305,7 +305,7 @@ public final class SurfacesPane extends BorderPane {
             surfaceSelectorGroup._surfaceStatusButton
                     .setSelected( numberedSurfaceProperties.isSurfaceBypassed() );
             surfaceSelectorGroup._surfaceMaterialSelector
-                    .setValue( numberedSurfaceProperties.getMaterialName() );
+                    .setValue( numberedSurfaceProperties.getSurfaceMaterial() );
         }
 
         // Bind the data model to the respective GUI components.
@@ -352,9 +352,11 @@ public final class SurfacesPane extends BorderPane {
                         .get( surfaceIndex++ );
 
                 surfaceSelectorGroup._surfaceStatusButton.selectedProperty()
-                        .unbindBidirectional( numberedSurfaceProperties.surfaceBypassedProperty() );
+                        .unbindBidirectional(
+                                numberedSurfaceProperties.surfaceBypassedProperty() );
                 surfaceSelectorGroup._surfaceMaterialSelector.valueProperty()
-                        .unbindBidirectional( numberedSurfaceProperties.materialNameProperty() );
+                        .unbindBidirectional(
+                                numberedSurfaceProperties.surfaceMaterialProperty() );
             }
         }
     }

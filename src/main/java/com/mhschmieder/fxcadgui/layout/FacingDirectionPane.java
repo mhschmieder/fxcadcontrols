@@ -68,10 +68,14 @@ public class FacingDirectionPane extends BorderPane {
 
     private void initPane(final ClientProperties pClientProperties) {
         _facingDirectionToggleGroup = new ToggleGroup();
-        _facingRightRadioButton = GuiUtilities.getRadioButton( FacingDirection.RIGHT
-                .label(), _facingDirectionToggleGroup, true );
-        _facingLeftRadioButton = GuiUtilities.getRadioButton( FacingDirection.LEFT
-                .label(), _facingDirectionToggleGroup, false );
+        _facingRightRadioButton = GuiUtilities.getRadioButton(
+                FacingDirection.RIGHT.label(),
+                _facingDirectionToggleGroup,
+                true );
+        _facingLeftRadioButton = GuiUtilities.getRadioButton(
+                FacingDirection.LEFT.label(),
+                _facingDirectionToggleGroup,
+                false );
 
         final GridPane gridPane = new GridPane();
         gridPane.setHgap( 10.0d );

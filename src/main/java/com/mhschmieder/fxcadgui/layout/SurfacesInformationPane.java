@@ -1,7 +1,7 @@
-/**
+/*
  * MIT License
  *
- * Copyright (c) 2020, 2023 Mark Schmieder
+ * Copyright (c) 2020, 2025 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -168,28 +168,28 @@ public final class SurfacesInformationPane extends VBox {
         final SurfaceProperties surface1Properties = numberedSurfaceProperties.get( 0 );
         final String sSurface1Status = surface1Properties.isSurfaceBypassed()
             ? "Bypassed" //$NON-NLS-1$
-            : surface1Properties.getMaterialName();
+            : surface1Properties.getSurfaceMaterial().abbreviation();
         final String surface1Label = "Surface " + surface1Properties.getSurfaceNumber() + ": " //$NON-NLS-1$ //$NON-NLS-2$
                 + surface1Properties.getSurfaceName() + " = " + sSurface1Status; //$NON-NLS-1$
 
         final SurfaceProperties surface2Properties = numberedSurfaceProperties.get( 1 );
         final String sSurface2Status = surface2Properties.isSurfaceBypassed()
             ? "Bypassed" //$NON-NLS-1$
-            : surface2Properties.getMaterialName();
+            : surface2Properties.getSurfaceMaterial().abbreviation();
         final String surface2Label = "Surface " + surface2Properties.getSurfaceNumber() + ": " //$NON-NLS-1$ //$NON-NLS-2$
                 + surface2Properties.getSurfaceName() + " = " + sSurface2Status; //$NON-NLS-1$
 
         final SurfaceProperties surface3Properties = numberedSurfaceProperties.get( 2 );
         final String sSurface3Status = surface3Properties.isSurfaceBypassed()
             ? "Bypassed" //$NON-NLS-1$
-            : surface3Properties.getMaterialName();
+            : surface3Properties.getSurfaceMaterial().abbreviation();
         final String surface3Label = "Surface " + surface3Properties.getSurfaceNumber() + ": " //$NON-NLS-1$ //$NON-NLS-2$
                 + surface3Properties.getSurfaceName() + " = " + sSurface3Status; //$NON-NLS-1$
 
         final SurfaceProperties surface4Properties = numberedSurfaceProperties.get( 3 );
         final String sSurface4Status = surface4Properties.isSurfaceBypassed()
             ? "Bypassed" //$NON-NLS-1$
-            : surface4Properties.getMaterialName();
+            : surface4Properties.getSurfaceMaterial().abbreviation();
         final String surface4Label = "Surface " + surface4Properties.getSurfaceNumber() + ": " //$NON-NLS-1$ //$NON-NLS-2$
                 + surface4Properties.getSurfaceName() + " = " + sSurface4Status; //$NON-NLS-1$
 

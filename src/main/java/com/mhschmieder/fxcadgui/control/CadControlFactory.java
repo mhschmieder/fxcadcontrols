@@ -1,4 +1,4 @@
-/**
+/*
  * MIT License
  *
  * Copyright (c) 2020, 2025 Mark Schmieder
@@ -32,34 +32,33 @@ package com.mhschmieder.fxcadgui.control;
 
 import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxcadgraphics.SurfaceMaterial;
-import com.mhschmieder.fxcadgraphics.SurfaceMaterialUtilities;
 import com.mhschmieder.fxguitoolkit.control.IntegerSelector;
-import com.mhschmieder.fxguitoolkit.control.TextSelector;
-
-import java.util.List;
+import com.mhschmieder.fxguitoolkit.control.ListViewUtilities;
+import com.mhschmieder.fxguitoolkit.control.XComboBox;
 
 public final class CadControlFactory {
 
-    public static TextSelector getSurfaceMaterialSelector( final ClientProperties pClientProperties,
-                                                           final String tooltipText,
-                                                           final boolean applyToolkitCss ) {
-        final List< String > surfaceMaterialList = SurfaceMaterialUtilities
-                .getSurfaceMaterialNames();
-        final String[] surfaceMaterialNames = surfaceMaterialList
-                .toArray( new String[ surfaceMaterialList.size() ] );
-        final String surfaceMaterialNameDefault = SurfaceMaterial.RIGID
-                .abbreviation();
-
-        final TextSelector surfaceMaterialSelector = new TextSelector( pClientProperties,
-                                                                       tooltipText,
-                                                                       applyToolkitCss,
-                                                                       false,
-                                                                       false,
-                                                                       surfaceMaterialNames.length,
-                                                                       surfaceMaterialNameDefault,
-                                                                       surfaceMaterialNames );
-
-        return surfaceMaterialSelector;
+    public static XComboBox< SurfaceMaterial > getSurfaceMaterialSelector(
+            final ClientProperties pClientProperties,
+            final String tooltipText,
+            final boolean applyToolkitCss ) {
+        final SurfaceMaterial[] supportedValues = {
+                SurfaceMaterial.ACOUSTIC_TILE_ON_RIGID_SURF_KF,
+                SurfaceMaterial.BRICK_WALL_PAINTED_LB,
+                SurfaceMaterial.BRICK_WALL_UNPAINTED_LB,
+                SurfaceMaterial.CARPET_HEAVY_ON_CONCRETE_CH,
+                SurfaceMaterial.CONCRETE_BLOCK_PAINTED_CH,
+                SurfaceMaterial.CONCRETE_BLOCK_UNPAINTED_CH,
+                SurfaceMaterial.PLASTER_ON_LATHE_CH,
+                SurfaceMaterial.POURED_CONCRETE_PAINTED_LB,
+                SurfaceMaterial.POURED_CONCRETE_UNPAINTED_LB,
+                SurfaceMaterial.RIGID,
+                SurfaceMaterial.VELOUR_TEN_OZ_PER_YARD_SQR_TOUCHING_WALL_CH };
+        return ListViewUtilities.makeLabeledSelector(
+                pClientProperties,
+                supportedValues,
+                tooltipText,
+                SurfaceMaterial.defaultValue() );
     }
 
     public static IntegerSelector getProjectionZonesSelector( final ClientProperties pClientProperties,   
@@ -73,17 +72,15 @@ public final class CadControlFactory {
         final int maximumNumberOfProjectionZones = 12; // 24
         final int projectionZonesIncrement = 1;
 
-        final IntegerSelector projectionZonesSelector = new IntegerSelector( pClientProperties,
-                                                                             true,
-                                                                             tooltipText,
-                                                                             applyToolkitCss,
-                                                                             false,
-                                                                             false,
-                                                                             minimumNumberOfProjectionZones,
-                                                                             maximumNumberOfProjectionZones,
-                                                                             projectionZonesIncrement );
-
-        return projectionZonesSelector;
+        return new IntegerSelector(
+                pClientProperties,
+                true,
+                tooltipText,
+                applyToolkitCss,
+                false,
+                false,
+                minimumNumberOfProjectionZones,
+                maximumNumberOfProjectionZones,
+                projectionZonesIncrement );
     }
-
 }

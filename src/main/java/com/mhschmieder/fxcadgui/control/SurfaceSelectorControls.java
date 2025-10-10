@@ -1,7 +1,7 @@
-/**
+/*
  * MIT License
  *
- * Copyright (c) 2020, 2023 Mark Schmieder
+ * Copyright (c) 2020, 2025 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,8 +31,9 @@
 package com.mhschmieder.fxcadgui.control;
 
 import com.mhschmieder.commonstoolkit.util.ClientProperties;
+import com.mhschmieder.fxcadgraphics.SurfaceMaterial;
 import com.mhschmieder.fxguitoolkit.control.TextEditor;
-import com.mhschmieder.fxguitoolkit.control.TextSelector;
+import com.mhschmieder.fxguitoolkit.control.XComboBox;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
@@ -48,7 +49,7 @@ public final class SurfaceSelectorControls {
     public Label        _surfaceIdLabel;
     public TextEditor   _surfaceNameEditor;
     public ToggleButton _surfaceStatusButton;
-    public TextSelector _surfaceMaterialSelector;
+    public XComboBox< SurfaceMaterial > _surfaceMaterialSelector;
 
     public SurfaceSelectorControls( final ClientProperties pClientProperties,
                                     final boolean applyToolkitCss,
@@ -65,12 +66,19 @@ public final class SurfaceSelectorControls {
                                              pClientProperties );
 
         _surfaceStatusButton = CadLabeledControlFactory
-                .getSurfaceBypassedToggleButton( true, 3.0d, false, true );
+                .getSurfaceBypassedToggleButton(
+                        true,
+                        3.0d,
+                        false,
+                        true );
 
-        final String tooltipText = "The material whose absorption properties should be applied to " //$NON-NLS-1$
+        final String tooltipText
+                = "The material whose absorption properties should be applied to "
                 + surfaceId;
-        _surfaceMaterialSelector = CadControlFactory
-                .getSurfaceMaterialSelector( pClientProperties, tooltipText, applyToolkitCss );
+        _surfaceMaterialSelector = CadControlFactory.getSurfaceMaterialSelector(
+                pClientProperties,
+                tooltipText,
+                applyToolkitCss );
 
         // Try to get the buttons to be as tall as possible.
         GridPane.setFillHeight( _surfaceIdLabel, true );
@@ -79,20 +87,23 @@ public final class SurfaceSelectorControls {
         GridPane.setFillHeight( _surfaceMaterialSelector, true );
 
         // Try to set sufficient width for the editable Surface Name.
-        _surfaceNameEditor.setPrefWidth( 180d );
+        _surfaceNameEditor.setPrefWidth( 180.0d );
 
         // Try to set widths that force insets in the buttons.
-        _surfaceIdLabel.setPrefWidth( 80d );
-        _surfaceStatusButton.setPrefWidth( 120d );
+        _surfaceIdLabel.setPrefWidth( 80.0d );
+        _surfaceStatusButton.setPrefWidth( 120.0d );
 
         // Try to prevent clipping of the longest Material Name.
-        _surfaceMaterialSelector.setPrefWidth( 280d );
+        _surfaceMaterialSelector.setPrefWidth( 280.0d );
 
         // Make sure all the buttons stretch to match the height of the first
         // button in layout order (forward references do not apply the match).
-        _surfaceNameEditor.prefHeightProperty().bind( _surfaceIdLabel.heightProperty() );
-        _surfaceStatusButton.prefHeightProperty().bind( _surfaceIdLabel.heightProperty() );
-        _surfaceMaterialSelector.prefHeightProperty().bind( _surfaceIdLabel.heightProperty() );
+        _surfaceNameEditor.prefHeightProperty().bind(
+                _surfaceIdLabel.heightProperty() );
+        _surfaceStatusButton.prefHeightProperty().bind(
+                _surfaceIdLabel.heightProperty() );
+        _surfaceMaterialSelector.prefHeightProperty().bind(
+                _surfaceIdLabel.heightProperty() );
     }
 
 }
