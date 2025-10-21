@@ -30,11 +30,11 @@
  */
 package com.mhschmieder.fxcadgui.control;
 
-import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxcadgraphics.SurfaceMaterial;
 import com.mhschmieder.fxguitoolkit.control.IntegerSelector;
 import com.mhschmieder.fxguitoolkit.control.ListViewUtilities;
 import com.mhschmieder.fxguitoolkit.control.XComboBox;
+import com.mhschmieder.jcommons.util.ClientProperties;
 
 public final class CadControlFactory {
 

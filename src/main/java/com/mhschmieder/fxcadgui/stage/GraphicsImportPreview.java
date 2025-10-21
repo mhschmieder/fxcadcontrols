@@ -30,8 +30,6 @@
  */
 package com.mhschmieder.fxcadgui.stage;
 
-import com.mhschmieder.commonstoolkit.branding.ProductBranding;
-import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxcadgraphics.DrawingLimits;
 import com.mhschmieder.fxcadgui.CadHelpUtilities;
 import com.mhschmieder.fxcadgui.layout.GraphicsImportPreviewPane;
@@ -39,7 +37,9 @@ import com.mhschmieder.fxdxfimport.DxfShapeGroup;
 import com.mhschmieder.fxdxfimport.GraphicsImportOptions;
 import com.mhschmieder.fxguitoolkit.stage.NoticeBox;
 import com.mhschmieder.fxguitoolkit.stage.XStage;
-import com.mhschmieder.physicstoolkit.DistanceUnit;
+import com.mhschmieder.jcommons.branding.ProductBranding;
+import com.mhschmieder.jcommons.util.ClientProperties;
+import com.mhschmieder.jphysics.DistanceUnit;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Node;

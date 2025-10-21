@@ -30,10 +30,10 @@
  */
 package com.mhschmieder.fxcadgui.control;
 
-import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxcadgraphics.SurfaceMaterial;
 import com.mhschmieder.fxguitoolkit.control.TextEditor;
 import com.mhschmieder.fxguitoolkit.control.XComboBox;
+import com.mhschmieder.jcommons.util.ClientProperties;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;

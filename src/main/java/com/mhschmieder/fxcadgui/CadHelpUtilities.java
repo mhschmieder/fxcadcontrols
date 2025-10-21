@@ -30,8 +30,8 @@
  */
 package com.mhschmieder.fxcadgui;
 
-import com.mhschmieder.commonstoolkit.util.SystemType;
 import com.mhschmieder.fxguitoolkit.stage.NoticeBox;
+import com.mhschmieder.jcommons.util.SystemType;
 
 import java.net.URL;
 

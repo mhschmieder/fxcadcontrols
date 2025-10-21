@@ -30,15 +30,15 @@
  */
 package com.mhschmieder.fxcadgui.stage;
 
-import com.mhschmieder.commonstoolkit.branding.ProductBranding;
-import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxcadgraphics.Region2D;
 import com.mhschmieder.fxcadgui.action.Region2DActions;
 import com.mhschmieder.fxcadgui.control.CadMenuFactory;
 import com.mhschmieder.fxcadgui.control.Region2DToolBar;
 import com.mhschmieder.fxcadgui.layout.Region2DPane;
 import com.mhschmieder.fxguitoolkit.stage.XStage;
-import com.mhschmieder.physicstoolkit.DistanceUnit;
+import com.mhschmieder.jcommons.branding.ProductBranding;
+import com.mhschmieder.jcommons.util.ClientProperties;
+import com.mhschmieder.jphysics.DistanceUnit;
 import javafx.scene.Node;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.ToolBar;

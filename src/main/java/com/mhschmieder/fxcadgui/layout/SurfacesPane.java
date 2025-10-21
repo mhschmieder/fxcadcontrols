@@ -30,8 +30,6 @@
  */
 package com.mhschmieder.fxcadgui.layout;
 
-import com.mhschmieder.commonstoolkit.text.NumberFormatUtilities;
-import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxcadgraphics.CadUtilities;
 import com.mhschmieder.fxcadgraphics.Region2D;
 import com.mhschmieder.fxcadgraphics.SurfaceProperties;
@@ -39,6 +37,8 @@ import com.mhschmieder.fxcadgui.control.SurfaceSelectorControls;
 import com.mhschmieder.fxgraphicstoolkit.paint.ColorUtilities;
 import com.mhschmieder.fxguitoolkit.GuiUtilities;
 import com.mhschmieder.fxguitoolkit.layout.LayoutFactory;
+import com.mhschmieder.jcommons.text.NumberFormatUtilities;
+import com.mhschmieder.jcommons.util.ClientProperties;
 import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;

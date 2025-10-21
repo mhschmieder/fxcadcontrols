@@ -30,9 +30,9 @@
  */
 package com.mhschmieder.fxcadgui.control;
 
-import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxcadgui.action.Region2DActions;
 import com.mhschmieder.fxguitoolkit.action.XActionUtilities;
+import com.mhschmieder.jcommons.util.ClientProperties;
 import javafx.scene.control.MenuBar;
 import org.controlsfx.control.action.Action;
 

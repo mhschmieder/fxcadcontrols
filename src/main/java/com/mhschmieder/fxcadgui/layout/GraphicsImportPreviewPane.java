@@ -30,8 +30,6 @@
  */
 package com.mhschmieder.fxcadgui.layout;
 
-import com.mhschmieder.commonstoolkit.util.ClientProperties;
-import com.mhschmieder.commonstoolkit.util.SystemType;
 import com.mhschmieder.fxcadgraphics.DrawingLimits;
 import com.mhschmieder.fxchart.control.ChartLabeledControlFactory;
 import com.mhschmieder.fxdxfimport.DxfShapeGroup;
@@ -44,7 +42,9 @@ import com.mhschmieder.fxguitoolkit.control.XComboBox;
 import com.mhschmieder.fxguitoolkit.layout.LayoutFactory;
 import com.mhschmieder.fxguitoolkit.layout.UnitlessPositionPane;
 import com.mhschmieder.fxphysics.control.PhysicsControlFactory;
-import com.mhschmieder.physicstoolkit.DistanceUnit;
+import com.mhschmieder.jcommons.util.ClientProperties;
+import com.mhschmieder.jcommons.util.SystemType;
+import com.mhschmieder.jphysics.DistanceUnit;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;

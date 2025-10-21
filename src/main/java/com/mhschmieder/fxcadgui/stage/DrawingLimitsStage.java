@@ -30,15 +30,15 @@
  */
 package com.mhschmieder.fxcadgui.stage;
 
-import com.mhschmieder.commonstoolkit.branding.ProductBranding;
-import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxcadgraphics.DrawingLimits;
 import com.mhschmieder.fxcadgui.layout.DrawingLimitsPane;
 import com.mhschmieder.fxgraphicstoolkit.geometry.Extents2D;
 import com.mhschmieder.fxguitoolkit.action.SimulationActions;
 import com.mhschmieder.fxguitoolkit.control.PredictToolBar;
 import com.mhschmieder.fxguitoolkit.stage.XStage;
-import com.mhschmieder.physicstoolkit.DistanceUnit;
+import com.mhschmieder.jcommons.branding.ProductBranding;
+import com.mhschmieder.jcommons.util.ClientProperties;
+import com.mhschmieder.jphysics.DistanceUnit;
 import javafx.scene.Node;
 import javafx.scene.control.ToolBar;
 

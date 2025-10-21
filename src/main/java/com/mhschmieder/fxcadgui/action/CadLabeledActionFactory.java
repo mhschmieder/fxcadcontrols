@@ -30,9 +30,9 @@
  */
 package com.mhschmieder.fxcadgui.action;
 
-import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxguitoolkit.action.ActionFactory;
 import com.mhschmieder.fxguitoolkit.action.XAction;
+import com.mhschmieder.jcommons.util.ClientProperties;
 
 /**
  * This is a utility class for making labeled actions for CAD.

@@ -30,16 +30,16 @@
  */
 package com.mhschmieder.fxcadgui.stage;
 
-import com.mhschmieder.commonstoolkit.branding.ProductBranding;
-import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxcadgraphics.GraphicalObjectCollection;
 import com.mhschmieder.fxcadgraphics.PolarLine;
 import com.mhschmieder.fxcadgui.layout.PolarLinePane;
 import com.mhschmieder.fxgraphicstoolkit.input.ScrollingSensitivity;
 import com.mhschmieder.fxguitoolkit.stage.ObjectPropertiesEditor;
 import com.mhschmieder.fxlayergraphics.model.LayerProperties;
-import com.mhschmieder.physicstoolkit.AngleUnit;
-import com.mhschmieder.physicstoolkit.DistanceUnit;
+import com.mhschmieder.jcommons.branding.ProductBranding;
+import com.mhschmieder.jcommons.util.ClientProperties;
+import com.mhschmieder.jphysics.AngleUnit;
+import com.mhschmieder.jphysics.DistanceUnit;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 

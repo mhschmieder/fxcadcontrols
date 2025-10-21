@@ -30,13 +30,13 @@
  */
 package com.mhschmieder.fxcadgui.control;
 
-import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxcadgraphics.GraphicalObjectCollection;
 import com.mhschmieder.fxcadgraphics.LinearObject;
 import com.mhschmieder.fxguitoolkit.GuiUtilities;
 import com.mhschmieder.fxguitoolkit.control.IntegerSelector;
 import com.mhschmieder.fxlayergraphics.model.LayerProperties;
 import com.mhschmieder.fxlayergui.control.LayerSelector;
+import com.mhschmieder.jcommons.util.ClientProperties;
 import javafx.collections.ObservableList;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.GridPane;

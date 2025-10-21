@@ -30,14 +30,14 @@
  */
 package com.mhschmieder.fxcadgui.layout;
 
-import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxcadgraphics.Region2D;
 import com.mhschmieder.fxcadgraphics.SurfaceProperties;
 import com.mhschmieder.fxgraphicstoolkit.paint.ColorUtilities;
 import com.mhschmieder.fxguitoolkit.GuiUtilities;
 import com.mhschmieder.fxguitoolkit.layout.LayoutFactory;
-import com.mhschmieder.pdftoolkit.PdfFonts;
-import com.mhschmieder.pdftoolkit.PdfTools;
+import com.mhschmieder.jcommons.util.ClientProperties;
+import com.mhschmieder.jpdfexport.PdfFonts;
+import com.mhschmieder.jpdfexport.PdfTools;
 import com.pdfjet.Align;
 import com.pdfjet.PDF;
 import com.pdfjet.Page;
