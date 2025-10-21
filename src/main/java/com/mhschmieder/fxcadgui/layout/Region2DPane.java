@@ -33,7 +33,7 @@ package com.mhschmieder.fxcadgui.layout;
 import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxcadgraphics.Region2D;
 import com.mhschmieder.fxguitoolkit.layout.LayoutFactory;
-import com.mhschmieder.fxphysicsgui.layout.ExtentsPane;
+import com.mhschmieder.fxphysics.layout.ExtentsPane;
 import com.mhschmieder.physicstoolkit.DistanceUnit;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

@@ -43,7 +43,7 @@ import com.mhschmieder.fxguitoolkit.control.LabeledControlFactory;
 import com.mhschmieder.fxguitoolkit.control.XComboBox;
 import com.mhschmieder.fxguitoolkit.layout.LayoutFactory;
 import com.mhschmieder.fxguitoolkit.layout.UnitlessPositionPane;
-import com.mhschmieder.fxphysicsgui.control.PhysicsControlFactory;
+import com.mhschmieder.fxphysics.control.PhysicsControlFactory;
 import com.mhschmieder.physicstoolkit.DistanceUnit;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
