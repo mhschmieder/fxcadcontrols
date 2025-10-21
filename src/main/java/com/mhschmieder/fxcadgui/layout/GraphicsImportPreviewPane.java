@@ -1,4 +1,4 @@
-/**
+/*
  * MIT License
  *
  * Copyright (c) 2020, 2025 Mark Schmieder
@@ -33,7 +33,7 @@ package com.mhschmieder.fxcadgui.layout;
 import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.commonstoolkit.util.SystemType;
 import com.mhschmieder.fxcadgraphics.DrawingLimits;
-import com.mhschmieder.fxcharttoolkit.control.ChartLabeledControlFactory;
+import com.mhschmieder.fxchart.control.ChartLabeledControlFactory;
 import com.mhschmieder.fxdxfconverter.DxfShapeGroup;
 import com.mhschmieder.fxdxfconverter.GraphicsImportOptions;
 import com.mhschmieder.fxgraphicstoolkit.geometry.Extents2D;
