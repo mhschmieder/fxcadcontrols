@@ -1,7 +1,7 @@
-/**
+/*
  * MIT License
  *
- * Copyright (c) 2020, 2023 Mark Schmieder
+ * Copyright (c) 2020, 2025, Mark Schmieder. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,14 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the FxCadGui Library
+ * This file is part of the fxcadcontrols Library
  *
- * You should have received a copy of the MIT License along with the FxCadGui
- * Library. If not, see <https://opensource.org/licenses/MIT>.
+ * You should have received a copy of the MIT License along with the
+ * fxcadcontrols Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/fxcadgui
+ * Project: https://github.com/mhschmieder/fxcadcontrols
  */
-package com.mhschmieder.fxcadcontrols;
+package com.mhschmieder.fxcadcontrols.util;
 
 /**
  * {@code CadMessageFactory} is a factory class for methods related to CAD
@@ -38,7 +38,7 @@ package com.mhschmieder.fxcadcontrols;
  *
  * @author Mark Schmieder
  */
-public class CadMessageFactory {
+public final class CadMessageFactory {
 
     /**
      * The default constructor is disabled, as this is a static factory class.
@@ -46,23 +46,23 @@ public class CadMessageFactory {
     private CadMessageFactory() {}
 
 
-    public static final String getCopyReferencePointTitle() {
-        return "Copy Reference Point"; //$NON-NLS-1$
+    public static String getCopyReferencePointTitle() {
+        return "Copy Reference Point";
     }
 
-    public static final String getGraphicsImportHelpBanner() {
-        return "Graphics Import Help"; //$NON-NLS-1$
+    public static String getGraphicsImportHelpBanner() {
+        return "Graphics Import Help";
     }
 
-    public static final String getGraphicsImportOptionsMasthead() {
-        return "Graphics Import Options"; //$NON-NLS-1$
+    public static String getGraphicsImportOptionsMasthead() {
+        return "Graphics Import Options";
     }
 
-    public static final String getInsertReferencePointTitle() {
-        return "Insert Reference Point"; //$NON-NLS-1$
+    public static String getInsertReferencePointTitle() {
+        return "Insert Reference Point";
     }
 
-    public static final String getSurfaceMaterialTooltip() {
-        return "Double-Click for List of Materials from Elements of Acoustical Engineering (Olson); Click ESC to Cancel and Exit List and Cell"; //$NON-NLS-1$
+    public static String getSurfaceMaterialTooltip() {
+        return "Double-Click for List of Materials from Elements of Acoustical Engineering (Olson); Click ESC to Cancel and Exit List and Cell";
     }
 }
