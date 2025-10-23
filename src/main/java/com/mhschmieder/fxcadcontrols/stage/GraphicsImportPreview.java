@@ -32,7 +32,7 @@ package com.mhschmieder.fxcadcontrols.stage;
 
 import com.mhschmieder.fxcadcontrols.CadHelpUtilities;
 import com.mhschmieder.fxcadcontrols.layout.GraphicsImportPreviewPane;
-import com.mhschmieder.fxcadgraphics.DrawingLimits;
+import com.mhschmieder.fxcadcontrols.model.DrawingLimitsProperties;
 import com.mhschmieder.fxcontrols.stage.NoticeBox;
 import com.mhschmieder.fxcontrols.stage.XStage;
 import com.mhschmieder.fxdxfimport.DxfShapeGroup;
@@ -240,9 +240,9 @@ public final class GraphicsImportPreview extends XStage {
         _graphicsImportPreviewPane.resetGraphicsImportPreview();
     }
 
-    public void setApplicationDrawingLimits( final DrawingLimits applicationDrawingLimits ) {
+    public void setApplicationDrawingLimits( final DrawingLimitsProperties applicationDrawingLimitsProperties) {
         // Forward this method to the Graphics Import Preview Pane.
-        _graphicsImportPreviewPane.setApplicationDrawingLimits( applicationDrawingLimits );
+        _graphicsImportPreviewPane.setApplicationDrawingLimits(applicationDrawingLimitsProperties);
     }
 
     public void setCanceled( final boolean canceled ) {

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020, 2025 Mark Schmieder
+ * Copyright (c) 2020, 2025, Mark Schmieder. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,16 +21,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the FxCadGui Library
+ * This file is part of the FxCadControls Library.
  *
- * You should have received a copy of the MIT License along with the FxCadGui
- * Library. If not, see <https://opensource.org/licenses/MIT>.
+ * You should have received a copy of the MIT License along with the
+ * FxCadControls Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/fxcadgui
+ * Project: https://github.com/mhschmieder/fxcadcontrols
  */
 package com.mhschmieder.fxcadcontrols.layout;
 
-import com.mhschmieder.fxcadgraphics.DrawingLimits;
+import com.mhschmieder.fxcadcontrols.model.DrawingLimitsProperties;
 import com.mhschmieder.fxchart.control.ChartLabeledControlFactory;
 import com.mhschmieder.fxcontrols.GuiUtilities;
 import com.mhschmieder.fxcontrols.control.LabeledControlFactory;
@@ -39,9 +39,9 @@ import com.mhschmieder.fxcontrols.layout.LayoutFactory;
 import com.mhschmieder.fxcontrols.layout.UnitlessPositionPane;
 import com.mhschmieder.fxdxfimport.DxfShapeGroup;
 import com.mhschmieder.fxdxfimport.GraphicsImportOptions;
-import com.mhschmieder.fxgraphics.geometry.Extents2D;
-import com.mhschmieder.fxgraphics.geometry.GeometryUtilities;
+import com.mhschmieder.fxphysics.FxPhysicsUtilities;
 import com.mhschmieder.fxphysics.control.PhysicsControlFactory;
+import com.mhschmieder.fxphysics.model.Extents2DProperties;
 import com.mhschmieder.jcommons.util.ClientProperties;
 import com.mhschmieder.jcommons.util.SystemType;
 import com.mhschmieder.jphysics.DistanceUnit;
@@ -113,7 +113,7 @@ public final class GraphicsImportPreviewPane extends GridPane {
     /**
      * Cache the application's Drawing Limits for real-time bounds queries.
      */
-    private DrawingLimits                         _applicationDrawingLimits;
+    private DrawingLimitsProperties _applicationDrawingLimitsProperties;
 
     /**
      * Cache the Graphics Import Options as a global singleton reference.
@@ -201,7 +201,7 @@ public final class GraphicsImportPreviewPane extends GridPane {
         _clientProperties = pClientProperties;
 
         // Avoid potential null pointers prior to global reference settings.
-        _applicationDrawingLimits = new DrawingLimits( true );
+        _applicationDrawingLimitsProperties = new DrawingLimitsProperties( true );
         _graphicsImportOptions = new GraphicsImportOptions();
 
         // Avoid potential null pointers on empty or unfinished import actions.
@@ -215,10 +215,10 @@ public final class GraphicsImportPreviewPane extends GridPane {
         _importedGeometryPreviewGroup = null;
         _importedGeometryPreviewStackPane = null;
 
-        _zoomBox = new BoundingBox( Extents2D.X_METERS_DEFAULT,
-                                    Extents2D.Y_METERS_DEFAULT,
-                                    Extents2D.WIDTH_METERS_DEFAULT,
-                                    Extents2D.HEIGHT_METERS_DEFAULT );
+        _zoomBox = new BoundingBox( Extents2DProperties.X_METERS_DEFAULT,
+                                    Extents2DProperties.Y_METERS_DEFAULT,
+                                    Extents2DProperties.WIDTH_METERS_DEFAULT,
+                                    Extents2DProperties.HEIGHT_METERS_DEFAULT );
 
         _modelSpaceToScreenScaleFactor = 1.0d;
 
@@ -456,12 +456,12 @@ public final class GraphicsImportPreviewPane extends GridPane {
     }
 
     private void makeDrawingLimitsNode() {
-        final DrawingLimits prospectiveDrawingLimits = _graphicsImportOptions
-                .getProspectiveDrawingLimits();
-        _drawingLimitsNode = new Rectangle( prospectiveDrawingLimits.getX(),
-                                            prospectiveDrawingLimits.getY(),
-                                            prospectiveDrawingLimits.getWidth(),
-                                            prospectiveDrawingLimits.getHeight() );
+        final DrawingLimitsProperties prospectiveDrawingLimitsProperties
+                = _graphicsImportOptions.getProspectiveDrawingLimitsProperties();
+        _drawingLimitsNode = new Rectangle( prospectiveDrawingLimitsProperties.getX(),
+                                            prospectiveDrawingLimitsProperties.getY(),
+                                            prospectiveDrawingLimitsProperties.getWidth(),
+                                            prospectiveDrawingLimitsProperties.getHeight() );
         _drawingLimitsNode.setStroke( Color.rgb( 255, 0, 255, 0.5d ) );
         _drawingLimitsNode.getStrokeDashArray().setAll( 1.0d, 1.5d );
 
@@ -556,22 +556,22 @@ public final class GraphicsImportPreviewPane extends GridPane {
             // (when present -- otherwise null), not the Application Drawing
             // Limits or the Computed Bounds.
             final Rectangle2D geometryBounds = _geometryContainer.getExplicitBounds();
-            final DrawingLimits prospectiveDrawingLimits = new DrawingLimits( geometryBounds );
-            setProspectiveDrawingLimits( prospectiveDrawingLimits );
+            final DrawingLimitsProperties prospectiveDrawingLimitsProperties = new DrawingLimitsProperties( geometryBounds );
+            setProspectiveDrawingLimits(prospectiveDrawingLimitsProperties);
         }
         else if ( _drawingLimitsSourcePane._computedBoundsRadioButton
                 .equals( drawingLimitsSource ) ) {
             final Bounds computedBounds = _geometryContainer.getBoundsInLocal();
-            final DrawingLimits prospectiveDrawingLimits = new DrawingLimits( computedBounds );
-            setProspectiveDrawingLimits( prospectiveDrawingLimits );
+            final DrawingLimitsProperties prospectiveDrawingLimitsProperties = new DrawingLimitsProperties( computedBounds );
+            setProspectiveDrawingLimits(prospectiveDrawingLimitsProperties);
         }
         else if ( _drawingLimitsSourcePane._applicationDrawingLimitsRadioButton
                 .equals( drawingLimitsSource ) ) {
-            final Extents2D applicationBounds = GeometryUtilities
-                    .getExtentsInDistanceUnit( _applicationDrawingLimits,
+            final Extents2DProperties applicationBounds = FxPhysicsUtilities
+                    .getExtentsInDistanceUnit(_applicationDrawingLimitsProperties,
                                                _distanceUnitSelector.getValue() );
-            final DrawingLimits prospectiveDrawingLimits = new DrawingLimits( applicationBounds );
-            setProspectiveDrawingLimits( prospectiveDrawingLimits );
+            final DrawingLimitsProperties prospectiveDrawingLimitsProperties = new DrawingLimitsProperties( applicationBounds );
+            setProspectiveDrawingLimits(prospectiveDrawingLimitsProperties);
         }
     }
 
@@ -629,8 +629,8 @@ public final class GraphicsImportPreviewPane extends GridPane {
         }
     }
 
-    public void setApplicationDrawingLimits( final DrawingLimits applicationDrawingLimits ) {
-        _applicationDrawingLimits = applicationDrawingLimits;
+    public void setApplicationDrawingLimits( final DrawingLimitsProperties applicationDrawingLimitsProperties) {
+        _applicationDrawingLimitsProperties = applicationDrawingLimitsProperties;
     }
 
     /**
@@ -652,10 +652,10 @@ public final class GraphicsImportPreviewPane extends GridPane {
         // the Distance Unit changes while Application Drawing Limits are chosen
         // as the source.
         if ( _drawingLimitsSourcePane._applicationDrawingLimitsRadioButton.isSelected() ) {
-            final Extents2D applicationBounds = GeometryUtilities
-                    .getExtentsInDistanceUnit( _applicationDrawingLimits, distanceUnit );
-            final DrawingLimits prospectiveDrawingLimits = new DrawingLimits( applicationBounds );
-            setProspectiveDrawingLimits( prospectiveDrawingLimits );
+            final Extents2DProperties applicationBounds = FxPhysicsUtilities
+                    .getExtentsInDistanceUnit(_applicationDrawingLimitsProperties, distanceUnit );
+            final DrawingLimitsProperties prospectiveDrawingLimitsProperties = new DrawingLimitsProperties( applicationBounds );
+            setProspectiveDrawingLimits(prospectiveDrawingLimitsProperties);
         }
     }
 
@@ -769,11 +769,11 @@ public final class GraphicsImportPreviewPane extends GridPane {
      * NOTE: We make a copy, so that reference-switching via user choice
      * doesn't cause confusion -- especially if we convert units more than once.
      */
-    private void setProspectiveDrawingLimits( final DrawingLimits pProspectiveDrawingLimits ) {
+    private void setProspectiveDrawingLimits( final DrawingLimitsProperties pProspectiveDrawingLimitsProperties) {
         // Cache a copy of the new prospective Drawing Limits in the Graphics
         // Import Options, so that we only have one reference to concern
         // ourselves with. This helps avoid too many interim conversions.
-        _graphicsImportOptions.setProspectiveDrawingLimits( pProspectiveDrawingLimits );
+        _graphicsImportOptions.setProspectiveDrawingLimits(pProspectiveDrawingLimitsProperties);
 
         // Update the Cartesian Positions in the editors.
         updateCartesianPositions();
@@ -792,10 +792,12 @@ public final class GraphicsImportPreviewPane extends GridPane {
 
     private void updateCartesianPositions() {
         // TODO: Show all three bounds, as well as the current clipping.
-        final DrawingLimits prospectiveDrawingLimits = _graphicsImportOptions
-                .getProspectiveDrawingLimits();
-        _minimumPane.setCartesianPosition2D( prospectiveDrawingLimits.getMinimumPoint() );
-        _maximumPane.setCartesianPosition2D( prospectiveDrawingLimits.getMaximumPoint() );
+        final DrawingLimitsProperties prospectiveDrawingLimitsProperties
+                = _graphicsImportOptions.getProspectiveDrawingLimitsProperties();
+        _minimumPane.setCartesianPosition2D( prospectiveDrawingLimitsProperties
+                .getMinimumPoint() );
+        _maximumPane.setCartesianPosition2D( prospectiveDrawingLimitsProperties
+                .getMaximumPoint() );
     }
 
     private void updateDrawingLimitsNode() {

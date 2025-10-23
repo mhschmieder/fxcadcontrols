@@ -30,10 +30,10 @@
  */
 package com.mhschmieder.fxcadcontrols.layout;
 
+import com.mhschmieder.fxcadcontrols.SurfaceNameManager;
 import com.mhschmieder.fxcadcontrols.control.SurfaceSelectorControls;
-import com.mhschmieder.fxcadgraphics.CadUtilities;
-import com.mhschmieder.fxcadgraphics.Region2D;
-import com.mhschmieder.fxcadgraphics.SurfaceProperties;
+import com.mhschmieder.fxcadcontrols.model.Region2DProperties;
+import com.mhschmieder.fxcadcontrols.model.SurfaceProperties;
 import com.mhschmieder.fxcontrols.GuiUtilities;
 import com.mhschmieder.fxcontrols.layout.LayoutFactory;
 import com.mhschmieder.fxgraphics.paint.ColorUtilities;
@@ -187,7 +187,7 @@ public final class SurfacesPane extends BorderPane {
         // TODO: Find and use an existing symbolic constant for Surface Count.
         // NOTE: We do not register callbacks here because we are instead using
         // data binding as we did earlier in the table-based implementation.
-        for ( int surfaceIndex = 0; surfaceIndex < Region2D.NUMBER_OF_SURFACES; surfaceIndex++ ) {
+        for (int surfaceIndex = 0; surfaceIndex < Region2DProperties.NUMBER_OF_SURFACES; surfaceIndex++ ) {
             final int surfaceRowIndex = ROW_SURFACE_FIRST + surfaceIndex;
             final SurfaceSelectorControls surfaceSelectorControls =
                                                                   new SurfaceSelectorControls( _clientProperties,
@@ -314,7 +314,7 @@ public final class SurfacesPane extends BorderPane {
 
     private void updateSurfaceNameView( final int surfaceIndex ) {
         if ( ( _surfaceProperties == null )
-                || ( _surfaceProperties.size() < Region2D.NUMBER_OF_SURFACES ) ) {
+                || ( _surfaceProperties.size() < Region2DProperties.NUMBER_OF_SURFACES ) ) {
             return;
         }
 
@@ -325,7 +325,7 @@ public final class SurfacesPane extends BorderPane {
         final SurfaceProperties surfaceProperties = _surfaceProperties.get( surfaceIndex );
 
         // Get a unique Surface Name from the candidate name.
-        final String correctedSurfaceName = CadUtilities
+        final String correctedSurfaceName = SurfaceNameManager
                 .getUniqueSurfaceName( _surfaceProperties,
                                        surfaceProperties,
                                        newSurfaceName,

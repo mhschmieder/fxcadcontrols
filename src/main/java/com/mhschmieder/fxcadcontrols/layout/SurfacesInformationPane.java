@@ -30,8 +30,8 @@
  */
 package com.mhschmieder.fxcadcontrols.layout;
 
-import com.mhschmieder.fxcadgraphics.Region2D;
-import com.mhschmieder.fxcadgraphics.SurfaceProperties;
+import com.mhschmieder.fxcadcontrols.model.Region2DProperties;
+import com.mhschmieder.fxcadcontrols.model.SurfaceProperties;
 import com.mhschmieder.fxcontrols.GuiUtilities;
 import com.mhschmieder.fxcontrols.layout.LayoutFactory;
 import com.mhschmieder.fxgraphics.paint.ColorUtilities;
@@ -70,7 +70,7 @@ public final class SurfacesInformationPane extends VBox {
 
     // Keep a cached copy of the Region2D reference, as it is global per
     // session and can be used to update status and Surface Materials.
-    private Region2D            _region2D;
+    private Region2DProperties _region2DProperties;
 
     public SurfacesInformationPane( final ClientProperties pClientProperties ) {
         // Always call the superclass constructor first!
@@ -141,18 +141,18 @@ public final class SurfacesInformationPane extends VBox {
 
     // Set and propagate the Region2D reference.
     // NOTE: This should be done only once, to avoid breaking bindings.
-    public void setRegion2D( final Region2D region2D ) {
+    public void setRegion2D( final Region2DProperties region2DProperties) {
         // Cache the current Region2D reference, for Surface Materials.
-        _region2D = region2D;
+        _region2DProperties = region2DProperties;
 
         // Load the invalidation listener for the "Surface Name Changed"
         // binding.
-        _region2D.surfaceNameChangedProperty().addListener( 
+        _region2DProperties.surfaceNameChangedProperty().addListener(
             invalidationListener -> updateLabels() );
 
         // Load the invalidation listener for the "Surface Value Changed"
         // binding.
-        _region2D.surfaceValueChangedProperty().addListener( 
+        _region2DProperties.surfaceValueChangedProperty().addListener(
             invalidationListener -> updateLabels() );
     }
 
@@ -162,7 +162,7 @@ public final class SurfacesInformationPane extends VBox {
 
     // Update the cached Surface Materials and Bypassed/Enabled status.
     public void updateLabels() {
-        final ObservableList< SurfaceProperties > numberedSurfaceProperties = _region2D
+        final ObservableList< SurfaceProperties > numberedSurfaceProperties = _region2DProperties
                 .getSurfaceProperties();
 
         final SurfaceProperties surface1Properties = numberedSurfaceProperties.get( 0 );

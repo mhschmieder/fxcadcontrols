@@ -31,11 +31,11 @@
 package com.mhschmieder.fxcadcontrols.stage;
 
 import com.mhschmieder.fxcadcontrols.layout.DrawingLimitsPane;
-import com.mhschmieder.fxcadgraphics.DrawingLimits;
+import com.mhschmieder.fxcadcontrols.model.DrawingLimitsProperties;
 import com.mhschmieder.fxcontrols.action.SimulationActions;
 import com.mhschmieder.fxcontrols.control.PredictToolBar;
 import com.mhschmieder.fxcontrols.stage.XStage;
-import com.mhschmieder.fxgraphics.geometry.Extents2D;
+import com.mhschmieder.fxphysics.model.Extents2DProperties;
 import com.mhschmieder.jcommons.branding.ProductBranding;
 import com.mhschmieder.jcommons.util.ClientProperties;
 import com.mhschmieder.jphysics.DistanceUnit;
@@ -63,7 +63,7 @@ public final class DrawingLimitsStage extends XStage {
     protected String autoSyncLabel;
 
     // Cache a reference to the global Drawing Limits.
-    protected DrawingLimits drawingLimits;
+    protected DrawingLimitsProperties drawingLimitsProperties;
 
     public DrawingLimitsStage( final String pAutoSyncLabel,
                                final ProductBranding pProductBranding,
@@ -124,19 +124,19 @@ public final class DrawingLimitsStage extends XStage {
         return toolBar;
     }
 
-    public void setAutoSyncBoundary( final Extents2D pAutoSyncBoundary ) {
+    public void setAutoSyncBoundary( final Extents2DProperties pAutoSyncBoundary ) {
         // Forward this method to the Drawing Limits Pane.
         drawingLimitsPane.setAutoSyncBoundary( pAutoSyncBoundary );
     }
 
     // Set and propagate the Drawing Limits reference.
     // NOTE: This should be done only once, to avoid breaking bindings.
-    public void setDrawingLimits( final DrawingLimits pDrawingLimits ) {
+    public void setDrawingLimits( final DrawingLimitsProperties pDrawingLimitsProperties) {
         // Cache the Drawing Limits reference.
-        drawingLimits = pDrawingLimits;
+        drawingLimitsProperties = pDrawingLimitsProperties;
 
         // Forward this reference to the Drawing Limits Pane.
-        drawingLimitsPane.setDrawingLimits( pDrawingLimits );
+        drawingLimitsPane.setDrawingLimits(pDrawingLimitsProperties);
     }
 
     /**

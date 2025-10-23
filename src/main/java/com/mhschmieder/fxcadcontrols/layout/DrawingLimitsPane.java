@@ -30,10 +30,10 @@
  */
 package com.mhschmieder.fxcadcontrols.layout;
 
-import com.mhschmieder.fxcadgraphics.DrawingLimits;
+import com.mhschmieder.fxcadcontrols.model.DrawingLimitsProperties;
 import com.mhschmieder.fxcontrols.GuiUtilities;
-import com.mhschmieder.fxgraphics.geometry.Extents2D;
-import com.mhschmieder.fxphysics.layout.ExtentsPane;
+import com.mhschmieder.fxphysics.layout.Extents2DPane;
+import com.mhschmieder.fxphysics.model.Extents2DProperties;
 import com.mhschmieder.jcommons.util.ClientProperties;
 import com.mhschmieder.jphysics.DistanceUnit;
 import javafx.geometry.Insets;
@@ -44,13 +44,13 @@ import javafx.scene.layout.GridPane;
 public final class DrawingLimitsPane extends GridPane {
 
     public CheckBox         _autoSyncCheckBox;
-    public ExtentsPane      _extentsPane;
+    public Extents2DPane _extents2DPane;
 
     // Cache a reference to the global Drawing Limits.
-    protected DrawingLimits drawingLimits;
+    protected DrawingLimitsProperties drawingLimitsProperties;
 
     // Cache a reference to the Auto-Sync Boundary.
-    protected Extents2D     autoSyncBoundary;
+    protected Extents2DProperties autoSyncBoundary;
 
     public DrawingLimitsPane( final ClientProperties pClientProperties,
                               final String autoSyncLabel,
@@ -85,10 +85,10 @@ public final class DrawingLimitsPane extends GridPane {
 
         // The Auto-Sync flag is a simple boolean so can be bi-directionally
         // bound to its corresponding check box.
-        _autoSyncCheckBox.selectedProperty().bindBidirectional( drawingLimits.autoSyncProperty() );
+        _autoSyncCheckBox.selectedProperty().bindBidirectional( drawingLimitsProperties.autoSyncProperty() );
 
         // Bind Extents Pane enablement to the associated Auto-Sync Check Box.
-        _extentsPane.disableProperty().bind( _autoSyncCheckBox.selectedProperty() );
+        _extents2DPane.disableProperty().bind( _autoSyncCheckBox.selectedProperty() );
     }
 
     private void initPane( final ClientProperties pClientProperties,
@@ -99,7 +99,7 @@ public final class DrawingLimitsPane extends GridPane {
                            final String propertiesCategory ) {
         _autoSyncCheckBox = GuiUtilities.getCheckBox( autoSyncLabel, initialAutoSync );
 
-        _extentsPane = new ExtentsPane( pClientProperties,
+        _extents2DPane = new Extents2DPane( pClientProperties,
                                         extentsSizeMinimumMeters,
                                         extentsSizeMaximumMeters,
                                         propertiesCategory );
@@ -108,29 +108,29 @@ public final class DrawingLimitsPane extends GridPane {
         setVgap( 6.0d );
 
         add( _autoSyncCheckBox, 0, 0 );
-        add( _extentsPane, 0, 1 );
+        add(_extents2DPane, 0, 1 );
 
         setAlignment( Pos.CENTER );
         setPadding( new Insets( 6.0d ) );
     }
 
-    public void setAutoSyncBoundary( final Extents2D pAutoSyncBoundary ) {
+    public void setAutoSyncBoundary( final Extents2DProperties pAutoSyncBoundary ) {
         // Cache the Auto-Sync Boundary reference.
         autoSyncBoundary = pAutoSyncBoundary;
 
         // Conditionally set the Drawing Limits to match the updated Auto-Sync
         // Boundary.
-        setDrawingLimitsToAutoSyncBoundary( drawingLimits.isAutoSync() );
+        setDrawingLimitsToAutoSyncBoundary( drawingLimitsProperties.isAutoSync() );
     }
 
     // Set and bind the Drawing Limits reference.
     // NOTE: This should be done only once, to avoid breaking bindings.
-    public void setDrawingLimits( final DrawingLimits pDrawingLimits ) {
+    public void setDrawingLimits( final DrawingLimitsProperties pDrawingLimitsProperties) {
         // Cache the Drawing Limits reference.
-        drawingLimits = pDrawingLimits;
+        drawingLimitsProperties = pDrawingLimitsProperties;
 
         // Forward this reference to the Extents Pane.
-        _extentsPane.setExtents( pDrawingLimits );
+        _extents2DPane.setExtents(pDrawingLimitsProperties);
 
         // Bind the data model to the respective GUI components.
         bindProperties();
@@ -144,16 +144,16 @@ public final class DrawingLimitsPane extends GridPane {
      * individual boundary properties instead? This is easy to try and to test.
      */
     protected void setDrawingLimitsToAutoSyncBoundary( final boolean autoSync ) {
-        if ( ( drawingLimits != null ) && ( autoSyncBoundary != null ) ) {
+        if ( ( drawingLimitsProperties != null ) && ( autoSyncBoundary != null ) ) {
             if ( autoSync ) {
                 // Check to see if anything changed, as the Rectangle class was
                 // implemented by Oracle to automatically set its dirty flag
                 // when its property setters are called, even if no change.
-                if ( ( drawingLimits.getX() != autoSyncBoundary.getX() )
-                        || ( drawingLimits.getY() != autoSyncBoundary.getY() )
-                        || ( drawingLimits.getWidth() != autoSyncBoundary.getWidth() )
-                        || ( drawingLimits.getHeight() != autoSyncBoundary.getHeight() ) ) {
-                    drawingLimits.setExtents( autoSyncBoundary.getX(),
+                if ( ( drawingLimitsProperties.getX() != autoSyncBoundary.getX() )
+                        || ( drawingLimitsProperties.getY() != autoSyncBoundary.getY() )
+                        || ( drawingLimitsProperties.getWidth() != autoSyncBoundary.getWidth() )
+                        || ( drawingLimitsProperties.getHeight() != autoSyncBoundary.getHeight() ) ) {
+                    drawingLimitsProperties.setExtents( autoSyncBoundary.getX(),
                                               autoSyncBoundary.getY(),
                                               autoSyncBoundary.getWidth(),
                                               autoSyncBoundary.getHeight() );
@@ -167,6 +167,6 @@ public final class DrawingLimitsPane extends GridPane {
      */
     public void updateDistanceUnit( final DistanceUnit distanceUnit ) {
         // Forward this method to the Extents Pane.
-        _extentsPane.updateDistanceUnit( distanceUnit );
+        _extents2DPane.updateDistanceUnit( distanceUnit );
     }
 }

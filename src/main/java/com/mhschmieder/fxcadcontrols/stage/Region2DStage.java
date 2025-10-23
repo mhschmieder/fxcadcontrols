@@ -34,7 +34,7 @@ import com.mhschmieder.fxcadcontrols.action.Region2DActions;
 import com.mhschmieder.fxcadcontrols.control.CadMenuFactory;
 import com.mhschmieder.fxcadcontrols.control.Region2DToolBar;
 import com.mhschmieder.fxcadcontrols.layout.Region2DPane;
-import com.mhschmieder.fxcadgraphics.Region2D;
+import com.mhschmieder.fxcadcontrols.model.Region2DProperties;
 import com.mhschmieder.fxcontrols.stage.XStage;
 import com.mhschmieder.jcommons.branding.ProductBranding;
 import com.mhschmieder.jcommons.util.ClientProperties;
@@ -67,7 +67,7 @@ public final class Region2DStage extends XStage {
     protected Region2DPane     _region2DPane;
 
     // Cache a reference to the global Region2D.
-    protected Region2D         region2D;
+    protected Region2DProperties region2DProperties;
 
     // Flag for whether vector graphics are supported.
     protected final boolean _vectorGraphicsSupported;
@@ -160,8 +160,8 @@ public final class Region2DStage extends XStage {
     protected Node loadContent() {
         // Instantiate and return the custom Content Node.
         _region2DPane = new Region2DPane( clientProperties,
-                                          Region2D.SIZE_METERS_MINIMUM,
-                                          Region2D.SIZE_METERS_MAXIMUM,
+                                          Region2DProperties.SIZE_METERS_MINIMUM,
+                                          Region2DProperties.SIZE_METERS_MAXIMUM,
                                           graphicsCategory );
         return _region2DPane;
     }
@@ -217,12 +217,12 @@ public final class Region2DStage extends XStage {
 
     // Set and propagate the Region2D reference.
     // NOTE: This should be done only once, to avoid breaking bindings.
-    public void setRegion2D( final Region2D pRegion2D ) {
+    public void setRegion2D( final Region2DProperties pRegion2DProperties) {
         // Cache the Region2D reference.
-        region2D = pRegion2D;
+        region2DProperties = pRegion2DProperties;
 
         // Forward this reference to the Region2D Pane.
-        _region2DPane.setRegion2D( pRegion2D );
+        _region2DPane.setRegion2D(pRegion2DProperties);
     }
 
     @Override
