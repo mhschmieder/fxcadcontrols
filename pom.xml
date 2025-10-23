@@ -6,12 +6,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.mhschmieder</groupId>
-	<artifactId>fxcadgui</artifactId>
+	<artifactId>fxcadcontrols</artifactId>
 	<version>0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>fxcadgui</name>
-	<url>https://github.com/mhschmieder/fxcadgui</url>
+	<name>fxcadcontrols</name>
+	<url>https://github.com/mhschmieder/fxcadcontrols</url>
 	<description>JavaFX based GUI toolkit for common CAD concepts</description>
 
 	<licenses>
@@ -23,9 +23,9 @@
 	</licenses>
 
 	<scm>
-		<url>https://github.com/mhschmieder/fxcadgui</url>
-		<connection>scm:git:git://github.com/mhschmieder/fxcadgui.git</connection>
-		<developerConnection>scm:git:git@github.com:mhschmieder/fxcadgui.git</developerConnection>
+		<url>https://github.com/mhschmieder/fxcadcontrols</url>
+		<connection>scm:git:git://github.com/mhschmieder/fxcadcontrols.git</connection>
+		<developerConnection>scm:git:git@github.com:mhschmieder/fxcadcontrols.git</developerConnection>
 	</scm>
 
 	<developers>
@@ -55,7 +55,7 @@
         </dependency>
         <dependency>
             <groupId>com.mhschmieder</groupId>
-            <artifactId>fxgraphicstoolkit</artifactId>
+            <artifactId>fxgraphics</artifactId>
             <version>0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
@@ -97,7 +97,7 @@
         </dependency>
         <dependency>
         	<groupId>com.mhschmieder</groupId>
-        	<artifactId>fxlayergui</artifactId>
+        	<artifactId>fxlayercontrols</artifactId>
         	<version>0.1-SNAPSHOT</version>
         </dependency>
 	</dependencies>
