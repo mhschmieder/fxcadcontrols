@@ -91,7 +91,7 @@
         </dependency>
         <dependency>
             <groupId>com.mhschmieder</groupId>
-            <artifactId>jpdfwriter</artifactId>
+            <artifactId>jpdfexport</artifactId>
             <version>0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
