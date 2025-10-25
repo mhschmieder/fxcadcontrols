@@ -32,8 +32,9 @@ package com.mhschmieder.fxcadcontrols.control;
 
 import com.mhschmieder.fxcadgraphics.GraphicalObjectCollection;
 import com.mhschmieder.fxcadgraphics.LinearObject;
-import com.mhschmieder.fxcontrols.GuiUtilities;
+import com.mhschmieder.fxcontrols.control.ControlUtilities;
 import com.mhschmieder.fxcontrols.control.IntegerSelector;
+import com.mhschmieder.fxgui.util.GuiUtilities;
 import com.mhschmieder.fxlayercontrols.control.LayerSelector;
 import com.mhschmieder.fxlayergraphics.model.LayerProperties;
 import com.mhschmieder.jcommons.util.ClientProperties;
@@ -64,7 +65,7 @@ public final class LinearObjectPropertiesControls {
         _layerSelector = new LayerSelector( pClientProperties, applyToolkitCss, false );
 
         final String useAsProjectorLabel = "Use as " + projectorType;
-        _useAsProjectorCheckBox = GuiUtilities.getCheckBox( useAsProjectorLabel, false );
+        _useAsProjectorCheckBox = ControlUtilities.getCheckBox( useAsProjectorLabel, false );
         
         final StringBuilder projectionZonesTooltipText = new StringBuilder( projectionZonesType );
         if ( ( projectionZonesUsageContext != null ) && !projectionZonesUsageContext.isEmpty() ) {
@@ -82,8 +83,10 @@ public final class LinearObjectPropertiesControls {
         GridPane.setFillHeight( _projectionZonesSelector, true );
 
         // Try to force sufficient width for custom label editing.
-        _linearObjectLabelEditor.setMinWidth( GuiUtilities.LABEL_EDITOR_WIDTH_DEFAULT );
-        _linearObjectLabelEditor.setPrefWidth( GuiUtilities.LABEL_EDITOR_WIDTH_DEFAULT );
+        _linearObjectLabelEditor.setMinWidth(
+                GuiUtilities.LABEL_EDITOR_WIDTH_DEFAULT );
+        _linearObjectLabelEditor.setPrefWidth(
+                GuiUtilities.LABEL_EDITOR_WIDTH_DEFAULT );
 
         // Try to force minimum width on Use as Projector Check Box to
         // avoid clipping.
