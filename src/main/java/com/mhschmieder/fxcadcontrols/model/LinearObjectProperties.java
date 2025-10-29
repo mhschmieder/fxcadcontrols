@@ -31,7 +31,7 @@
 package com.mhschmieder.fxcadcontrols.model;
 
 import com.mhschmieder.fxgraphics.LabelAssignable;
-import com.mhschmieder.fxlayergraphics.model.LayerNameAssignable;
+import com.mhschmieder.fxlayercontrols.model.LayerNameAssignable;
 import com.mhschmieder.jcommons.lang.NumberUtilities;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
