@@ -36,11 +36,12 @@ import com.mhschmieder.fxcontrols.control.ControlUtilities;
 import com.mhschmieder.fxcontrols.control.IntegerSelector;
 import com.mhschmieder.fxgui.util.GuiUtilities;
 import com.mhschmieder.fxlayercontrols.control.LayerSelector;
-import com.mhschmieder.fxlayergraphics.model.LayerProperties;
+import com.mhschmieder.fxlayergraphics.Layer;
 import com.mhschmieder.jcommons.util.ClientProperties;
-import javafx.collections.ObservableList;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.GridPane;
+
+import java.util.List;
 
 public final class LinearObjectPropertiesControls {
 
@@ -127,7 +128,7 @@ public final class LinearObjectPropertiesControls {
         return _linearObjectLabelEditor.isGraphicalObjectLabelUnique( linearObjectLabelCandidate );
     }
 
-    public void setLayerCollection( final ObservableList< LayerProperties > layerCollection ) {
+    public void setLayerCollection( final List<Layer> layerCollection ) {
         // Forward this method to the Layer Selector.
         _layerSelector.setLayerCollection( layerCollection );
     }
