@@ -21,12 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the fxcadgui Library
+ * This file is part of the fxcadcontrols Library
  *
- * You should have received a copy of the MIT License along with the fxcadgui
- * Library. If not, see <https://opensource.org/licenses/MIT>.
+ * You should have received a copy of the MIT License along with the
+ * fxcadcontrols Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/fxcadgui
+ * Project: https://github.com/mhschmieder/fxcadcontrols
  */
 package com.mhschmieder.fxcadcontrols.model;
 
@@ -35,24 +35,10 @@ import com.mhschmieder.fxcadgraphics.Region2D;
 import com.mhschmieder.fxcadgraphics.Surface;
 import com.mhschmieder.fxcadgraphics.SurfaceMaterial;
 import com.mhschmieder.fxgraphics.beans.BeanFactory;
-import com.mhschmieder.jcommons.text.TextUtilities;
-import com.mhschmieder.jpdfreport.PdfFonts;
-import com.mhschmieder.jpdfreport.PdfTools;
-import com.mhschmieder.jphysics.DistanceUnit;
-import com.mhschmieder.jphysics.UnitConversion;
-import com.pdfjet.Cell;
-import com.pdfjet.PDF;
-import com.pdfjet.Page;
-import com.pdfjet.Point;
-import com.pdfjet.Table;
 import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.shape.Rectangle;
-
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The <code>Region2DProperties</code> class is the implementation class for a
@@ -70,7 +56,7 @@ import java.util.List;
 public final class Region2DProperties extends Extents2DProperties {
 
     /** An observable list of Surface Properties to support Data Binding. */
-    private final ObservableList<SurfaceProperties> surfacePropertiesList;
+    private final ObservableList< SurfaceProperties > surfacePropertiesList;
 
     // NOTE: These fields have to follow JavaFX Property Beans conventions.
     // TODO: Split value changed to surface material changed and status changed?
@@ -302,154 +288,6 @@ public final class Region2DProperties extends Extents2DProperties {
     
     public boolean isSurfaceValueChanged() {
         return surfaceValueChanged.get();
-    }
-
-    public void exportToPdf( final PDF document,
-                             final Page page,
-                             final Point initialPoint,
-                             final PdfFonts fonts,
-                             final NumberFormat pNumberFormat,
-                             final DistanceUnit distanceUnit ) {
-        // NOTE: Regions are currently stored in User Units vs. Meters etc.
-        final String distanceUnitLabel = distanceUnit.abbreviation();
-
-        // Potentially adjust the floating-point precision of distances.
-        final int precision = DistanceUnit.MILLIMETERS.equals( distanceUnit )
-                ? 0
-                : 2;
-        final NumberFormat distanceNumberFormat = ( NumberFormat ) pNumberFormat.clone();
-        distanceNumberFormat.setMaximumFractionDigits( precision );
-
-        // Convert to User Units, as the report should follow those preferences.
-        final double xConverted = UnitConversion
-                .convertDistance( getX(), DistanceUnit.METERS, distanceUnit );
-        final double yConverted = UnitConversion
-                .convertDistance( getY(), DistanceUnit.METERS, distanceUnit );
-        final double widthConverted = UnitConversion
-                .convertDistance( getWidth(), DistanceUnit.METERS, distanceUnit );
-        final double heightConverted = UnitConversion
-                .convertDistance( getHeight(), DistanceUnit.METERS, distanceUnit );
-
-        // Declare the Region Boundary column headers, then get the table.
-        final String[] boundarySpanNames = new String[] { "EXTENTS" };
-        final String[] boundaryColumnNames = new String[] {
-            "LOWER LEFT CORNER (X, Y)",
-            "SIZE (WIDTH, HEIGHT)" };
-        final int numberOfBoundaryColumns = boundaryColumnNames.length;
-        final int[] boundarySpanLengths = new int[] { numberOfBoundaryColumns };
-
-        // Get a table to use for the Region Boundary.
-        // NOTE: This also sets the column headers and their styles.
-        final List< List< Cell > > boundaryTableData = new ArrayList<>();
-        final Table boundaryTable = PdfTools.createTable( boundaryTableData,
-                                                          fonts,
-                                                          boundarySpanNames,
-                                                          boundarySpanLengths,
-                                                          boundaryColumnNames,
-                                                          numberOfBoundaryColumns,
-                                                          false );
-
-        // Write the Region Boundary Table.
-        final String lowerLeftCorner = TextUtilities.getFormattedQuantityPair(
-                xConverted,
-                yConverted,
-                distanceNumberFormat,
-                distanceUnitLabel );
-        final String size = TextUtilities.getFormattedQuantityPair(
-                widthConverted,
-                heightConverted,
-                distanceNumberFormat,
-                distanceUnitLabel );
-
-        final List< Cell > boundaryRowData = new ArrayList<>();
-
-        PdfTools.addTableCell( boundaryRowData, fonts, lowerLeftCorner );
-        PdfTools.addTableCell( boundaryRowData, fonts, size );
-
-        boundaryTableData.add( boundaryRowData );
-
-        // Write the table to as many pages as are required to fit.
-        Point point = new Point(
-                PdfTools.PORTRAIT_LEFT_MARGIN,
-                initialPoint.getY() + 20 );
-        point = PdfTools.writeTable( document,
-                                     page,
-                                     point,
-                                     fonts,
-                                     boundaryTableData,
-                                     boundaryTable,
-                                     Table.DATA_HAS_2_HEADER_ROWS,
-                                     true,
-                                     false );
-
-        // Declare the Surfaces column headers, then get the table.
-        final String[] surfacesSpanNames = new String[] { "SURFACES" };
-        final String[] surfacesColumnNames = new String[] {
-                "ID",
-                "SURFACE NAME",
-                "STATUS",
-                "MATERIAL NAME" };
-        final int numberOfSurfacesColumns = surfacesColumnNames.length;
-        final int[] surfacesSpanLengths = new int[] { numberOfSurfacesColumns };
-
-        // Manually size the column widths, as PDFjet is leaving too much wasted
-        // space in the numeric columns and thus occasionally clipping the
-        // verbose right-most Surface Material Name column.
-        final int[] surfacesColumnWidths = new int[] {
-                20, // COLUMN_SURFACE_ID
-                180, // COLUMN_SURFACE_NAME
-                100, // COLUMN_SURFACE_STATUS
-                240 }; // COLUMN_SURFACE_MATERIAL_NAME
-
-        // Get a table to use for the Region Surfaces.
-        // NOTE: This also sets the column headers and their styles.
-        final List< List< Cell > > surfacesTableData = new ArrayList<>();
-        final Table surfacesTable = PdfTools.createTable( surfacesTableData,
-                                                          fonts,
-                                                          surfacesSpanNames,
-                                                          surfacesSpanLengths,
-                                                          surfacesColumnNames,
-                                                          numberOfSurfacesColumns,
-                                                          surfacesColumnWidths,
-                                                          false );
-
-        // Write the Region Surfaces Table.
-        final ObservableList< SurfaceProperties > numberedSurfaceProperties
-                = getSurfaceProperties();
-        for ( final SurfaceProperties surfacePropertiesReference
-                : numberedSurfaceProperties ) {
-            final List< Cell > surfacesRowData = new ArrayList<>();
-
-            final String status = surfacePropertiesReference.isSurfaceBypassed()
-                ? "Bypassed"
-                : "Enabled";
-            PdfTools.addTableCell( surfacesRowData,
-                                   fonts,
-                                   Integer.toString( surfacePropertiesReference
-                                           .getSurfaceNumber() ) );
-            PdfTools.addTableCell( surfacesRowData,
-                                   fonts,
-                                   surfacePropertiesReference.getSurfaceName() );
-            PdfTools.addTableCell( surfacesRowData, fonts, status );
-            PdfTools.addTableCell( surfacesRowData,
-                                   fonts,
-                                   surfacePropertiesReference
-                                           .getSurfaceMaterial().abbreviation() );
-
-            surfacesTableData.add( surfacesRowData );
-        }
-
-        // Write the table to as many pages as are required to fit.
-        point.setPosition( PdfTools.PORTRAIT_LEFT_MARGIN, point.getY() + 20.0f );
-        PdfTools.writeTable( document,
-                             page,
-                             point,
-                             fonts,
-                             surfacesTableData,
-                             surfacesTable,
-                             Table.DATA_HAS_2_HEADER_ROWS,
-                             true,
-                             false );
     }
 
     public ObservableList< SurfaceProperties > getSurfaceProperties() {
