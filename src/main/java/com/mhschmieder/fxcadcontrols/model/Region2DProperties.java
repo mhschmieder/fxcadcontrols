@@ -31,9 +31,9 @@
 package com.mhschmieder.fxcadcontrols.model;
 
 import com.mhschmieder.fxcadcontrols.util.SurfacePropertiesNameManager;
-import com.mhschmieder.fxcadgraphics.Region2D;
-import com.mhschmieder.fxcadgraphics.Surface;
-import com.mhschmieder.fxcadgraphics.SurfaceMaterial;
+import com.mhschmieder.fxgraphics.geometry.Region2D;
+import com.mhschmieder.fxgraphics.geometry.Surface;
+import com.mhschmieder.fxgraphics.geometry.SurfaceMaterial;
 import com.mhschmieder.fxgraphics.beans.BeanFactory;
 import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;

@@ -30,7 +30,7 @@
  */
 package com.mhschmieder.fxcadcontrols.model;
 
-import com.mhschmieder.fxcadgraphics.SurfaceMaterial;
+import com.mhschmieder.fxgraphics.geometry.SurfaceMaterial;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;

@@ -30,7 +30,7 @@
  */
 package com.mhschmieder.fxcadcontrols.control;
 
-import com.mhschmieder.fxcadgraphics.SurfaceMaterial;
+import com.mhschmieder.fxgraphics.geometry.SurfaceMaterial;
 import com.mhschmieder.fxcontrols.control.TextEditor;
 import com.mhschmieder.fxcontrols.control.XComboBox;
 import com.mhschmieder.jcommons.util.ClientProperties;

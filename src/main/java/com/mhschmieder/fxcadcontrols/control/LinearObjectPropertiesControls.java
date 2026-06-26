@@ -30,8 +30,8 @@
  */
 package com.mhschmieder.fxcadcontrols.control;
 
-import com.mhschmieder.fxcadgraphics.GraphicalObjectCollection;
-import com.mhschmieder.fxcadgraphics.LinearObject;
+import com.mhschmieder.fxgraphics.collections.GraphicalObjectCollection;
+import com.mhschmieder.fxgraphics.geometry.LinearObject;
 import com.mhschmieder.fxcontrols.control.ControlUtilities;
 import com.mhschmieder.fxcontrols.control.IntegerSelector;
 import com.mhschmieder.fxgui.util.GuiUtilities;

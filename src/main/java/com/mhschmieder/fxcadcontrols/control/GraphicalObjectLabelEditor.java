@@ -30,8 +30,8 @@
  */
 package com.mhschmieder.fxcadcontrols.control;
 
-import com.mhschmieder.fxcadgraphics.GraphicalObject;
-import com.mhschmieder.fxcadgraphics.GraphicalObjectCollection;
+import com.mhschmieder.fxgraphics.geometry.GraphicalObject;
+import com.mhschmieder.fxgraphics.collections.GraphicalObjectCollection;
 import com.mhschmieder.fxcontrols.control.TextEditor;
 import com.mhschmieder.jcommons.text.NumberFormatUtilities;
 import com.mhschmieder.jcommons.util.ClientProperties;
